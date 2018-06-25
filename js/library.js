@@ -57,6 +57,16 @@ Library.prototype.getBooksByAuthor = function (authorName) {
 Library.prototype.addBooks = function (books) {
   /*Purpose: Takes multiple books, in the form of an array of book objects, and adds the objects to your books array.
   Return: number number of books successfully added, 0 if no books were added*/
+  if (typeof books === 'object'){
+    for(j=0; j<books.length; j++){
+      console.log("jloop running");
+      console.log(books[i]);
+      this._bookShelf.addBook(books[i]);
+      
+    }
+  } else {
+    console.log("Error: input must be in array format")
+  }
 
 };
 
@@ -85,13 +95,12 @@ var book2 = new Book("Harry Potter and the Sorceror's Stone", "JK Rowling", 102,
 var book3 = new Book("Harry Potter and the Chamber of Secrets", "JK Rowling", 226, "July 1998");
 var book4 = new Book("Harry Potter and the Golblet of Fire", "JK Rowling", 662, "July 2000");
 var book5 = new Book("New Moon", "Midori Snyder", 176, "June 2005");
-// var fiveBooks = {
-//   book6 = new Book("206 Bones", "Kathy Reichs", 124, "May 2009");
-//   book7 = new Book("Eragon", "Christopher Paolini", 662, "August 2003");
-//   book8 = new Book("The Martian", "Andy Wier", 207, "February 2011");
-//   book9 = new Book("Harry Potter and the Order of the Phoenix", "JK Rowling", 700, "June 2003");
-//   book10 = new Book("The Wise Man's Fear", "Patrick Rothfuss", 540, "March 2011");
-// }
+var book6 = new Book("206 Bones", "Kathy Reichs", 124, "May 2009");
+var book7 = new Book("Eragon", "Christopher Paolini", 662, "August 2003");
+var book8 = new Book("The Martian", "Andy Wier", 207, "February 2011");
+var book9 = new Book("Harry Potter and the Order of the Phoenix", "JK Rowling", 700, "June 2003");
+var book10 = new Book("The Wise Man's Fear", "Patrick Rothfuss", 540, "March 2011");
+var fiveBooks = [book6, book7, book8, book9, book10];
 
 
 
