@@ -6,7 +6,19 @@ var Library = function(){
 Library.prototype.addBook = function (book) {
   /*Purpose: Add a book object to your books array.
   Return: boolean true if it is not already added, false if it is already added.*/
-
+  if (typeof book === 'object'){
+    for(i=0; i<this._bookShelf.length; i++){
+      if(book === this._bookShelf[i]){
+        return false;
+        console.log(false);
+      }
+    }
+    this._bookShelf.push(book);
+    return true;
+    console.log(true);
+  } else {
+    console.log("Error: input must be in the Book object format")
+  }
 };
 
 Library.prototype.removeBookbyTitle = function (title) {
@@ -60,8 +72,32 @@ Library.prototype.getRandomAuthorName = function () {
 
 };
 
+var Book = function (title, author, numberOfPages, publishDate){
+  this.title = String(title);
+  this.author = String(author);
+  this.numberOfPages = Number(numberOfPages);
+  this.publishDate = new Date(publishDate);
+};
+
+//List of Books to experiment:
+var book1 = new Book("The Name of the Wind", "Patrick Rothfuss", 662, "March 2007");
+var book2 = new Book("Harry Potter and the Sorceror's Stone", "JK Rowling", 102, "June 1997");
+var book3 = new Book("Harry Potter and the Chamber of Secrets", "JK Rowling", 226, "July 1998");
+var book4 = new Book("Harry Potter and the Golblet of Fire", "JK Rowling", 662, "July 2000");
+var book5 = new Book("New Moon", "Midori Snyder", 176, "June 2005");
+// var fiveBooks = {
+//   book6 = new Book("206 Bones", "Kathy Reichs", 124, "May 2009");
+//   book7 = new Book("Eragon", "Christopher Paolini", 662, "August 2003");
+//   book8 = new Book("The Martian", "Andy Wier", 207, "February 2011");
+//   book9 = new Book("Harry Potter and the Order of the Phoenix", "JK Rowling", 700, "June 2003");
+//   book10 = new Book("The Wise Man's Fear", "Patrick Rothfuss", 540, "March 2011");
+// }
+
+
+
+
 
 document.addEventListener("DOMContentLoaded", function() {
   window.gLibrary = new Library();
-  window.gLibraryTwo = new Library();
+
 });
