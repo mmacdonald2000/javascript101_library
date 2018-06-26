@@ -147,10 +147,26 @@ Library.prototype.addBooks = function (books) {
   }
 };
 
-Library.prototype.getAuthors = function () {
+Library.prototype.getAuthors = function () {  //research filter for this
   /*Purpose: Find the distinct authors’ names from all books in your library
   Return: array of strings the names of all distinct authors, empty array if no books exist or if no authors exist*/
 
+  var fullAuthorArray = new Array();
+  //for loop to make an array of author names
+  for(i=0; i<this._bookShelf.length; i++){
+    fullAuthorArray.push(this._bookShelf[i].author);
+  };
+  //use reduce to remove duplicate items
+  var authorArray = fullAuthorArray.reduce(function(accumulator, current){
+    //check if the current value is in the accumulator, and push to accumulator if it's not (-1 means it's not)
+    if (accumulator.indexOf(current) == -1){
+      accumulator.push(current);
+    }
+    //must return the accumulator outside the if statement in order to continue running
+    //if it is inside the conditional the accumulator will become undefined and break the loop
+    return accumulator;
+  },[]);
+  return authorArray;
 };
 
 Library.prototype.getRandomAuthorName = function () {
