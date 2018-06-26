@@ -84,9 +84,13 @@ Library.prototype.removeBookByAuthor = function (authorName) {
 
 Library.prototype.getRandomBook = function () {
   /*Purpose: Return a random book object from your books array
-  Return: book object if you find a book, null if there are no books
-*/
+  Return: book object if you find a book, null if there are no books */
 
+  //Math.random gives a random number between 0 & 1,
+  //*length will make it between 0 and length
+  //Math.floor rounds number down to nearest integer
+  var randomBook = this._bookShelf[Math.floor(Math.random()*this._bookShelf.length)];
+  return randomBook;
 };
 
 Library.prototype.getBookByTitle = function (title) {
