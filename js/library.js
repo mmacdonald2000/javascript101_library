@@ -58,9 +58,28 @@ Library.prototype.removeBookbyTitle = function (title) {
 
 Library.prototype.removeBookByAuthor = function (authorName) {
   /*Purpose: Remove a specific book from your books array by the author name.
-  Return: boolean true if the book(s) were removed, false if no books match
-*/
+  Return: boolean true if the book(s) were removed, false if no books match */
 
+  //reuse logic from removeBookbyTitle
+  var removed = 0;
+  for(i=0; i<this._bookShelf.length; i++){
+    var bookShelfAuthor = this._bookShelf[i].author.toLowerCase();
+    //if titles are exactly equal remove entry, increment removed
+    if(bookShelfAuthor === (authorName.toLowerCase())){
+      this._bookShelf.splice(i, 1);
+      removed++;
+      /* splice lets the next entry "fall" back into the previous index so we have to go back to check that entry
+      We accomplish this by resetting the index to the previous number but only if we've spliced something
+      This doesn't matter for removeBookbyTitle because there will only be one book with that title.
+      Technically though, we are skipping searching an entry. */
+      i--;
+    };
+  }
+  if(removed > 0){
+    return true;
+  } else {
+    return false;
+  }
 };
 
 Library.prototype.getRandomBook = function () {
