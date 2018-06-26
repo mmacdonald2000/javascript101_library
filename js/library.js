@@ -89,7 +89,8 @@ Library.prototype.getRandomBook = function () {
   //Math.random gives a random number between 0 & 1,
   //*length will make it between 0 and length
   //Math.floor rounds number down to nearest integer
-  var randomBook = this._bookShelf[Math.floor(Math.random()*this._bookShelf.length)];
+  var randomBook = new Array();
+  randomBook = this._bookShelf[Math.floor(Math.random()*this._bookShelf.length)];
   return randomBook;
 };
 
