@@ -156,7 +156,9 @@ Library.prototype.getAuthors = function () {
 Library.prototype.getRandomAuthorName = function () {
   /*Purpose: Retrieves a random author name from your books collection
   Return: string author name, null if no books exist*/
-
+  var randomAuthor = new Array();
+  randomAuthor = this._bookShelf[Math.floor(Math.random()*this._bookShelf.length)].author;
+  return randomAuthor;
 };
 
 
