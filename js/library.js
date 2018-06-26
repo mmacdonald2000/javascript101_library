@@ -1,9 +1,11 @@
 /*Class to represent a Library with functions to add, remove, and look up books in various ways*/
 
+/*Constructor for Library class - use prototype (below) to make methods*/
 var Library = function(){
   this._bookShelf = new Array();
 };
 
+/*Constructor for Book class - no methods*/
 var Book = function (title, author, numberOfPages, publishDate){
   this.title = String(title);
   this.author = String(author);
@@ -14,8 +16,11 @@ var Book = function (title, author, numberOfPages, publishDate){
 Library.prototype.addBook = function (book) {
   /*Purpose: Add a book object to your books array.
   Return: boolean true if it is not already added, false if it is already added.*/
+
+  //primitive input error handling
   if (typeof book === 'object'){
     for(i=0; i<this._bookShelf.length; i++){
+      //check if book is present, if present return false, otherwise push {Book} and return true
       if(book === this._bookShelf[i]){
         return false;
       }
@@ -72,7 +77,10 @@ Library.prototype.addBooks = function (books) {
   Return: number number of books successfully added, 0 if no books were added*/
   if (typeof books === 'object'){
     var count = 0;
+    //loop through input array
     for(j=0; j<books.length; j++){
+      /*use previous function (which outputs true for added and false for not added)
+      if book can be added, increase count and add book*/
       if(this.addBook(books[j])) {
         count++;
         this.addBook(books[j]);
