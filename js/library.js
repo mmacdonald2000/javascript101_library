@@ -36,6 +36,24 @@ Library.prototype.removeBookbyTitle = function (title) {
   /*Purpose: Remove book from from the books array by its title.
   Return: boolean true if the book(s) were removed, false if no books match*/
 
+  //create counter to see if a book was removed
+  var removed = 0;
+  for(i=0; i<this._bookShelf.length; i++){
+    //variable to keep crazy dots in perspective
+    //toLowerCase used so remove function is not case sensitive
+    var bookShelfTitle = this._bookShelf[i].title.toLowerCase();
+    //if titles are exactly equal remove entry, increment removed
+    if(bookShelfTitle === (title.toLowerCase())){
+      this._bookShelf.splice(i, 1);
+      removed++;
+    };
+  }
+  //if removed is not 0, book was removed, return true
+  if(removed > 0){
+    return true;
+  } else {
+    return false;
+  }
 };
 
 Library.prototype.removeBookByAuthor = function (authorName) {
