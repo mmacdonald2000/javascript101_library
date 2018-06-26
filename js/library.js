@@ -96,14 +96,18 @@ Library.prototype.getRandomBook = function () {
 Library.prototype.getBookByTitle = function (title) {
   /*Purpose: Return all books that completely or partially matches the string title passed into the function
   Return: array of book objects if you find books with matching titles, empty array if no books are found*/
-  var hasTitle = /title/;
-  var hasTitleArray = new Array();
+  var hasTitleResults = new Array();
   for(i=0; i<this._bookShelf.length; i++){
-    hasTitleArray = this._bookShelf[i].title.match(hasTitle);
-    return hasTitleArray;
+    //create holder variable because dot notation was getting crazy
+    //toLowerCase allows the input to be matched regardless of capitalization (must use on both input and .title)
+    var bookShelfTitle = this._bookShelf[i].title.toLowerCase();
+    //check if there is a match, then push the {Book} to results
+    //match checks for exact match and outputs an array
+    if(bookShelfTitle.match(title.toLowerCase()) !== null){
+      hasTitleResults.push(this._bookShelf[i]);
+    };
   }
-
-
+  return hasTitleResults;
 };
 
 Library.prototype.getBooksByAuthor = function (authorName) {
