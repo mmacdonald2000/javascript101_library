@@ -2,6 +2,12 @@ var Library = function(){
   this._bookShelf = new Array();
 };
 
+var Book = function (title, author, numberOfPages, publishDate){
+  this.title = String(title);
+  this.author = String(author);
+  this.numberOfPages = Number(numberOfPages);
+  this.publishDate = new Date(publishDate);
+};
 
 Library.prototype.addBook = function (book) {
   /*Purpose: Add a book object to your books array.
@@ -10,12 +16,10 @@ Library.prototype.addBook = function (book) {
     for(i=0; i<this._bookShelf.length; i++){
       if(book === this._bookShelf[i]){
         return false;
-        console.log(false);
       }
     }
     this._bookShelf.push(book);
     return true;
-    console.log(true);
   } else {
     console.log("Error: input must be in the Book object format")
   }
@@ -58,16 +62,17 @@ Library.prototype.addBooks = function (books) {
   /*Purpose: Takes multiple books, in the form of an array of book objects, and adds the objects to your books array.
   Return: number number of books successfully added, 0 if no books were added*/
   if (typeof books === 'object'){
+    var count = 0;
     for(j=0; j<books.length; j++){
-      console.log("jloop running");
-      console.log(books[i]);
-      this._bookShelf.addBook(books[i]);
-      
+      if(this.addBook(books[j])) {
+        count++;
+        this.addBook(books[j]);
+      }
     }
+    return count;
   } else {
     console.log("Error: input must be in array format")
   }
-
 };
 
 Library.prototype.getAuthors = function () {
@@ -82,12 +87,6 @@ Library.prototype.getRandomAuthorName = function () {
 
 };
 
-var Book = function (title, author, numberOfPages, publishDate){
-  this.title = String(title);
-  this.author = String(author);
-  this.numberOfPages = Number(numberOfPages);
-  this.publishDate = new Date(publishDate);
-};
 
 //List of Books to experiment:
 var book1 = new Book("The Name of the Wind", "Patrick Rothfuss", 662, "March 2007");
