@@ -1,3 +1,5 @@
+/*Class to represent a Library with functions to add, remove, and look up books in various ways*/
+
 var Library = function(){
   this._bookShelf = new Array();
 };
@@ -48,6 +50,13 @@ Library.prototype.getRandomBook = function () {
 Library.prototype.getBookByTitle = function (title) {
   /*Purpose: Return all books that completely or partially matches the string title passed into the function
   Return: array of book objects if you find books with matching titles, empty array if no books are found*/
+  var hasTitle = /title/;
+  var hasTitleArray = new Array();
+  for(i=0; i<this._bookShelf.length; i++){
+    hasTitleArray = this._bookShelf[i].title.match(hasTitle);
+    return hasTitleArray;
+  }
+
 
 };
 
@@ -107,5 +116,6 @@ var fiveBooks = [book6, book7, book8, book9, book10];
 
 document.addEventListener("DOMContentLoaded", function() {
   window.gLibrary = new Library();
+  gLibrary.addBooks(fiveBooks);
 
 });
