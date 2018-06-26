@@ -111,9 +111,18 @@ Library.prototype.getBookByTitle = function (title) {
 };
 
 Library.prototype.getBooksByAuthor = function (authorName) {
-  /*
-  Purpose: Finds all books where the author’s name partially or completely matches the authorName argument passed to the function.
+  /* Purpose: Finds all books where the author’s name partially or completely matches the authorName argument passed to the function.
   Return: array of books if you find books with match authors, empty array if no books match*/
+
+  //reuse logic from getBookByTitle
+  var hasAuthorResults = new Array();
+  for(i=0; i<this._bookShelf.length; i++){
+    var bookShelfAuthor = this._bookShelf[i].author.toLowerCase();
+    if(bookShelfAuthor.match(authorName.toLowerCase()) !== null){
+      hasAuthorResults.push(this._bookShelf[i]);
+    };
+  }
+  return hasAuthorResults;
 
 };
 
