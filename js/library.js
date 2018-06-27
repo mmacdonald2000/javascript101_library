@@ -17,8 +17,8 @@ Library.prototype.addBook = function (book) {
   /*Purpose: Add a book object to your books array.
   Return: boolean true if it is not already added, false if it is already added.*/
 
-  //primitive input error handling
-  if (typeof book === 'object'){
+  //error handling - check if input is a {Book}
+  if (book instanceof Book){
     for(i=0; i<this._bookShelf.length; i++){
       //check if book is present, if present return false, otherwise push {Book} and return true
       if(book === this._bookShelf[i]){
@@ -130,7 +130,9 @@ Library.prototype.getBooksByAuthor = function (authorName) {
 Library.prototype.addBooks = function (books) {
   /*Purpose: Takes multiple books, in the form of an array of book objects, and adds the objects to your books array.
   Return: number number of books successfully added, 0 if no books were added*/
-  if (typeof books === 'object'){
+
+  //error handling - check if input is an array
+  if (Array.isArray(books)){
     var count = 0;
     //loop through input array
     for(j=0; j<books.length; j++){
@@ -205,7 +207,7 @@ var tricksyBooks = [book11, book12];
 
 document.addEventListener("DOMContentLoaded", function() {
   window.goldenLibrary = new Library();
-  goldenLibrary.addBooks(firstfiveBooks);
-  goldenLibrary.addBooks(fiveBooks);
-  goldenLibrary.addBooks(tricksyBooks);
+  // goldenLibrary.addBooks(firstfiveBooks);
+  // goldenLibrary.addBooks(fiveBooks);
+  // goldenLibrary.addBooks(tricksyBooks);
 });
