@@ -13,6 +13,7 @@ var Book = function (title, author, numberOfPages, publishDate){
   this.publishDate = new Date(publishDate);
 };
 
+
 Library.prototype.addBook = function (book) {
   /*Purpose: Add a book object to your books array.
   Return: boolean true if it is not already added, false if it is already added.*/
@@ -26,9 +27,33 @@ Library.prototype.addBook = function (book) {
       }
     }
     this._bookShelf.push(book);
+    this.store();
     return true;
   } else {
     console.log("Error: input must be in the Book object format")
+  }
+};
+
+Library.prototype.addBooks = function (books) {
+  /*Purpose: Takes multiple books, in the form of an array of book objects, and adds the objects to your books array.
+  Return: number number of books successfully added, 0 if no books were added*/
+
+  //error handling - check if input is an array
+  if (Array.isArray(books)){
+    var count = 0;
+    //loop through input array
+    for(j=0; j<books.length; j++){
+      /*use previous function (which outputs true for added and false for not added)
+      if book can be added, increase count and add book*/
+      if(this.addBook(books[j])) {
+        count++;
+        this.addBook(books[j]);
+      }
+    }
+    this.store();
+    return count;
+  } else {
+    console.log("Error: input must be in array format")
   }
 };
 
@@ -50,6 +75,7 @@ Library.prototype.removeBookbyTitle = function (title) {
   }
   //if removed is not 0, book was removed, return true
   if(removed > 0){
+    this.store();
     return true;
   } else {
     return false;
@@ -76,6 +102,7 @@ Library.prototype.removeBookByAuthor = function (authorName) {
     };
   }
   if(removed > 0){
+    this.store();
     return true;
   } else {
     return false;
@@ -127,27 +154,6 @@ Library.prototype.getBooksByAuthor = function (authorName) {
 
 };
 
-Library.prototype.addBooks = function (books) {
-  /*Purpose: Takes multiple books, in the form of an array of book objects, and adds the objects to your books array.
-  Return: number number of books successfully added, 0 if no books were added*/
-
-  //error handling - check if input is an array
-  if (Array.isArray(books)){
-    var count = 0;
-    //loop through input array
-    for(j=0; j<books.length; j++){
-      /*use previous function (which outputs true for added and false for not added)
-      if book can be added, increase count and add book*/
-      if(this.addBook(books[j])) {
-        count++;
-        this.addBook(books[j]);
-      }
-    }
-    return count;
-  } else {
-    console.log("Error: input must be in array format")
-  }
-};
 
 Library.prototype.getAuthors = function () {  //research filter for this
   /*Purpose: Find the distinct authors’ names from all books in your library
@@ -201,13 +207,37 @@ var fiveBooks = [book6, book7, book8, book9, book10];
 var firstfiveBooks = [book1, book2, book3, book4, book5];
 var tricksyBooks = [book11, book12];
 
+/*Use localstorage and JSON.stringify to save the state of your library*/
+//how do I trigger the storage?  Compare what's stored with what's present?
 
+Library.prototype.recover = function (){
+  var libStorage = localStorage.getItem("library");
+  var parsed = JSON.parse(libStorage);
+  var bookArray = new Array();
+  for(i=0; i<parsed.length; i++){
+    bookArray[i] = new Book(parsed[i].title, parsed[i].author, parsed[i].numberOfPages, parsed[i].publishDate);
+  }
+  this.addBooks(bookArray);
+}
+
+Library.prototype.store = function () {
+  var storeParsed = JSON.stringify(this._bookShelf);
+  localStorage.setItem("library", storeParsed);
+}
 
 
 
 document.addEventListener("DOMContentLoaded", function() {
   window.goldenLibrary = new Library();
-  // goldenLibrary.addBooks(firstfiveBooks);
-  // goldenLibrary.addBooks(fiveBooks);
+
+  if(localStorage.length > 0){
+    console.log("I am recovering localStorage")
+    window.goldenLibrary.recover();
+  } else {
+    goldenLibrary.addBooks(firstfiveBooks);
+    goldenLibrary.addBooks(fiveBooks);
+    window.goldenLibrary.store();
+  }
+
   // goldenLibrary.addBooks(tricksyBooks);
 });
