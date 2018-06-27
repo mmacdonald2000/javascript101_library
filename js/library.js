@@ -215,14 +215,13 @@ Library.prototype.recover = function (){
   var parsed = JSON.parse(libStorage);
   var bookArray = new Array();
   for(i=0; i<parsed.length; i++){
-    bookArray[i] = new Book(parsed._bookShelf[i].title, parsed._bookShelf[i].author, parsed._bookShelf[i].numberOfPages, parsed._bookShelf[i].publishDate);
+    bookArray[i] = new Book(parsed[i].title, parsed[i].author, parsed[i].numberOfPages, parsed[i].publishDate);
   }
   this.addBooks(bookArray);
 }
 
 Library.prototype.store = function () {
-  var storeParsed = JSON.stringify(this);
-  localStorage.clear();
+  var storeParsed = JSON.stringify(this._bookShelf);
   localStorage.setItem("library", storeParsed);
 }
 
@@ -230,11 +229,13 @@ Library.prototype.store = function () {
 
 document.addEventListener("DOMContentLoaded", function() {
   window.goldenLibrary = new Library();
-  goldenLibrary.addBooks(firstfiveBooks);
-  goldenLibrary.addBooks(fiveBooks);
+
   if(localStorage.length > 0){
+    console.log("I am recovering localStorage")
     window.goldenLibrary.recover();
   } else {
+    goldenLibrary.addBooks(firstfiveBooks);
+    goldenLibrary.addBooks(fiveBooks);
     window.goldenLibrary.store();
   }
 
