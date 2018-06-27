@@ -109,18 +109,6 @@ Library.prototype.removeBookByAuthor = function (authorName) {
   }
 };
 
-Library.prototype.getRandomBook = function () {
-  /*Purpose: Return a random book object from your books array
-  Return: book object if you find a book, null if there are no books */
-
-  //Math.random gives a random number between 0 & 1,
-  //*length will make it between 0 and length
-  //Math.floor rounds number down to nearest integer
-  var randomBook = new Array();
-  randomBook = this._bookShelf[Math.floor(Math.random()*this._bookShelf.length)];
-  return randomBook;
-};
-
 Library.prototype.getBookByTitle = function (title) {
   /*Purpose: Return all books that completely or partially matches the string title passed into the function
   Return: array of book objects if you find books with matching titles, empty array if no books are found*/
@@ -179,6 +167,18 @@ Library.prototype.getAuthors = function () {  //research filter for this
   return authorArray;
 };
 
+Library.prototype.getRandomBook = function () {
+  /*Purpose: Return a random book object from your books array
+  Return: book object if you find a book, null if there are no books */
+
+  //Math.random gives a random number between 0 & 1,
+  //*length will make it between 0 and length
+  //Math.floor rounds number down to nearest integer
+  var randomBook = new Array();
+  randomBook = this._bookShelf[Math.floor(Math.random()*this._bookShelf.length)];
+  return randomBook;
+};
+
 Library.prototype.getRandomAuthorName = function () {
   /*Purpose: Retrieves a random author name from your books collection
   Return: string author name, null if no books exist*/
@@ -207,10 +207,29 @@ var fiveBooks = [book6, book7, book8, book9, book10];
 var firstfiveBooks = [book1, book2, book3, book4, book5];
 var tricksyBooks = [book11, book12];
 
-/*Use localstorage and JSON.stringify to save the state of your library*/
-//how do I trigger the storage?  Compare what's stored with what's present?
 
+Library.prototype.search = function (str, attribute){
+  //Add a more robust search function to your app to allow you to filter by one or more book properties
+  //the search function should return an array of book instances
+  if(attribute === "title" || attribute === "author" || attribute === "numberOfPages" || attribute === "publishDate"){
+    var hasResults = new Array();
+
+    for(i=0; i<this._bookShelf.length; i++){
+      var bookShelfAttribute = this._bookShelf[i].attribute.toLowerCase();
+      if(bookShelfAttribute.match(str.toLowerCase()) !== null){
+        hasResults.push(this._bookShelf[i]);
+      };
+    }
+    return hasResults;
+  } else {
+    console.log("Please input Book attribute.  Available attributes are: title, author, numberOfPages, and publishDate")
+  }
+};
+
+
+/*Use localstorage and JSON.stringify to save the state of your library*/
 Library.prototype.recover = function (){
+  //a function to recover the Library stored in localStorage
   var libStorage = localStorage.getItem("library");
   var parsed = JSON.parse(libStorage);
   var bookArray = new Array();
@@ -221,23 +240,23 @@ Library.prototype.recover = function (){
 }
 
 Library.prototype.store = function () {
+  //a function to push the library to localStorage
   var storeParsed = JSON.stringify(this._bookShelf);
   localStorage.setItem("library", storeParsed);
 }
 
 
-
+//Things to do after DOM loaded
 document.addEventListener("DOMContentLoaded", function() {
   window.goldenLibrary = new Library();
 
   if(localStorage.length > 0){
-    console.log("I am recovering localStorage")
+    console.log("I have recovered from localStorage")
     window.goldenLibrary.recover();
   } else {
+    console.log("I am adding books")
     goldenLibrary.addBooks(firstfiveBooks);
     goldenLibrary.addBooks(fiveBooks);
     window.goldenLibrary.store();
   }
-
-  // goldenLibrary.addBooks(tricksyBooks);
 });
