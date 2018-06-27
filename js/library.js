@@ -40,9 +40,9 @@ Library.prototype.removeBookbyTitle = function (title) {
   var removed = 0;
   for(i=0; i<this._bookShelf.length; i++){
     //variable to keep crazy dots in perspective
-    //toLowerCase used so remove function is not case sensitive
+    //toLowerCase used so function is not case sensitive
     var bookShelfTitle = this._bookShelf[i].title.toLowerCase();
-    //if titles are exactly equal remove entry, increment removed
+    //if titles are exactly equal remove entry, increment removed variable
     if(bookShelfTitle === (title.toLowerCase())){
       this._bookShelf.splice(i, 1);
       removed++;
@@ -157,8 +157,10 @@ Library.prototype.getAuthors = function () {  //research filter for this
     fullAuthorArray.push(this._bookShelf[i].author);
   };
   //use reduce to remove duplicate items
+  //chose because I found an example on MDN removing duplicate numbers - this seems to be used primarily for numerical transforms
   var authorArray = fullAuthorArray.reduce(function(accumulator, current){
-    //check if the current value is in the accumulator, and push to accumulator if it's not (-1 means it's not)
+    //check if the current value is in the accumulator, and push to accumulator if it's not
+    //indexOf returns an index value of location, -1 means it didn't find a match
     if (accumulator.indexOf(current) == -1){
       accumulator.push(current);
     }
@@ -172,6 +174,8 @@ Library.prototype.getAuthors = function () {  //research filter for this
 Library.prototype.getRandomAuthorName = function () {
   /*Purpose: Retrieves a random author name from your books collection
   Return: string author name, null if no books exist*/
+
+  //reuse logic from randomBook
   var randomAuthor = new Array();
   randomAuthor = this._bookShelf[Math.floor(Math.random()*this._bookShelf.length)].author;
   return randomAuthor;
