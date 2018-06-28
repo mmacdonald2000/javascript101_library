@@ -1,18 +1,37 @@
 /*Class to represent a Library with functions to add, remove, and look up books in various ways*/
 
-/*Constructor for Library class - use prototype (below) to make methods*/
-var Library = function(){
-  this._bookShelf = new Array();
-};
+//Sington example from Kyle:
+var Library;
+
+(function() {
+  var instance;
+
+  Library = function(key) {
+    //If instance exists return instance
+    if (instance) {
+      return instance;
+    }
+
+    instance = this;
+    this._bookShelf = [];
+    this._libraryKey = key;
+  }
+})();
+
+// /*Constructor for Library class - use prototype (below) to make methods*/
+// var Library = function(key){
+//   this._bookShelf = new Array();
+//   this._libraryKey = key;
+// };
 
 /*Constructor for Book class - no methods*/
 var Book = function (title, author, numberOfPages, publishDate){
   this.title = String(title);
   this.author = String(author);
   this.numberOfPages = Number(numberOfPages);
-  this.publishDate = new Date(publishDate);
+  this.publishDate = new Date(publishDate.toString()).getUTCFullYear();
+  //investigate how to get months--  Maybe would have to make a new object to get
 };
-
 
 Library.prototype.addBook = function (book) {
   /*Purpose: Add a book object to your books array.
@@ -22,12 +41,15 @@ Library.prototype.addBook = function (book) {
   if (book instanceof Book){
     for(i=0; i<this._bookShelf.length; i++){
       //check if book is present, if present return false, otherwise push {Book} and return true
+      // console.log("localStorage;", book.publishDate);
+      // console.log("bookShelf:", this._bookShelf[i]);
       if(book === this._bookShelf[i]){
         return false;
       }
     }
     this._bookShelf.push(book);
     this.store();
+    console.log("added")
     return true;
   } else {
     console.log("Error: input must be in the Book object format")
@@ -47,7 +69,6 @@ Library.prototype.addBooks = function (books) {
       if book can be added, increase count and add book*/
       if(this.addBook(books[j])) {
         count++;
-        this.addBook(books[j]);
       }
     }
     this.store();
@@ -55,6 +76,12 @@ Library.prototype.addBooks = function (books) {
   } else {
     console.log("Error: input must be in array format")
   }
+};
+
+Library.prototype.clearAll= function () {
+  /*Purpose: Remove all books to reset testing environment*/
+  this._bookShelf.splice(0, this._bookShelf.length);
+  this.store();
 };
 
 Library.prototype.removeBookbyTitle = function (title) {
@@ -189,6 +216,58 @@ Library.prototype.getRandomAuthorName = function () {
   return randomAuthor;
 };
 
+/*-----MORE ROBUST SEARCH FUNCTIONS-------------------------------------------*/
+//Add a more robust search function to your app to allow you to filter by one or more book properties
+//the search function should return an array of book instances
+Library.prototype.search = function (input) {
+  var results = this.getBookByTitle(input).concat(this.getBooksByAuthor(input))
+  //can use this to search all -must be a string which means need parseInt for page and date
+
+};
+
+Library.prototype.getBookByPageCount = function (pages){
+  //Returns an array of title matches within 50 pages of pages input
+    var hasResults = [];
+    //loop through bookShelf
+    for(i=0; i<this._bookShelf.length; i++){
+      //create a variable pointing toward numberOfPages
+      var bookPages = this._bookShelf[i].numberOfPages
+      if((bookPages >= pages - 50) && (bookPages <= pages + 50 )){
+        hasResults.push(this._bookShelf[i]);
+      };
+    }
+    return hasResults;
+};
+
+Library.prototype.searchPubDate = function (pubDate, range){
+  //Returns an array of books with matching pubDates
+  //optional variable for range
+    var hasResults = [];
+    var range = range || 0;
+    for(i=0; i<this._bookShelf.length; i++){
+      var bookShelfpubDate= this._bookShelf[i].publishDate;
+      if((pubDate-range)<= bookShelfpubDate && bookShelfpubDate <= (pubDate+range)){
+        hasResults.push(this._bookShelf[i]);
+      };
+    }
+    return hasResults;
+};
+
+/*-----LOCAL STORAGE----------------------------------------------------------*/
+/*Use localstorage and JSON.stringify to save the state of your library*/
+Library.prototype.recover = function (){
+  //a function to recover the Library stored in localStorage
+  var parsed = JSON.parse(localStorage.getItem(this._libraryKey));
+  for(i=0; i<parsed.length; i++){
+    this._bookShelf[i] = new Book(parsed[i].title, parsed[i].author, parsed[i].numberOfPages, parsed[i].publishDate);
+  }
+}
+
+Library.prototype.store = function () {
+  //a function to push the library to localStorage
+  var storeParsed = JSON.stringify(this._bookShelf);
+  localStorage.setItem(this._libraryKey, storeParsed);
+}
 
 //List of Books to experiment:
 var book1 = new Book("The Name of the Wind", "Patrick Rothfuss", 662, "March 2007");
@@ -203,60 +282,18 @@ var book9 = new Book("Harry Potter and the Order of the Phoenix", "JK Rowling", 
 var book10 = new Book("The Wise Man's Fear", "Patrick Rothfuss", 540, "March 2011");
 var book11 = new Book("Cloud Atlas", "David Mitchell", 250, "October 2012");
 var book12 = new Book("The Cloud Atlas", "Liam Callanan", 190, "October 2004");
+var book2000 = new Book("this is 2000", "Me", 190, "October 2000");
 var fiveBooks = [book6, book7, book8, book9, book10];
 var firstfiveBooks = [book1, book2, book3, book4, book5];
 var tricksyBooks = [book11, book12];
 
 
-Library.prototype.search = function (str, attribute){
-  //Add a more robust search function to your app to allow you to filter by one or more book properties
-  //the search function should return an array of book instances
-  if(attribute === "title" || attribute === "author" || attribute === "numberOfPages" || attribute === "publishDate"){
-    var hasResults = new Array();
-
-    for(i=0; i<this._bookShelf.length; i++){
-      var bookShelfAttribute = this._bookShelf[i].attribute.toLowerCase();
-      if(bookShelfAttribute.match(str.toLowerCase()) !== null){
-        hasResults.push(this._bookShelf[i]);
-      };
-    }
-    return hasResults;
-  } else {
-    console.log("Please input Book attribute.  Available attributes are: title, author, numberOfPages, and publishDate")
-  }
-};
-
-
-/*Use localstorage and JSON.stringify to save the state of your library*/
-Library.prototype.recover = function (){
-  //a function to recover the Library stored in localStorage
-  var libStorage = localStorage.getItem("library");
-  var parsed = JSON.parse(libStorage);
-  var bookArray = new Array();
-  for(i=0; i<parsed.length; i++){
-    bookArray[i] = new Book(parsed[i].title, parsed[i].author, parsed[i].numberOfPages, parsed[i].publishDate);
-  }
-  this.addBooks(bookArray);
-}
-
-Library.prototype.store = function () {
-  //a function to push the library to localStorage
-  var storeParsed = JSON.stringify(this._bookShelf);
-  localStorage.setItem("library", storeParsed);
-}
-
-
 //Things to do after DOM loaded
 document.addEventListener("DOMContentLoaded", function() {
-  window.goldenLibrary = new Library();
+  window.goldenLibrary = new Library("goldenLibrary");
 
   if(localStorage.length > 0){
-    console.log("I have recovered from localStorage")
+    console.log("Recovered from localStorage")
     window.goldenLibrary.recover();
-  } else {
-    console.log("I am adding books")
-    goldenLibrary.addBooks(firstfiveBooks);
-    goldenLibrary.addBooks(fiveBooks);
-    window.goldenLibrary.store();
   }
 });
