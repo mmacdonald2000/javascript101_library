@@ -219,38 +219,51 @@ Library.prototype.getRandomAuthorName = function () {
 /*-----MORE ROBUST SEARCH FUNCTIONS-------------------------------------------*/
 //Add a more robust search function to your app to allow you to filter by one or more book properties
 //the search function should return an array of book instances
-Library.prototype.search = function (input) {
-  var results = this.getBookByTitle(input).concat(this.getBooksByAuthor(input))
-  //can use this to search all -must be a string which means need parseInt for page and date
-
-};
-
-Library.prototype.getBookByPageCount = function (pages){
-  //Returns an array of title matches within 50 pages of pages input
+Library.prototype.getBookByPageCount = function (pages, range){
+  //Returns an array of books with matching numberOfPages
     var hasResults = [];
+    //range is an optional variable that is either the number the user inputs or 50
+    var range = range || 50;
     //loop through bookShelf
     for(i=0; i<this._bookShelf.length; i++){
       //create a variable pointing toward numberOfPages
       var bookPages = this._bookShelf[i].numberOfPages
-      if((bookPages >= pages - 50) && (bookPages <= pages + 50 )){
+      //push to results array if numberOfPages is within 50 pages of input
+      if((bookPages >= pages - range) && (bookPages <= pages + range )){
         hasResults.push(this._bookShelf[i]);
       };
     }
     return hasResults;
 };
 
-Library.prototype.searchPubDate = function (pubDate, range){
-  //Returns an array of books with matching pubDates
-  //optional variable for range
+Library.prototype.getBookByPubDate = function (pubDate, range){
+  //Returns an array of books with matching publishDate
     var hasResults = [];
+    //range is an optional variable that is either the number the user inputs or 0
     var range = range || 0;
+    //loope through bookShelf
     for(i=0; i<this._bookShelf.length; i++){
+      //create variable pointing toward publishDate
       var bookShelfpubDate= this._bookShelf[i].publishDate;
+      //push to results array if publishDate is within range years of input
       if((pubDate-range)<= bookShelfpubDate && bookShelfpubDate <= (pubDate+range)){
         hasResults.push(this._bookShelf[i]);
       };
     }
     return hasResults;
+};
+
+Library.prototype.search = function (input, input2) {
+  //if input is a string search by Title and author
+  if (input && typeof input === "string"){
+    //call previous funtions and concatenate into one array
+    var results = this.getBookByTitle(input).concat(this.getBooksByAuthor(input));
+    //else if input is a number search by numberOfPages and publishDate
+  } else if (input && typeof input === "number"){
+    //call previous functions and concatenate into one array
+    var results = this.getBookByPageCount(input, input2).concat(this.getBookByPubDate(input, input2));
+  }
+  return results;
 };
 
 /*-----LOCAL STORAGE----------------------------------------------------------*/
