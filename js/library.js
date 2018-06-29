@@ -11,13 +11,15 @@ var Library;
     if (instance) {
       return instance;
     }
-
+    //this will run the first time and only the first time
     instance = this;
     this._bookShelf = [];
     this._libraryKey = key;
   }
 })();
 
+
+// //This is the previous constructor from before we made this a singlton
 // /*Constructor for Library class - use prototype (below) to make methods*/
 // var Library = function(key){
 //   this._bookShelf = new Array();
@@ -30,7 +32,8 @@ var Book = function (title, author, numberOfPages, publishDate){
   this.author = String(author);
   this.numberOfPages = Number(numberOfPages);
   this.publishDate = new Date(publishDate.toString()).getUTCFullYear();
-  //investigate how to get months--  Maybe would have to make a new object to get
+  //have to use getUTCFullYear cuz otherwise the year is decremented every time it's pulled from localStorage
+  //Why?
 };
 
 Library.prototype.addBook = function (book) {
@@ -41,15 +44,13 @@ Library.prototype.addBook = function (book) {
   if (book instanceof Book){
     for(i=0; i<this._bookShelf.length; i++){
       //check if book is present, if present return false, otherwise push {Book} and return true
-      // console.log("localStorage;", book.publishDate);
-      // console.log("bookShelf:", this._bookShelf[i]);
       if(book === this._bookShelf[i]){
         return false;
       }
     }
     this._bookShelf.push(book);
+    //store change to localStorage
     this.store();
-    console.log("added")
     return true;
   } else {
     console.log("Error: input must be in the Book object format")
@@ -66,33 +67,28 @@ Library.prototype.addBooks = function (books) {
     //loop through input array
     for(j=0; j<books.length; j++){
       /*use previous function (which outputs true for added and false for not added)
-      if book can be added, increase count and add book*/
+      if book can be added, increase count.
+      Calling the function in the if statement will cause the book to be added, so we don't need to retell it to add.*/
       if(this.addBook(books[j])) {
         count++;
       }
     }
-    this.store();
     return count;
   } else {
     console.log("Error: input must be in array format")
   }
 };
 
-Library.prototype.clearAll= function () {
-  /*Purpose: Remove all books to reset testing environment*/
-  this._bookShelf.splice(0, this._bookShelf.length);
-  this.store();
-};
-
 Library.prototype.removeBookbyTitle = function (title) {
   /*Purpose: Remove book from from the books array by its title.
   Return: boolean true if the book(s) were removed, false if no books match*/
 
-  //create counter to see if a book was removed
+  //create counter for removed books
   var removed = 0;
   for(i=0; i<this._bookShelf.length; i++){
     //variable to keep crazy dots in perspective
     //toLowerCase used so function is not case sensitive
+    //if using RegEx could use /i flag
     var bookShelfTitle = this._bookShelf[i].title.toLowerCase();
     //if titles are exactly equal remove entry, increment removed variable
     if(bookShelfTitle === (title.toLowerCase())){
@@ -102,6 +98,7 @@ Library.prototype.removeBookbyTitle = function (title) {
   }
   //if removed is not 0, book was removed, return true
   if(removed > 0){
+    //store change to localStorage
     this.store();
     return true;
   } else {
@@ -227,9 +224,9 @@ Library.prototype.getBookByPageCount = function (pages, range){
     //loop through bookShelf
     for(i=0; i<this._bookShelf.length; i++){
       //create a variable pointing toward numberOfPages
-      var bookPages = this._bookShelf[i].numberOfPages
+      var bookShelfPages = this._bookShelf[i].numberOfPages
       //push to results array if numberOfPages is within 50 pages of input
-      if((bookPages >= pages - range) && (bookPages <= pages + range )){
+      if((bookShelfPages >= pages - range) && (bookShelfPages <= pages + range )){
         hasResults.push(this._bookShelf[i]);
       };
     }
@@ -281,6 +278,14 @@ Library.prototype.store = function () {
   var storeParsed = JSON.stringify(this._bookShelf);
   localStorage.setItem(this._libraryKey, storeParsed);
 }
+
+/*-----USEFUL FUNCTION--------------------------------------------------------*/
+Library.prototype.clearAll= function () {
+  /*Purpose: Remove all books to reset testing environment*/
+  this._bookShelf.splice(0, this._bookShelf.length);
+  this.store();
+  return this._bookShelf
+};
 
 //List of Books to experiment:
 var book1 = new Book("The Name of the Wind", "Patrick Rothfuss", 662, "March 2007");
