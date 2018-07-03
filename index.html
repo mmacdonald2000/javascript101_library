@@ -47,8 +47,8 @@
 
     <div class="row">
       <!-- Library Table -->
-      <table class="table table-hover table-striped table-dark table-bordered table-responsive">
-        <caption>BookShelf</caption>
+      <table class="table table-hover table-striped table-dark table-bordered table-responsive row">
+        <caption class="table-caption">My BookShelf</caption>
         <thead>
           <tr class="">
             <th><!-- Cover here--></th>
@@ -218,6 +218,58 @@
             <button type="button" class="btn btn-primary">Save changes</button>
           </div>
         </div>
+      </div>
+    </div>
+<!-- tester model to see how it looks -->
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Add Books</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <form>
+          <!--Title-->
+          <div class="form-group">
+            <label for="formAddBookTitle">Title</label>
+            <input type="text" id="formAddBookTitle" class="form-control" placeholder="The Name of the Wind">
+          </div>
+          <!--Author-->
+          <div class="form-group">
+            <label for="formAddBookAuthor">Author</label>
+            <input type="text" id="formAddBookAuthor" class="form-control" placeholder="Patrick Rothfuss">
+          </div>
+          <!--Pages-->
+          <div class="form-group">
+            <label for="formAddBookPages">Pages</label>
+            <input type="number" id="formAddBookPages" class="form-control" placeholder="234">
+          </div>
+          <!--PubDate-->
+          <div class="form-group">
+            <label for="formAddBookPubDate">Publication Date</label>
+            <input type="text" id="formAddBookPubDate" class="form-control" placeholder="03/2007">
+          </div>
+          <!--Cover file-->
+          <div class="">
+            <label for="formAddBookCover">Cover</label>
+            <input type="file" id="formAddBookCover" class="form-control btn btn-light">
+          </div>
+
+          <!--Queue-->
+          <div class="form-group">
+            <button class=" btn btn-light">Add to Queue</button>
+          </div>
+
+          <!--Submit Add all Books to library-->
+          <div class="form-group">
+            <input type="submit" value="Add Books to Your Bookshelf" id="formaddAllBooks" class="form-control">
+          </div>
+
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
       </div>
     </div>
 

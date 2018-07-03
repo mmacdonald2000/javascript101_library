@@ -1,4 +1,5 @@
-table {
+body{
+  background-color: darkgrey;
 
 }
 
@@ -6,4 +7,14 @@ input {
   /* position: relative; */
   /* vertical-align: top; */
   max-width: 25%;
+}
+
+.table-caption{
+  margin-top: 1px;
+}
+
+.table {
+  display: block;
+  margin: auto;
+  padding: 1em;
 }
