@@ -7,14 +7,16 @@ var Library;
   var instance;
 
   Library = function(key) {
+    this._libraryKey = key;
     //If instance exists return instance
     if (instance) {
+
       return instance;
     }
     //this will run the first time and only the first time
     instance = this;
     this._bookShelf = [];
-    this._libraryKey = key;
+
   }
 })();
 
@@ -163,7 +165,6 @@ Library.prototype.getBooksByAuthor = function (authorName) {
     };
   }
   return hasAuthorResults;
-
 };
 
 
@@ -260,7 +261,14 @@ Library.prototype.search = function (input, input2) {
     //call previous functions and concatenate into one array
     var results = this.getBookByPageCount(input, input2).concat(this.getBookByPubDate(input, input2));
   }
-  return results;
+  var resultsFilter = results.reduce(function(accumulator, current){
+    if (accumulator.indexOf(current) == -1){
+      accumulator.push(current);
+    }
+    return accumulator;
+  },[]);
+  // var resultsFilter = new Set(results); // May be an ES6 solution only?
+  return resultsFilter;
 };
 
 /*-----LOCAL STORAGE----------------------------------------------------------*/
@@ -304,6 +312,7 @@ var book2000 = new Book("this is 2000", "Me", 190, "October 2000");
 var fiveBooks = [book6, book7, book8, book9, book10];
 var firstfiveBooks = [book1, book2, book3, book4, book5];
 var tricksyBooks = [book11, book12];
+var allBooks = [book1, book2, book3, book4, book5, book6, book7, book8, book9, book10, book11, book12]
 
 
 //Things to do after DOM loaded
