@@ -5,6 +5,7 @@
     <title>Library Test Page</title>
 
     <link rel="stylesheet" href="./css/bootstrap.css">
+    <link rel="stylesheet" href="./fonts/fontawesome/web-fonts-with-css/css/fontawesome-all.css">
     <link rel="stylesheet" href="./css/master.css">
   </head>
   <body class="container-fluid">
@@ -13,7 +14,7 @@
     </header>
 
     <div class="row">
-      <!-- Function Buttons -->
+      <!-- Library Function Buttons -->
       <div class="btn-group" role="group" aria-label="Library options">
         <!-- Show All Books button -->
         <button type="button" class="btn btn-secondary btn-light" aria-labelledby="My Bookshelf" data-toggle="modal" data-target="#allBookModal">My Bookshelf</button>
@@ -69,7 +70,13 @@
             <td>Patrick Rothfuss</td>
             <td>662</td>
             <td>March 2007</td>
-            <td></td>
+            <td>
+              <i class="fas fa-star"></i>
+              <i class="fas fa-star"></i>
+              <i class="fas fa-star"></i>
+              <i class="fas fa-star"></i>
+              <i class="far fa-star"></i>
+            </td>
             <td><input type="checkbox" name="Delete" value=""></td>
           </tr>
           <tr>
@@ -78,7 +85,13 @@
             <td>Patrick Rothfuss</td>
             <td>662</td>
             <td>March 2007</td>
-            <td></td>
+            <td>
+              <i class="fas fa-star"></i>
+              <i class="fas fa-star"></i>
+              <i class="fas fa-star"></i>
+              <i class="fas fa-star"></i>
+              <i class="far fa-star"></i>
+            </td>
             <td><input type="checkbox" name="Delete" value=""></td>
           </tr>
           <tr>
@@ -87,7 +100,13 @@
             <td>Patrick Rothfuss</td>
             <td>662</td>
             <td>March 2007</td>
-            <td></td>
+            <td>
+              <i class="fas fa-star"></i>
+              <i class="fas fa-star"></i>
+              <i class="fas fa-star"></i>
+              <i class="fas fa-star"></i>
+              <i class="far fa-star"></i>
+            </td>
             <td><input type="checkbox" name="Delete" value=""></td>
           </tr>
           <tr>
@@ -96,7 +115,13 @@
             <td>Patrick Rothfuss</td>
             <td>662</td>
             <td>March 2007</td>
-            <td></td>
+            <td>
+              <i class="fas fa-star"></i>
+              <i class="fas fa-star"></i>
+              <i class="fas fa-star"></i>
+              <i class="fas fa-star"></i>
+              <i class="far fa-star"></i>
+            </td>
             <td><input type="checkbox" name="Delete" value=""></td>
           </tr>
           <tr>
@@ -105,7 +130,13 @@
             <td>Patrick Rothfuss</td>
             <td>662</td>
             <td>March 2007</td>
-            <td></td>
+            <td>
+              <i class="fas fa-star"></i>
+              <i class="fas fa-star"></i>
+              <i class="fas fa-star"></i>
+              <i class="fas fa-star"></i>
+              <i class="far fa-star"></i>
+            </td>
             <td><input type="checkbox" name="Delete" value=""></td>
           </tr>
         </tbody>
@@ -116,21 +147,75 @@
     <!--MODALS-------------------------------------------------------->
 
     <!--Add Book Modal------------------------------------------------>
-    <div class="modal fade" id="addBookModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal fade" id="addBookModal" tabindex="-1" role="dialog" aria-labelledby="Add book form" aria-hidden="true">
       <div class="modal-dialog" role="document">
         <div class="modal-content">
           <div class="modal-header">
-            <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+            <h5 class="modal-title">Add Books</h5>
             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
               <span aria-hidden="true">&times;</span>
             </button>
           </div>
-          <div class="modal-body">
-            ...
-          </div>
-          <div class="modal-footer">
-            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-            <button type="button" class="btn btn-primary">Save changes</button>
+          <div class="modal-body container">
+            <form>
+              <div class="row">
+
+              </div>
+              <!--Title-->
+              <div class="form-group row">
+                <label for="formAddBookTitle">Title</label>
+                <input type="text" id="formAddBookTitle" class="form-control col-md-12 col-sm-12 pr-2" placeholder="The Name of the Wind">
+              </div>
+              <div class="row">
+                <!--Author-->
+                <div class="form-group">
+                  <label for="formAddBookAuthor">Author</label>
+                  <input type="text" id="formAddBookAuthor" class="form-control col" placeholder="Patrick Rothfuss">
+                </div>
+                <!--Rating-->
+                <div class="form-group">
+                  <label for="formAddBookRating">Rating</label>
+                  <input type="text" id="formAddBookRating" class="form-control col font-awesome" placeholder="&#xf005; &#xf005; &#xf005; &#xf005; &#xf005;">
+                </div>
+              </div>
+
+              <div class="row">
+                <!--Pages-->
+                <div class="form-group">
+                  <label for="formAddBookPages">Pages</label>
+                  <input type="number" id="formAddBookPages" class="form-control col" placeholder="234">
+                </div>
+                <!--PubDate-->
+                <div class="form-group">
+                  <label for="formAddBookPubDate">Publication Date</label>
+                  <input type="date" id="formAddBookPubDate" class="form-control col" placeholder="03/2007">
+                </div>
+              </div>
+
+              <div class="row">
+                <!--Cover file-->
+                <div class="form-group">
+                  <label for="exampleFormControlFile1">Cover Art</label>
+                  <input type="file" class="form-control-file col pl-0" id="formAddBookCover">
+                </div>
+
+                <!--Queue-->
+                <div class="form-group">
+                  <button class=" btn btn-secondary col">Add to Queue</button>
+                </div>
+                <p><span class="queueNumber">(A number)</span>Book(s) added to Queue</p>
+
+              </div>
+
+
+              <!--Submit Add all Books to library-->
+              <div class="form-group">
+                <div class="modal-footer form-group">
+                  <input type="submit" value="Add Books to Your Bookshelf" id="formAddAllBooks" class="form-control btn-dark">
+                </div>
+              </div>
+
+            </form>
           </div>
         </div>
       </div>
@@ -201,77 +286,9 @@
 
     <!--Random Book Modal--------------------------------------------->
     <!-- should this be the same as the book model? -->
-    <div class="modal fade" id="pickBookModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-      <div class="modal-dialog" role="document">
-        <div class="modal-content">
-          <div class="modal-header">
-            <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
-            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-              <span aria-hidden="true">&times;</span>
-            </button>
-          </div>
-          <div class="modal-body">
-            ...
-          </div>
-          <div class="modal-footer">
-            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-            <button type="button" class="btn btn-primary">Save changes</button>
-          </div>
-        </div>
-      </div>
-    </div>
-<!-- tester model to see how it looks -->
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title">Add Books</h5>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </div>
-      <div class="modal-body">
-        <form>
-          <!--Title-->
-          <div class="form-group">
-            <label for="formAddBookTitle">Title</label>
-            <input type="text" id="formAddBookTitle" class="form-control" placeholder="The Name of the Wind">
-          </div>
-          <!--Author-->
-          <div class="form-group">
-            <label for="formAddBookAuthor">Author</label>
-            <input type="text" id="formAddBookAuthor" class="form-control" placeholder="Patrick Rothfuss">
-          </div>
-          <!--Pages-->
-          <div class="form-group">
-            <label for="formAddBookPages">Pages</label>
-            <input type="number" id="formAddBookPages" class="form-control" placeholder="234">
-          </div>
-          <!--PubDate-->
-          <div class="form-group">
-            <label for="formAddBookPubDate">Publication Date</label>
-            <input type="text" id="formAddBookPubDate" class="form-control" placeholder="03/2007">
-          </div>
-          <!--Cover file-->
-          <div class="">
-            <label for="formAddBookCover">Cover</label>
-            <input type="file" id="formAddBookCover" class="form-control btn btn-light">
-          </div>
 
-          <!--Queue-->
-          <div class="form-group">
-            <button class=" btn btn-light">Add to Queue</button>
-          </div>
 
-          <!--Submit Add all Books to library-->
-          <div class="form-group">
-            <input type="submit" value="Add Books to Your Bookshelf" id="formaddAllBooks" class="form-control">
-          </div>
 
-        </form>
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-      </div>
-    </div>
 
     <!--Random Author Modal------------------------------------------->
     <div class="modal fade" id="pickAuthorModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">

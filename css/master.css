@@ -3,18 +3,18 @@ body{
 
 }
 
-input {
-  /* position: relative; */
-  /* vertical-align: top; */
+form {
+  width: 100%;
+}
+
+.form-group {
+  padding: 0 1em;
+}
+
+.close-button {
   max-width: 25%;
 }
 
-.table-caption{
-  margin-top: 1px;
-}
-
-.table {
-  display: block;
-  margin: auto;
-  padding: 1em;
+.font-awesome {
+  font-family: FontAwesome;
 }
