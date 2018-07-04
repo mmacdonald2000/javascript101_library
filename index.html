@@ -27,7 +27,7 @@
           </button>
           <div class="dropdown-menu" aria-labelledby="btnGroupDrop1">
             <!-- Random Books button -->
-            <a class="dropdown-item" data-toggle="modal" data-target="#pickBookModal">Pick a Book</a>
+            <a class="dropdown-item" data-toggle="modal" data-target="#bookModal">Pick a Book</a>
             <!-- Random Authors button -->
             <a class="dropdown-item" data-toggle="modal" data-target="#pickAuthorModal">Pick an Author</a>
           </div>
@@ -65,7 +65,7 @@
         <tbody>
           <!-- placeholder table rows -->
           <tr>
-            <td><img src="./assets/filler_murray.jpg" alt="Cover art"></td>
+            <td data-toggle="modal" data-target="#bookModal"><img src="./assets/filler_murray.jpg" alt="Cover art"></td>
             <td>The Slow Regard of Silent Things</td>
             <td>Patrick Rothfuss</td>
             <td>662</td>
@@ -80,7 +80,7 @@
             <td><input type="checkbox" name="Delete" value=""></td>
           </tr>
           <tr>
-            <td><img src="./assets/filler_murray.jpg" alt="Cover art"></td>
+            <td data-toggle="modal" data-target="#bookModal"><img src="./assets/filler_murray.jpg" alt="Cover art"></td>
             <td>Kingkiller Chronicle #3</td>
             <td>Patrick Rothfuss</td>
             <td>662</td>
@@ -95,7 +95,7 @@
             <td><input type="checkbox" name="Delete" value=""></td>
           </tr>
           <tr>
-            <td><img src="./assets/filler_murray.jpg" alt="Cover art"></td>
+            <td data-toggle="modal" data-target="#bookModal"><img src="./assets/filler_murray.jpg" alt="Cover art"></td>
             <td>The Wise Man's Fear</td>
             <td>Patrick Rothfuss</td>
             <td>662</td>
@@ -110,7 +110,7 @@
             <td><input type="checkbox" name="Delete" value=""></td>
           </tr>
           <tr>
-            <td><img src="./assets/filler_murray.jpg" alt="Cover art"></td>
+            <td data-toggle="modal" data-target="#bookModal"><img src="./assets/filler_murray.jpg" alt="Cover art"></td>
             <td>The Name of the Wind</td>
             <td>Patrick Rothfuss</td>
             <td>662</td>
@@ -125,7 +125,7 @@
             <td><input type="checkbox" name="Delete" value=""></td>
           </tr>
           <tr>
-            <td><img src="./assets/filler_murray.jpg" alt="Cover art"></td>
+            <td data-toggle="modal" data-target="#bookModal"><img src="./assets/filler_murray.jpg" alt="Cover art"></td>
             <td>The Name of the Wind 2</td>
             <td>Patrick Rothfuss</td>
             <td>662</td>
@@ -158,9 +158,6 @@
           </div>
           <div class="modal-body container">
             <form>
-              <div class="row">
-
-              </div>
               <!--Title-->
               <div class="form-group row">
                 <label for="formAddBookTitle">Title</label>
@@ -230,7 +227,7 @@
               <span aria-hidden="true">&times;</span>
             </button>
           </div>
-          <div class="modal-body container">
+          <div class="modal-body container-fluid">
             <!--Title-->
             <div class="form-group">
               <label for="formRemoveBookTitle">Remove by Title</label>
@@ -241,6 +238,7 @@
               <label for="formRemoveBookAuthor">Remove by Author</label>
               <input type="text" id="formRemoveBookAuthor" class="form-control">
               <p>*This option will remove <u>all</u> books by the same author*</p>
+            </div>
           </div>
           <div class="modal-footer">
             <button type="button" class="btn btn-secondary" data-dismiss="modal">Remove Book(s)</button>
@@ -280,18 +278,29 @@
       <div class="modal-dialog" role="document">
         <div class="modal-content">
           <div class="modal-header">
-            <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+            <h5 class="modal-title" id="exampleModalLabel">From Your Bookshelf...</h5>
             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
               <span aria-hidden="true">&times;</span>
             </button>
           </div>
-          <div class="modal-body">
-            ...
+          <div class="modal-body container-fluid">
+          <div class="media text-center">
+            <img class="align-self-start mr-3" src="./assets/murray_2x3.jpg" alt="Cover art">
+            <div class="media-body">
+              <h4 id="bookModalTitle" class="pb-5 pt-4">Name of the Wind</h4>
+              <h5>by <span id="bookModalAuthor" class="pt-5">Patrick Rothfuss</span></h5>
+              <h6 class="pt-5"> <span id="bookModalPages">256</span> pages</h6>
+              <h6 id="bookModalDate" class="pt-1">March 2007</h6>
+              <h6 id="bookModalRating" class="pt-1">
+                <i class="fas fa-star"></i>
+                <i class="fas fa-star"></i>
+                <i class="fas fa-star"></i>
+                <i class="fas fa-star"></i>
+                <i class="far fa-star"></i>
+              </h6>
+            </div>
           </div>
-          <div class="modal-footer">
-            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-            <button type="button" class="btn btn-primary">Save changes</button>
-          </div>
+          <div class="modal-footer"></div>
         </div>
       </div>
     </div>
