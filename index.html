@@ -48,7 +48,7 @@
 
     <div class="row">
       <!-- Library Table -->
-      <table class="table table-hover table-striped table-dark table-bordered table-responsive row">
+      <table class="table table-hover table-striped table-dark table-bordered table-responsive col">
         <caption class="table-caption">My BookShelf</caption>
         <thead>
           <tr class="">
@@ -175,7 +175,7 @@
                 <!--Rating-->
                 <div class="form-group">
                   <label for="formAddBookRating">Rating</label>
-                  <input type="text" id="formAddBookRating" class="form-control col font-awesome" placeholder="&#xf005; &#xf005; &#xf005; &#xf005; &#xf005;">
+                  <input type="text" id="formAddBookRating" class="form-control col font-awesome width-25" placeholder="&#xf005; &#xf005; &#xf005; &#xf005; &#xf005;">
                 </div>
               </div>
 
@@ -198,15 +198,14 @@
                   <label for="exampleFormControlFile1">Cover Art</label>
                   <input type="file" class="form-control-file col pl-0" id="formAddBookCover">
                 </div>
-
+              </div>
+              <div class="row">
                 <!--Queue-->
                 <div class="form-group">
                   <button class=" btn btn-secondary col">Add to Queue</button>
                 </div>
                 <p><span class="queueNumber">(A number)</span>Book(s) added to Queue</p>
-
               </div>
-
 
               <!--Submit Add all Books to library-->
               <div class="form-group">
@@ -243,21 +242,26 @@
     </div>
 
     <!--Show All Authors Modal---------------------------------------->
-    <div class="modal fade" id="allBookModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal fade" id="allAuthorModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
       <div class="modal-dialog" role="document">
         <div class="modal-content">
           <div class="modal-header">
-            <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+            <h5 class="modal-title" id="exampleModalLabel">All Authors</h5>
             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
               <span aria-hidden="true">&times;</span>
             </button>
           </div>
           <div class="modal-body">
-            ...
+            <ul>
+              <li>Patrick Rothfuss</li>
+              <li>Patrick Rothfuss</li>
+              <li>Patrick Rothfuss</li>
+              <li>Patrick Rothfuss</li>
+              <li>Patrick Rothfuss</li>
+            </ul>
           </div>
           <div class="modal-footer">
-            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-            <button type="button" class="btn btn-primary">Save changes</button>
+            
           </div>
         </div>
       </div>

@@ -11,10 +11,11 @@ form {
   padding: 0 1em;
 }
 
-.close-button {
-  max-width: 25%;
-}
 
 .font-awesome {
   font-family: FontAwesome;
+}
+
+.width-50 {
+  max-width: 50%;
 }
