@@ -1,13 +1,24 @@
+/* prominant colors from Googles API:
+#744913 - rgb(116,73,19) light brown
+#9F6A20 - rgb(159,106,32) lighter tan
+#271909 - rgb(39,25,9) dark brown/black
+#84500A - rgb(132,80,10) goldish tan
+#3D2D19 - rgb(61,45,25) greenish brown
+*/
+
 body{
   background-color: black;
-  background-image: url(../assets/trinity_library2.jpg);
+  background-image: url(../assets/trinity_library2_bw.jpg);
   background-repeat: repeat-y;
   background-size: auto;
+  background-position: top;
+  height: 100%;
+  /* overflow: hidden; */
   font-family: Georgia;
 
 }
 
-header, .my-bookshelf {
+header, .my-bookshelf, .login {
   color: rgb(224,224,224);
   text-shadow: 2px 2px 2px #000000;
 }
@@ -30,6 +41,10 @@ header, .my-bookshelf {
   border-color: rgba(132,80,10,.9);
 }
 
+.dropdown-menu {
+  background-color: rgba(224,224,224,.7);
+}
+
 .my-bookshelf {
   margin: 1em;
 }
@@ -42,6 +57,7 @@ table {
 th {
   font: bold;
 }
+
 form {
   width: 100%;
 }
@@ -50,11 +66,39 @@ form {
   padding: 0 1em;
 }
 
-
 .font-awesome {
   font-family: FontAwesome;
 }
 
-.width-50 {
-  max-width: 50%;
+
+
+/* looks cool but I don't think it will be functional */
+/* .modal {
+  background-image: url(../assets/trinity_library3.jpg);
+  background-size: cover;
+  background-repeat: no-repeat;
+} */
+
+
+.modal-content {
+  background-color: rgba(224,224,224,1);
+}
+
+/* .modal-header {
+  background-color: rgb(41,44,52);
+  color: rgb(224,224,224)
+} */
+
+.modal-header button {
+  color: rgb(224,224,224);
+  opacity: 1;
+}
+
+ .modal-header {
+  background-image: url(../assets/trinity_library3_bw.jpg);
+  background-repeat: no-repeat;
+  background-position: center;
+  text-shadow: 2px 2px 2px black;
+  color: rgb(224,224,224);
+  border: 1px solid rgb(224,224,224);
 }

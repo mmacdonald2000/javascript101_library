@@ -46,17 +46,9 @@
       <!-- Remove Books button -->
       <button type="button" class="btn btn-light col bookshelf-buttons" aria-labelledby="Remove Books" data-toggle="modal" data-target="#removeBookModal">Remove Books</button>
 
-
-
     </div>
 
-
-    <div class="row">
-
-
-
-    </div>
-
+<!-- rows 3&4 My Bookshelf Table -->
     <div class="row my-bookshelf">
       <h2>My Bookshelf</h2>
     </div>
@@ -68,10 +60,10 @@
             <th><!-- Cover here--></th>
             <th>Title</th>
             <th>Author</th>
-            <th>Number of Pages</th>
-            <th>Publication Date</th>
+            <th>Pages</th>
+            <th>Date of Publication</th>
             <th>Rating</th>
-            <th><!-- removeBookbyTitle here --></th>
+            <th>Delete?</th>
           </tr>
         </thead>
         <tbody>
@@ -80,7 +72,7 @@
             <td data-toggle="modal" data-target="#bookModal"><img src="./assets/filler_murray.jpg" alt="Cover art"></td>
             <td contenteditable="true">The Slow Regard of Silent Things</td>
             <td contenteditable="true">Patrick Rothfuss</td>
-            <td>662</td>
+            <td class="text-center">662</td>
             <td>March 2007</td>
             <td><span class="text-nowrap">
               <i class="fas fa-star"></i>
@@ -89,13 +81,13 @@
               <i class="fas fa-star"></i>
               <i class="far fa-star"></i>
             </span></td>
-            <td><input type="checkbox" name="Delete" value=""></td>
+            <td class="text-center"><input type="checkbox" name="Delete" value=""></td>
           </tr>
           <tr>
             <td data-toggle="modal" data-target="#bookModal"><img src="./assets/filler_murray.jpg" alt="Cover art"></td>
             <td contenteditable="true">Kingkiller Chronicle #3</td>
             <td contenteditable="true">Patrick Rothfuss</td>
-            <td>662</td>
+            <td class="text-center">662</td>
             <td>March 2007</td>
             <td>
               <i class="fas fa-star"></i>
@@ -104,13 +96,13 @@
               <i class="fas fa-star"></i>
               <i class="far fa-star"></i>
             </td>
-            <td><input type="checkbox" name="Delete" value=""></td>
+            <td class="text-center"><input type="checkbox" name="Delete" value=""></td>
           </tr>
           <tr>
             <td data-toggle="modal" data-target="#bookModal"><img src="./assets/filler_murray.jpg" alt="Cover art"></td>
             <td contenteditable="true">The Wise Man's Fear</td>
             <td contenteditable="true">Patrick Rothfuss</td>
-            <td>662</td>
+            <td class="text-center">662</td>
             <td>March 2007</td>
             <td><span class="text-nowrap">
               <i class="fas fa-star"></i>
@@ -119,13 +111,13 @@
               <i class="fas fa-star"></i>
               <i class="far fa-star"></i>
             </span></td>
-            <td><input type="checkbox" name="Delete" value=""></td>
+            <td class="text-center"><input type="checkbox" name="Delete" value=""></td>
           </tr>
           <tr>
             <td data-toggle="modal" data-target="#bookModal"><img src="./assets/filler_murray.jpg" alt="Cover art"></td>
             <td contenteditable="true">The Name of the Wind</td>
             <td contenteditable="true">Patrick Rothfuss</td>
-            <td>662</td>
+            <td class="text-center">662</td>
             <td>March 2007</td>
             <td><span class="text-nowrap">
               <i class="fas fa-star"></i>
@@ -134,13 +126,13 @@
               <i class="fas fa-star"></i>
               <i class="far fa-star"></i>
             </span></td>
-            <td><input type="checkbox" name="Delete" value=""></td>
+            <td class="text-center"><input type="checkbox" name="Delete" value=""></td>
           </tr>
           <tr>
             <td data-toggle="modal" data-target="#bookModal"><img src="./assets/filler_murray.jpg" alt="Cover art"></td>
             <td contenteditable="true">The Name of the Wind 2</td>
             <td contenteditable="true">Patrick Rothfuss</td>
-            <td>662</td>
+            <td class="text-center">662</td>
             <td>March 2007</td>
             <td><span class="text-nowrap">
               <i class="fas fa-star"></i>
@@ -149,7 +141,7 @@
               <i class="fas fa-star"></i>
               <i class="far fa-star"></i>
             </span></td>
-            <td><input type="checkbox" name="Delete" value=""></td>
+            <td class="text-center"><input type="checkbox" name="Delete" value=""></td>
           </tr>
         </tbody>
 
@@ -159,7 +151,7 @@
     <!--MODALS-------------------------------------------------------->
 
     <!--Add Book Modal------------------------------------------------>
-    <div class="modal fade" id="addBookModal" tabindex="-1" role="dialog" aria-labelledby="Add book form" aria-hidden="true">
+    <div class="modal bg-modal fade" id="addBookModal" tabindex="-1" role="dialog" aria-labelledby="Add book form" aria-hidden="true">
       <div class="modal-dialog" role="document">
         <div class="modal-content">
           <div class="modal-header">
@@ -184,7 +176,7 @@
                 <!--Rating-->
                 <div class="form-group">
                   <label for="formAddBookRating">Rating</label>
-                  <input type="text" id="formAddBookRating" class="form-control col font-awesome width-25" placeholder="&#xf005; &#xf005; &#xf005; &#xf005; &#xf005;">
+                  <input type="text" id="formAddBookRating" class="form-control col font-awesome" placeholder="&#xf005; &#xf005; &#xf005; &#xf005; &#xf005;">
                 </div>
               </div>
 
@@ -253,7 +245,7 @@
             </div>
           </div>
           <div class="modal-footer">
-            <button type="button" class="btn btn-secondary" data-dismiss="modal">Remove Book(s)</button>
+            <button type="button" class="btn btn-dark" data-dismiss="modal">Remove Book(s)</button>
           </div>
         </div>
       </div>
@@ -337,7 +329,7 @@
             </ul>
           </div>
           <div class="modal-footer">
-            <button type="button" class="btn btn-secondary" data-dismiss="modal" id="getBooksbyAuthor">See all Books by this Author</button>
+            <button type="button" class="btn btn-dark" data-dismiss="modal" id="getBooksbyAuthor">See all Books by this Author</button>
           </div>
         </div>
       </div>
