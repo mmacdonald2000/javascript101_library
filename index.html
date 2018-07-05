@@ -2,62 +2,74 @@
 <html lang="en" dir="ltr">
   <head>
     <meta charset="utf-8">
-    <title>Library Test Page</title>
+    <title>My Bookshelf</title>
 
     <link rel="stylesheet" href="./css/bootstrap.css">
     <link rel="stylesheet" href="./fonts/fontawesome/web-fonts-with-css/css/fontawesome-all.css">
     <link rel="stylesheet" href="./css/master.css">
   </head>
   <body class="container-fluid">
-    <header>
-      <h1 class="text-center">Welcome to the Library</h1>
+
+<!-- row 1 -->
+    <div class="row justify-content-between">
+      <!-- Show All Books button -->
+      <button type="button" class="btn btn-light bookshelf-buttons" aria-labelledby="My Bookshelf" data-toggle="modal" data-target="#allBookModal">My Bookshelf</button>
+      <!-- search bar -->
+      <input type="search" class="form-control ds-input search-bar" id="search-input" placeholder="Search..." autocomplete="off" data-siteurl="index.html" dir="auto">
+    </div>
+
+    <!-- Jumbotron -->
+    <header class="jumbotron">
+      <h1 class="text-center welcome">Welcome to the Library</h1>
     </header>
 
-    <div class="row">
-      <!-- Library Function Buttons -->
-      <div class="btn-group" role="group" aria-label="Library options">
-        <!-- Show All Books button -->
-        <button type="button" class="btn btn-secondary btn-light" aria-labelledby="My Bookshelf" data-toggle="modal" data-target="#allBookModal">My Bookshelf</button>
-        <!-- Show All Authors button -->
-        <button type="button" class="btn btn-secondary btn-light" aria-labelledby="show all authors" data-toggle="modal" data-target="#allAuthorModal">Show All Authors</button>
-
-        <div class="btn-group" role="group">
-          <button id="btnGroupDrop1" type="button" class="btn btn-secondary dropdown-toggle btn-light" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" aria-labelledby="can't decide?">
-            Can't Decide?
-          </button>
-          <div class="dropdown-menu" aria-labelledby="btnGroupDrop1">
-            <!-- Random Books button -->
-            <a class="dropdown-item" data-toggle="modal" data-target="#bookModal">Pick a Book</a>
-            <!-- Random Authors button -->
-            <a class="dropdown-item" data-toggle="modal" data-target="#pickAuthorModal">Pick an Author</a>
-          </div>
-        </div>
-      </div>
-      <!-- search bar -->
-      <input type="search" class="form-control ds-input" id="search-input" placeholder="Search..." autocomplete="off" data-siteurl="index.html" dir="auto">
-    </div>
-
-
-    <div class="row">
+<!-- row 2- Library Function Buttons -->
+    <div class="row justify-content-between">
       <!-- Add Books button -->
-      <button type="button" class="btn btn-light" aria-labelledby="Add books" data-toggle="modal" data-target="#addBookModal">Add Books</button>
+      <button type="button" class="btn btn-light col bookshelf-buttons" aria-labelledby="Add books" data-toggle="modal" data-target="#addBookModal">Add Books</button>
+
+      <!-- Show All Authors button -->
+      <button type="button" class="btn btn-secondary btn-light col bookshelf-buttons" aria-labelledby="show all authors" data-toggle="modal" data-target="#allAuthorModal">Show All Authors</button>
+
+
+      <button type="button" class="btn dropdown-toggle btn-light col bookshelf-buttons" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" aria-labelledby="can't decide?">
+        Can't Decide?
+      </button>
+        <div class="dropdown-menu" aria-labelledby="dropdown buttons">
+          <!-- Random Books button -->
+          <a class="dropdown-item" data-toggle="modal" data-target="#bookModal" aria-labelledby="pick a book">Pick a Book</a>
+          <!-- Random Authors button -->
+          <a class="dropdown-item" data-toggle="modal" data-target="#pickAuthorModal" aria-labelledby="pick an author">Pick an Author</a>
+        </div>
+
 
       <!-- Remove Books button -->
-      <button type="button" class="btn btn-light" aria-labelledby="Remove Books" data-toggle="modal" data-target="#removeBookModal">Remove Books</button>
+      <button type="button" class="btn btn-light col bookshelf-buttons" aria-labelledby="Remove Books" data-toggle="modal" data-target="#removeBookModal">Remove Books</button>
+
+
+
     </div>
 
+
+    <div class="row">
+
+
+
+    </div>
+
+    <div class="row my-bookshelf">
+      <h2>My Bookshelf</h2>
+    </div>
     <div class="row">
       <!-- Library Table -->
-      <table class="table table-hover table-striped table-dark table-bordered table-responsive col">
-        <caption class="table-caption">My BookShelf</caption>
+      <table class="table table-hover table-striped table-dark table-bordered col">
         <thead>
-          <tr class="">
+          <tr>
             <th><!-- Cover here--></th>
             <th>Title</th>
             <th>Author</th>
             <th>Number of Pages</th>
             <th>Publication Date</th>
-            <!-- how do I create stars? -->
             <th>Rating</th>
             <th><!-- removeBookbyTitle here --></th>
           </tr>
@@ -66,8 +78,23 @@
           <!-- placeholder table rows -->
           <tr>
             <td data-toggle="modal" data-target="#bookModal"><img src="./assets/filler_murray.jpg" alt="Cover art"></td>
-            <td>The Slow Regard of Silent Things</td>
-            <td>Patrick Rothfuss</td>
+            <td contenteditable="true">The Slow Regard of Silent Things</td>
+            <td contenteditable="true">Patrick Rothfuss</td>
+            <td>662</td>
+            <td>March 2007</td>
+            <td><span class="text-nowrap">
+              <i class="fas fa-star"></i>
+              <i class="fas fa-star"></i>
+              <i class="fas fa-star"></i>
+              <i class="fas fa-star"></i>
+              <i class="far fa-star"></i>
+            </span></td>
+            <td><input type="checkbox" name="Delete" value=""></td>
+          </tr>
+          <tr>
+            <td data-toggle="modal" data-target="#bookModal"><img src="./assets/filler_murray.jpg" alt="Cover art"></td>
+            <td contenteditable="true">Kingkiller Chronicle #3</td>
+            <td contenteditable="true">Patrick Rothfuss</td>
             <td>662</td>
             <td>March 2007</td>
             <td>
@@ -81,62 +108,47 @@
           </tr>
           <tr>
             <td data-toggle="modal" data-target="#bookModal"><img src="./assets/filler_murray.jpg" alt="Cover art"></td>
-            <td>Kingkiller Chronicle #3</td>
-            <td>Patrick Rothfuss</td>
+            <td contenteditable="true">The Wise Man's Fear</td>
+            <td contenteditable="true">Patrick Rothfuss</td>
             <td>662</td>
             <td>March 2007</td>
-            <td>
+            <td><span class="text-nowrap">
               <i class="fas fa-star"></i>
               <i class="fas fa-star"></i>
               <i class="fas fa-star"></i>
               <i class="fas fa-star"></i>
               <i class="far fa-star"></i>
-            </td>
+            </span></td>
             <td><input type="checkbox" name="Delete" value=""></td>
           </tr>
           <tr>
             <td data-toggle="modal" data-target="#bookModal"><img src="./assets/filler_murray.jpg" alt="Cover art"></td>
-            <td>The Wise Man's Fear</td>
-            <td>Patrick Rothfuss</td>
+            <td contenteditable="true">The Name of the Wind</td>
+            <td contenteditable="true">Patrick Rothfuss</td>
             <td>662</td>
             <td>March 2007</td>
-            <td>
+            <td><span class="text-nowrap">
               <i class="fas fa-star"></i>
               <i class="fas fa-star"></i>
               <i class="fas fa-star"></i>
               <i class="fas fa-star"></i>
               <i class="far fa-star"></i>
-            </td>
+            </span></td>
             <td><input type="checkbox" name="Delete" value=""></td>
           </tr>
           <tr>
             <td data-toggle="modal" data-target="#bookModal"><img src="./assets/filler_murray.jpg" alt="Cover art"></td>
-            <td>The Name of the Wind</td>
-            <td>Patrick Rothfuss</td>
+            <td contenteditable="true">The Name of the Wind 2</td>
+            <td contenteditable="true">Patrick Rothfuss</td>
             <td>662</td>
             <td>March 2007</td>
-            <td>
+            <td><span class="text-nowrap">
               <i class="fas fa-star"></i>
               <i class="fas fa-star"></i>
               <i class="fas fa-star"></i>
               <i class="fas fa-star"></i>
               <i class="far fa-star"></i>
-            </td>
-            <td><input type="checkbox" name="Delete" value=""></td>
-          </tr>
-          <tr>
-            <td data-toggle="modal" data-target="#bookModal"><img src="./assets/filler_murray.jpg" alt="Cover art"></td>
-            <td>The Name of the Wind 2</td>
-            <td>Patrick Rothfuss</td>
-            <td>662</td>
-            <td>March 2007</td>
-            <td>
-              <i class="fas fa-star"></i>
-              <i class="fas fa-star"></i>
-              <i class="fas fa-star"></i>
-              <i class="fas fa-star"></i>
-              <i class="far fa-star"></i>
-            </td>
+            </span></td>
             <td><input type="checkbox" name="Delete" value=""></td>
           </tr>
         </tbody>

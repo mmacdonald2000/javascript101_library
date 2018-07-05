@@ -1,8 +1,47 @@
 body{
-  background-color: darkgrey;
+  background-color: black;
+  background-image: url(../assets/trinity_library2.jpg);
+  background-repeat: repeat-y;
+  background-size: auto;
+  font-family: Georgia;
 
 }
 
+header, .my-bookshelf {
+  color: rgb(224,224,224);
+  text-shadow: 2px 2px 2px #000000;
+}
+
+.search-bar {
+  max-width: 30%;
+  margin: 1em;
+}
+
+.jumbotron {
+  background-color: transparent;
+}
+
+.bookshelf-buttons {
+  margin: 1em;
+  min-width: auto;
+  /* look for a way to make the min width the width of the letters */
+  max-width: 25%;
+  background-color: rgba(224,224,224,.7);
+  border-color: rgba(132,80,10,.9);
+}
+
+.my-bookshelf {
+  margin: 1em;
+}
+
+table {
+  margin: 1em;
+  opacity: .9;
+}
+
+th {
+  font: bold;
+}
 form {
   width: 100%;
 }
