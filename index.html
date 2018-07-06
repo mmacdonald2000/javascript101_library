@@ -165,18 +165,66 @@
               <!--Title-->
               <div class="form-group row">
                 <label for="formAddBookTitle">Title</label>
-                <input type="text" id="formAddBookTitle" class="form-control col-md-12 col-sm-12 pr-2" placeholder="The Name of the Wind">
+                <input type="text" id="formAddBookTitle" class="form-control col-md-12 col-sm-12 pr-2" placeholder="The Name of the Wind" required>
               </div>
               <div class="row">
                 <!--Author-->
                 <div class="form-group">
                   <label for="formAddBookAuthor">Author</label>
-                  <input type="text" id="formAddBookAuthor" class="form-control col" placeholder="Patrick Rothfuss">
+                  <input type="text" id="formAddBookAuthor" class="form-control col" placeholder="Patrick Rothfuss" required>
                 </div>
                 <!--Rating-->
                 <div class="form-group">
                   <label for="formAddBookRating">Rating</label>
-                  <input type="text" id="formAddBookRating" class="form-control col font-awesome" placeholder="&#xf005; &#xf005; &#xf005; &#xf005; &#xf005;">
+                  <button type="button" id="formAddBookRating" class="form-control btn col dropdown-toggle" data-toggle="dropdown">
+                     None
+                  </button>
+                  <div class="dropdown-menu add-book-rating-dropdown" aria-labelledby="dropdown buttons">
+                    <!-- Rating drop downs -->
+                    <a class="dropdown-item"aria-labelledby="None">None</a>
+                    <a class="dropdown-item" aria-labelledby="0 stars">
+                      <i class="far fa-star"></i>
+                      <i class="far fa-star"></i>
+                      <i class="far fa-star"></i>
+                      <i class="far fa-star"></i>
+                      <i class="far fa-star"></i>
+                    </a>
+                    <a class="dropdown-item" aria-labelledby="1 star">
+                      <i class="fas fa-star"></i>
+                      <i class="far fa-star"></i>
+                      <i class="far fa-star"></i>
+                      <i class="far fa-star"></i>
+                      <i class="far fa-star"></i>
+                    </a>
+                    <a class="dropdown-item" aria-labelledby="2 stars">
+                      <i class="fas fa-star"></i>
+                      <i class="fas fa-star"></i>
+                      <i class="far fa-star"></i>
+                      <i class="far fa-star"></i>
+                      <i class="far fa-star"></i>
+                    </a>
+                    <a class="dropdown-item" aria-labelledby="3 stars">
+                      <i class="fas fa-star"></i>
+                      <i class="fas fa-star"></i>
+                      <i class="fas fa-star"></i>
+                      <i class="far fa-star"></i>
+                      <i class="far fa-star"></i>
+                    </a>
+                    <a class="dropdown-item" aria-labelledby="4 stars">
+                      <i class="fas fa-star"></i>
+                      <i class="fas fa-star"></i>
+                      <i class="fas fa-star"></i>
+                      <i class="fas fa-star"></i>
+                      <i class="far fa-star"></i>
+                    </a>
+                    <a class="dropdown-item" aria-labelledby="5 stars">
+                      <i class="fas fa-star"></i>
+                      <i class="fas fa-star"></i>
+                      <i class="fas fa-star"></i>
+                      <i class="fas fa-star"></i>
+                      <i class="fas fa-star"></i>
+                    </a>
+                  </div>
                 </div>
               </div>
 
@@ -184,12 +232,12 @@
                 <!--Pages-->
                 <div class="form-group">
                   <label for="formAddBookPages">Number of Pages</label>
-                  <input type="number" id="formAddBookPages" class="form-control col" placeholder="234">
+                  <input type="number" id="formAddBookPages" class="form-control col" placeholder="234" required>
                 </div>
                 <!--PubDate-->
                 <div class="form-group">
                   <label for="formAddBookPubDate">Publication Date</label>
-                  <input type="date" id="formAddBookPubDate" class="form-control col" placeholder="03/2007">
+                  <input type="date" id="formAddBookPubDate" class="form-control col" placeholder="03/2007" required>
                 </div>
               </div>
 

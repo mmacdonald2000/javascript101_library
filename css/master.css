@@ -14,7 +14,7 @@ body{
   background-position: top;
   height: 100%;
   /* overflow: hidden; */
-  font-family: Georgia;
+  font-family: Georgia, "Times New Roman", fantasy;
 
 }
 
@@ -68,6 +68,9 @@ form {
 
 .font-awesome {
   font-family: FontAwesome;
+}
+.add-book-rating-dropdown {
+  background-color: rgb(224,224,224);
 }
 
 
