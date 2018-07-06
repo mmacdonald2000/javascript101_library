@@ -304,14 +304,15 @@ var book2000 = new Book("this is 2000", "Me", 190, "October 2000");
 var fiveBooks = [book6, book7, book8, book9, book10];
 var firstfiveBooks = [book1, book2, book3, book4, book5];
 var tricksyBooks = [book11, book12];
+var allBooks = [book1, book2, book3, book4, book5, book6, book7, book8, book9, book10, book11, book12];
 
-
-//Things to do after DOM loaded
-document.addEventListener("DOMContentLoaded", function() {
-  window.goldenLibrary = new Library("goldenLibrary");
-
-  if(localStorage.length > 0){
-    console.log("Recovered from localStorage")
-    window.goldenLibrary.recover();
-  }
-});
+//We don't need this now since jquery is creating the instance
+// //Things to do after DOM loaded
+// document.addEventListener("DOMContentLoaded", function() {
+//   window.goldenLibrary = new Library("goldenLibrary");
+//
+//   if(localStorage.length > 0){
+//     console.log("Recovered from localStorage")
+//     window.goldenLibrary.recover();
+//   }
+// });
