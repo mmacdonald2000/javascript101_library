@@ -9,32 +9,32 @@ ShowAuthorsUI.prototype = Object.create(Library.prototype);
 //make an initialization function - put things you want immediately loaded here
 ShowAuthorsUI.prototype.init = function () {
   //separate concerns - recover should be inside the Library not here
-  this.recover();
+  //this.recover();
   this._bindEvents();
-  return false;
+
 };
 
 ShowAuthorsUI.prototype._bindEvents = function () {
   //using proxy to force this to be the scope and not the element
   $('button#show-all-button"]').on('click', $.proxy(this._handleShowAuthors, this));
-  return false;
+
 };
 
 ShowAuthorsUI.prototype._handleShowAuthors = function () {
 
   //console.log(this.getAuthors());
   var authors = this.getAuthors();
-  this.$container.modal('show');
-  this.$container.find('.modal-body').html(this._createUlOfAuthors(authors));
-  if(authors.length){
 
+  if(authors.length){
+    this.$container.modal('show');
+    this.$container.find('.modal-body').html(this._createUlOfAuthors(authors));
   } else {
     alert('Nothing in library!')
   }
   return false;
 };
 
-ShowAuthorsUI.prototype._createUlOfAuthos = function () {
+ShowAuthorsUI.prototype._createUlOfAuthors = function () {
   var ul = document.createElement('ul');
   for (var i = 0; i < authors.length; i++) {
     var li = document.createElement('li');
