@@ -51,11 +51,15 @@ header, .my-bookshelf, .login {
 
 table {
   margin: 1em;
-  opacity: .9;
+  opacity: .95;
 }
 
 th {
   font: bold;
+}
+
+td img {
+  opacity: 1.0;
 }
 
 form {
