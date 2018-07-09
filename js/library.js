@@ -13,7 +13,7 @@ var Library;
     }
     //this will run the first time and only the first time
     instance = this;
-    this._bookShelf = [];
+    window.bookShelf = [];
     this._libraryKey = key;
   }
 })();
@@ -22,19 +22,10 @@ var Library;
 // //This is the previous constructor from before we made this a singlton
 // /*Constructor for Library class - use prototype (below) to make methods*/
 // var Library = function(key){
-//   this._bookShelf = new Array();
+//   window.bookShelf = new Array();
 //   this._libraryKey = key;
 // };
 
-/*Constructor for Book class - no methods*/
-var Book = function (title, author, numberOfPages, publishDate){
-  this.title = String(title);
-  this.author = String(author);
-  this.numberOfPages = Number(numberOfPages);
-  this.publishDate = new Date(publishDate.toString()).getUTCFullYear();
-  //have to use getUTCFullYear cuz otherwise the year is decremented every time it's pulled from localStorage
-  //Why?
-};
 
 Library.prototype.addBook = function (book) {
   /*Purpose: Add a book object to your books array.
@@ -42,13 +33,13 @@ Library.prototype.addBook = function (book) {
 
   //error handling - check if input is a {Book}
   if (book instanceof Book){
-    for(i=0; i<this._bookShelf.length; i++){
+    for(i=0; i<window.bookShelf.length; i++){
       //check if book is present, if present return false, otherwise push {Book} and return true
-      if(book === this._bookShelf[i]){
+      if(book === window.bookShelf[i]){
         return false;
       }
     }
-    this._bookShelf.push(book);
+    window.bookShelf.push(book);
     //store change to localStorage
     this.store();
     return true;
@@ -85,14 +76,14 @@ Library.prototype.removeBookbyTitle = function (title) {
 
   //create counter for removed books
   var removed = 0;
-  for(i=0; i<this._bookShelf.length; i++){
+  for(i=0; i<window.bookShelf.length; i++){
     //variable to keep crazy dots in perspective
     //toLowerCase used so function is not case sensitive
     //if using RegEx could use /i flag
-    var bookShelfTitle = this._bookShelf[i].title.toLowerCase();
+    var bookShelfTitle = window.bookShelf[i].title.toLowerCase();
     //if titles are exactly equal remove entry, increment removed variable
     if(bookShelfTitle === (title.toLowerCase())){
-      this._bookShelf.splice(i, 1);
+      window.bookShelf.splice(i, 1);
       removed++;
     };
   }
@@ -112,11 +103,11 @@ Library.prototype.removeBookByAuthor = function (authorName) {
 
   //reuse logic from removeBookbyTitle
   var removed = 0;
-  for(i=0; i<this._bookShelf.length; i++){
-    var bookShelfAuthor = this._bookShelf[i].author.toLowerCase();
+  for(i=0; i<window.bookShelf.length; i++){
+    var bookShelfAuthor = window.bookShelf[i].author.toLowerCase();
     //if titles are exactly equal remove entry, increment removed
     if(bookShelfAuthor === (authorName.toLowerCase())){
-      this._bookShelf.splice(i, 1);
+      window.bookShelf.splice(i, 1);
       removed++;
       /* splice lets the next entry "fall" back into the previous index so we have to go back to check that entry
       We accomplish this by resetting the index to the previous number but only if we've spliced something
@@ -137,14 +128,14 @@ Library.prototype.getBookByTitle = function (title) {
   /*Purpose: Return all books that completely or partially matches the string title passed into the function
   Return: array of book objects if you find books with matching titles, empty array if no books are found*/
   var hasTitleResults = new Array();
-  for(i=0; i<this._bookShelf.length; i++){
+  for(i=0; i<window.bookShelf.length; i++){
     //create holder variable because dot notation was getting crazy
     //toLowerCase allows the input to be matched regardless of capitalization (must use on both input and .title)
-    var bookShelfTitle = this._bookShelf[i].title.toLowerCase();
+    var bookShelfTitle = window.bookShelf[i].title.toLowerCase();
     //check if there is a match, then push the {Book} to results
     //match checks for exact match and outputs an array
     if(bookShelfTitle.match(title.toLowerCase()) !== null){
-      hasTitleResults.push(this._bookShelf[i]);
+      hasTitleResults.push(window.bookShelf[i]);
     };
   }
   return hasTitleResults;
@@ -156,10 +147,10 @@ Library.prototype.getBooksByAuthor = function (authorName) {
 
   //reuse logic from getBookByTitle
   var hasAuthorResults = new Array();
-  for(i=0; i<this._bookShelf.length; i++){
-    var bookShelfAuthor = this._bookShelf[i].author.toLowerCase();
+  for(i=0; i<window.bookShelf.length; i++){
+    var bookShelfAuthor = window.bookShelf[i].author.toLowerCase();
     if(bookShelfAuthor.match(authorName.toLowerCase()) !== null){
-      hasAuthorResults.push(this._bookShelf[i]);
+      hasAuthorResults.push(window.bookShelf[i]);
     };
   }
   return hasAuthorResults;
@@ -173,8 +164,8 @@ Library.prototype.getAuthors = function () {  //research filter for this
 
   var fullAuthorArray = new Array();
   //for loop to make an array of author names
-  for(i=0; i<this._bookShelf.length; i++){
-    fullAuthorArray.push(this._bookShelf[i].author);
+  for(i=0; i<window.bookShelf.length; i++){
+    fullAuthorArray.push(window.bookShelf[i].author);
   };
   //use reduce to remove duplicate items
   //chose because I found an example on MDN removing duplicate numbers - this seems to be used primarily for numerical transforms
@@ -199,7 +190,7 @@ Library.prototype.getRandomBook = function () {
   //*length will make it between 0 and length
   //Math.floor rounds number down to nearest integer
   var randomBook = new Array();
-  randomBook = this._bookShelf[Math.floor(Math.random()*this._bookShelf.length)];
+  randomBook = window.bookShelf[Math.floor(Math.random()*window.bookShelf.length)];
   return randomBook;
 };
 
@@ -209,7 +200,7 @@ Library.prototype.getRandomAuthorName = function () {
 
   //reuse logic from randomBook
   var randomAuthor = new Array();
-  randomAuthor = this._bookShelf[Math.floor(Math.random()*this._bookShelf.length)].author;
+  randomAuthor = window.bookShelf[Math.floor(Math.random()*window.bookShelf.length)].author;
   return randomAuthor;
 };
 
@@ -222,12 +213,12 @@ Library.prototype.getBookByPageCount = function (pages, range){
     //range is an optional variable that is either the number the user inputs or 50
     var range = range || 50;
     //loop through bookShelf
-    for(i=0; i<this._bookShelf.length; i++){
+    for(i=0; i<window.bookShelf.length; i++){
       //create a variable pointing toward numberOfPages
-      var bookShelfPages = this._bookShelf[i].numberOfPages
+      var bookShelfPages = window.bookShelf[i].numberOfPages
       //push to results array if numberOfPages is within 50 pages of input
       if((bookShelfPages >= pages - range) && (bookShelfPages <= pages + range )){
-        hasResults.push(this._bookShelf[i]);
+        hasResults.push(window.bookShelf[i]);
       };
     }
     return hasResults;
@@ -239,12 +230,12 @@ Library.prototype.getBookByPubDate = function (pubDate, range){
     //range is an optional variable that is either the number the user inputs or 0
     var range = range || 0;
     //loope through bookShelf
-    for(i=0; i<this._bookShelf.length; i++){
+    for(i=0; i<window.bookShelf.length; i++){
       //create variable pointing toward publishDate
-      var bookShelfpubDate= this._bookShelf[i].publishDate;
+      var bookShelfpubDate= window.bookShelf[i].publishDate;
       //push to results array if publishDate is within range years of input
       if((pubDate-range)<= bookShelfpubDate && bookShelfpubDate <= (pubDate+range)){
-        hasResults.push(this._bookShelf[i]);
+        hasResults.push(window.bookShelf[i]);
       };
     }
     return hasResults;
@@ -269,42 +260,25 @@ Library.prototype.recover = function (){
   //a function to recover the Library stored in localStorage
   var parsed = JSON.parse(localStorage.getItem(this._libraryKey));
   for(i=0; i<parsed.length; i++){
-    this._bookShelf[i] = new Book(parsed[i].title, parsed[i].author, parsed[i].numberOfPages, parsed[i].publishDate);
+    window.bookShelf[i] = new Book(parsed[i].title, parsed[i].author, parsed[i].numberOfPages, parsed[i].publishDate);
   }
 }
 
 Library.prototype.store = function () {
   //a function to push the library to localStorage
-  var storeParsed = JSON.stringify(this._bookShelf);
+  var storeParsed = JSON.stringify(window.bookShelf);
   localStorage.setItem(this._libraryKey, storeParsed);
 }
 
 /*-----USEFUL FUNCTION--------------------------------------------------------*/
 Library.prototype.clearAll= function () {
   /*Purpose: Remove all books to reset testing environment*/
-  this._bookShelf.splice(0, this._bookShelf.length);
+  window.bookShelf.splice(0, window.bookShelf.length);
   this.store();
-  return this._bookShelf
+  return window.bookShelf
 };
 
-//List of Books to experiment:
-var book1 = new Book("The Name of the Wind", "Patrick Rothfuss", 662, "March 2007");
-var book2 = new Book("Harry Potter and the Sorceror's Stone", "JK Rowling", 102, "June 1997");
-var book3 = new Book("Harry Potter and the Chamber of Secrets", "JK Rowling", 226, "July 1998");
-var book4 = new Book("Harry Potter and the Golblet of Fire", "JK Rowling", 662, "July 2000");
-var book5 = new Book("New Moon", "Midori Snyder", 176, "June 2005");
-var book6 = new Book("206 Bones", "Kathy Reichs", 124, "May 2009");
-var book7 = new Book("Eragon", "Christopher Paolini", 662, "August 2003");
-var book8 = new Book("The Martian", "Andy Wier", 207, "February 2011");
-var book9 = new Book("Harry Potter and the Order of the Phoenix", "JK Rowling", 700, "June 2003");
-var book10 = new Book("The Wise Man's Fear", "Patrick Rothfuss", 540, "March 2011");
-var book11 = new Book("Cloud Atlas", "David Mitchell", 250, "October 2012");
-var book12 = new Book("The Cloud Atlas", "Liam Callanan", 190, "October 2004");
-var book2000 = new Book("this is 2000", "Me", 190, "October 2000");
-var fiveBooks = [book6, book7, book8, book9, book10];
-var firstfiveBooks = [book1, book2, book3, book4, book5];
-var tricksyBooks = [book11, book12];
-var allBooks = [book1, book2, book3, book4, book5, book6, book7, book8, book9, book10, book11, book12];
+
 
 //We don't need this now since jquery is creating the instance
 // //Things to do after DOM loaded

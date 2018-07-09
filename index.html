@@ -25,13 +25,13 @@
       <h1 class="text-center welcome">Welcome to the Library</h1>
     </header>
 
-<!-- row 2- Library Function Buttons -->
+<!-- row 2- Library Function Buttons data-toggle="modal" data-target="#addBookModal">-->
     <div class="row justify-content-between">
       <!-- Add Books button -->
-      <button type="button" class="btn btn-light col bookshelf-buttons" aria-labelledby="Add books" data-toggle="modal" data-target="#addBookModal">Add Books</button>
+      <button type="button" class="btn btn-light col bookshelf-buttons" aria-labelledby="Add books" id="add-books-btn"> Add Books</button>
 
-      <!-- Show All Authors button data-target="#allAuthorModal"-->
-      <button type="button" class="btn btn-secondary btn-light col bookshelf-buttons" aria-labelledby="show all authors" data-toggle="modal"  id="show-all-button">Show All Authors</button>
+      <!-- Show All Authors button  data-toggle="modal" data-target="#allAuthorModal"-->
+      <button type="button" class="btn btn-secondary btn-light col bookshelf-buttons" aria-labelledby="show all authors" id="show-all-button">Show All Authors</button>
 
 
       <button type="button" class="btn dropdown-toggle btn-light col bookshelf-buttons" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" aria-labelledby="can't decide?">
@@ -388,8 +388,11 @@
 
 <!-- JavaScript -------------------------------------------------------------->
     <script src="./js/jquery.js" charset="utf-8"></script>
+    <script src="./js/Book.js" charset="utf-8"></script>
     <script src="./js/library.js" charset="utf-8"></script>
+    <script src="./js/Util.js" charset="utf-8"></script>
     <script src="./js/ShowAuthorsUI.js" charset="utf-8"></script>
+    <script src="./js/AddBooksUI.js" charset="utf-8"></script>
 
     <script src="./js/bootstrap.bundle.js" charset="utf-8"></script>
 
