@@ -1,5 +1,5 @@
-var ShowAuthorsUI = function(container) {
-  this.$container = container;
+var ShowAuthorsUI = function(modal_id) {
+  this.$container = modal_id;
   Library.call(this);//set the this keyword to Library so that we can call anything in the library using 'this': "resetting scope"
 };
 
@@ -19,7 +19,7 @@ ShowAuthorsUI.prototype.init = function () {
 ShowAuthorsUI.prototype._bindEvents = function () {
   //using proxy to force 'this' to be the scope and not the element
   //use id on my button to bind to a click event
-  $('button#show-all-button"]').on('click', $.proxy(this._handleShowAuthors, this));
+  $('button#show-all-authors').on('click', $.proxy(this._handleShowAuthors, this));
   return;
 };
 
@@ -41,7 +41,7 @@ ShowAuthorsUI.prototype._handleShowAuthors = function () {
   return;
 };
 
-ShowAuthorsUI.prototype._createUlOfAuthors = function () {
+ShowAuthorsUI.prototype._createUlOfAuthors = function (authors) {
   //create unordered list
   var ul = document.createElement('ul');
   //for elements returned from getAuthors create an <li> with text from getAuthors
@@ -53,6 +53,7 @@ ShowAuthorsUI.prototype._createUlOfAuthors = function () {
     //append to ul element
     ul.append(li);
   }
+  return ul;
 };
 
 
@@ -64,7 +65,7 @@ $(function(){
 
   // window.gShowAuthUI = new ShowAuthorsUI(); //first round of code
 
-  window.gShowAuthUI = new ShowAuthorsUI($('allAuthorModal'));//refactored to make a holding variable
+  window.gShowAuthUI = new ShowAuthorsUI($('#allAuthorModal'));//refactored to make a holding variable
   //initialize with your init function
   window.gShowAuthUI.init();
 });

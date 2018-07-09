@@ -4,6 +4,7 @@ var AddBooksUI = function(container){
   Library.call(this);
   this._tempBookShelf = new Array();
   this.$container = container;
+  this.queueCounter = 0;
 };
 
 //extending from Library
@@ -12,30 +13,88 @@ AddBooksUI.prototype = Object.create(Library.prototype);
 //initialize the instance
 AddBooksUI.prototype.init = function () {
   this._bindEvents();
+  return;
 };
 
 //put all events that should be controlled by this modal here
 //proxy similar to call - resets the context to the scope of the class or it would just be within the function's context
 AddBooksUI.prototype._bindEvents = function () {
+  //bind event to open modal
   $('#add-books-btn').on('click', $.proxy(this._handleModalOpen, this));
-  //bind event add books to queue
+  //bind event to make a book object
+
+  //bind event add book to queue
+  $('.queue-btn').on('click', $.proxy(this._queueBooks, this));
   //bind event to add books to library
+  $('#formAddAllBooks').on('click', $.proxy(this._addBooksToLIb, this));
+  return;
 };
 
-//Actual event handler
+//open the modal
 AddBooksUI.prototype._handleModalOpen = function () {
   this.$container.modal('show');
+  return;
 };
 
+//make book object from inputs
+AddBooksUI.prototype.makeBook = function () {
+
+  var serialized = $('form').serializeArray();
+  console.log(serialized);
+  console.log(serialized[0].value);
+
+  var inputBook = new Book(serialized[0].value, serialized[1].value, serialized[2].value, serialized[3].value);
+  // inputBook.title = serialized.title;
+  // inputBook.author = serialized.author;
+  // inputBook.numberOfPages = serialized.numberOfPages;
+  // inputBook.publishDate = serialized.publishDate;
+
+
+
+  // inputBook.title = $('#formAddBookTitle').val();
+  // inputBook.author = $('#formAddBookAuthor').val();
+  // inputBook.numberOfPages = $('#formAddBookPages').val();
+  // inputBook.publishDate = new Date($('#formAddBookPubDate').val()).getUTCFullYear() ;
+  // inputBook.author = $('#formAddBookRating').val();
+  // inputBook.author = $('#formAddBookCover').val();
+
+  return inputBook;
+};
+
+//add books to queue
 AddBooksUI.prototype._queueBooks = function () {
-  //add books to queue
+  event.preventDefault();
+  inputBook = this.makeBook();
+  console.log("This is the input: ");
+  console.log(inputBook);
+  this._tempBookShelf.push(inputBook);
+  this.queueCounter++;
+  $('.queueNumber').text(this.queueCounter);
+
+  return;
 };
 
+//add Queued books to bookshelf
 AddBooksUI.prototype._addBooksToLIb = function () {
-  //take queued books array and pass to this.addBooks in library
+  // event.preventDefault();
+  if(this.queueCounter===0){
+    inputBook = this.makeBook();
+    this.addBook(inputBook);
+  } else {
+    this.addBooks(this._tempBookShelf);
+  }
+  this.queueCounter = 0;
+  // this.$container.modal('hide');
+  return;
 };
 
 $(function(){
   window.gAddBooksUI = new AddBooksUI($('#addBookModal'));
   window.gAddBooksUI.init();
 });
+
+// //jQuery Form Validation Plugin
+// $(document).ready(function() {
+//
+//     $('#your_form_id').ajaxForm( { beforeSubmit: dateCheck } );
+// });

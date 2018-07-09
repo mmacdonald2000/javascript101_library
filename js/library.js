@@ -6,7 +6,7 @@ var Library;
 (function() {
   var instance;
 
-  Library = function(key) {
+  Library = function() {
     //If instance exists return instance
     if (instance) {
       return instance;
@@ -14,7 +14,7 @@ var Library;
     //this will run the first time and only the first time
     instance = this;
     window.bookShelf = [];
-    this._libraryKey = key;
+    this._libraryKey = 'goldenLibrary';
   }
 })();
 
@@ -35,7 +35,7 @@ Library.prototype.addBook = function (book) {
   if (book instanceof Book){
     for(i=0; i<window.bookShelf.length; i++){
       //check if book is present, if present return false, otherwise push {Book} and return true
-      if(book === window.bookShelf[i]){
+      if(book.title === window.bookShelf[i].title){
         return false;
       }
     }
