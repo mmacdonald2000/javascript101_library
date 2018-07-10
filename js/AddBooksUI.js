@@ -40,23 +40,19 @@ AddBooksUI.prototype._handleModalOpen = function () {
 AddBooksUI.prototype.makeBook = function () {
 
   var serialized = $('form').serializeArray();
-  console.log(serialized);
-  console.log(serialized[0].value);
+  // var title = serialized[0].value;
+  // var author = serialized[1].value;
+  // var numberOfPages = serialized[2].value;
+  // var publishDate = serialized[3].value;
 
-  var inputBook = new Book(serialized[0].value, serialized[1].value, serialized[2].value, serialized[3].value);
-  // inputBook.title = serialized.title;
-  // inputBook.author = serialized.author;
-  // inputBook.numberOfPages = serialized.numberOfPages;
-  // inputBook.publishDate = serialized.publishDate;
+  var title = $('#formAddBookTitle').val();
+  var author = $('#formAddBookAuthor').val();
+  var numberOfPages = $('#formAddBookPages').val();
+  var pubDate = $('#formAddBookPubDate').val();
+  // var rating = $('#formAddBookRating').val();
+  // var cover = $('#formAddBookCover').val();
 
-
-
-  // inputBook.title = $('#formAddBookTitle').val();
-  // inputBook.author = $('#formAddBookAuthor').val();
-  // inputBook.numberOfPages = $('#formAddBookPages').val();
-  // inputBook.publishDate = new Date($('#formAddBookPubDate').val()).getUTCFullYear() ;
-  // inputBook.author = $('#formAddBookRating').val();
-  // inputBook.author = $('#formAddBookCover').val();
+  var inputBook = new Book(title, author, numberOfPages, pubDate)
 
   return inputBook;
 };
