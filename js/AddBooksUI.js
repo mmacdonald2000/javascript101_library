@@ -100,14 +100,52 @@ AddBooksUI.prototype._addBooksToLIb = function () {
     inputBook = this.makeBook();
     this.addBook(inputBook);
   } else {
-    console.log(this._tempBookShelf);
     this.addBooks(this._tempBookShelf);
-    this._tempBookShelf = [];
+    this._clearQueue();
   }
-  this.queueCounter = 0;
-  $('.queueNumber').text(this.queueCounter);
   // this.$container.modal('hide');
   return;
+};
+
+AddBooksUI.prototype.validator = function (input) {
+  //use an .each check if kpv.value is truthy then do code
+  var serializedInput = $('form').serializeArray();
+  $.each(serializedInput, function(i, entry){
+    //if the value is an empty string return false, otherwise return true
+    if(entry){
+      return false;
+    }
+  });
+  return true;
+
+//   $("#formAddBook").validate({
+//     rules: {
+//       //basic syntax
+//       title: "required",
+//       author: "required",
+//       numberOfPages: {
+//         required: true,
+//         number: true
+//       },
+//       publishDate: {
+//         required: true,
+//         date: true
+//       }
+//     },
+//     messages: {
+//       title: "Please enter a title",
+//       author: "Please enter an author"
+//       numberOfPages: {
+//         required: "Please enter number of pages",
+//         number: "Please enter a number"
+//       },
+//       publishDate: {
+//         required: "Please enter a date",
+//         minlength: "Please enter a date in mm/dd/yyyy format"
+//       }
+//     }
+//   }
+//   )
 };
 
 $(function(){
