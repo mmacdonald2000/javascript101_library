@@ -1,6 +1,6 @@
 //contructor - container is a placeholder for the selector of the modal
 var AddBooksUI = function(container){
-  //reassign 'this' to the instance of Library
+  //reassign 'this' to the instance of Library -- native javaScript version of proxy
   Library.call(this);
   this._tempBookShelf = new Array();
   this.$container = container;
@@ -17,16 +17,17 @@ AddBooksUI.prototype.init = function () {
 };
 
 //put all events that should be controlled by this modal here
-//proxy similar to call - resets the context to the scope of the class or it would just be within the function's context
+//proxy similar to call - resets the context to the scope of the class or it would just be within the function's context -- if we didn't use it 'this' would return the jQuery object that was clicked
 AddBooksUI.prototype._bindEvents = function () {
   //bind event to open modal
   $('#add-books-btn').on('click', $.proxy(this._handleModalOpen, this));
-  //bind event to make a book object
 
-  //bind event add book to queue
-  $('.queue-btn').on('click', $.proxy(this._queueBooks, this));
+  //bind event to add book to queue
+  this.$container.find('.queue-btn').on('click', $.proxy(this._queueBooks, this));
+  //bind event to clear queue
+  this.$container.find('.clear-queue-btn').on('click', $.proxy(this._clearQueue, this));
   //bind event to add books to library
-  $('#formAddAllBooks').on('click', $.proxy(this._addBooksToLIb, this));
+  this.$container.find('#formAddAllBooks').on('click', $.proxy(this._addBooksToLIb, this));
   // return;
 };
 
