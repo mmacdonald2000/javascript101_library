@@ -3,7 +3,7 @@ var Book = function (title, author, numberOfPages, publishDate/*, rating, cover*
   this.title = String(title);
   this.author = String(author);
   this.numberOfPages = Number(numberOfPages);
-  this.publishDate = new Date(publishDate).getUTCFullYear();
+  this.publishDate = new Date(publishDate.toString()).getUTCFullYear();
   // this.rating = rating;
   // this.cover = cover;
   //have to use getUTCFullYear cuz otherwise the year is decremented every time it's pulled from localStorage
