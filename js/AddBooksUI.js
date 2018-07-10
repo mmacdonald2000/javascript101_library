@@ -27,7 +27,7 @@ AddBooksUI.prototype._bindEvents = function () {
   $('.queue-btn').on('click', $.proxy(this._queueBooks, this));
   //bind event to add books to library
   $('#formAddAllBooks').on('click', $.proxy(this._addBooksToLIb, this));
-  return;
+  // return;
 };
 
 //open the modal
@@ -75,14 +75,17 @@ AddBooksUI.prototype._queueBooks = function () {
 
 //add Queued books to bookshelf
 AddBooksUI.prototype._addBooksToLIb = function () {
-  // event.preventDefault();
+  event.preventDefault();
   if(this.queueCounter===0){
     inputBook = this.makeBook();
     this.addBook(inputBook);
   } else {
+    console.log(this._tempBookShelf);
     this.addBooks(this._tempBookShelf);
+    this._tempBookShelf = [];
   }
   this.queueCounter = 0;
+  $('.queueNumber').text(this.queueCounter);
   // this.$container.modal('hide');
   return;
 };
