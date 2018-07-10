@@ -163,7 +163,7 @@
             </button>
           </div>
           <div class="modal-body container">
-            <form>
+            <form id="formAddBook">
               <!--Title-->
               <div class="form-group row">
                 <label for="formAddBookTitle">Title</label>
@@ -255,7 +255,14 @@
                 <div class="form-group">
                   <button class=" btn btn-secondary col queue-btn">Add to Queue</button>
                 </div>
+
                 <p><span class="queueNumber">(0)</span> Book(s) added to Queue</p>
+              </div>
+              <div class="row">
+                <!-- Clear Queue -->
+                <div class="form-group">
+                  <button class=" btn btn-secondary col clear-queue-btn">Clear Queue</button>
+                </div>
               </div>
 
               <!--Submit Add all Books to library-->
@@ -388,6 +395,7 @@
 
 <!-- JavaScript -------------------------------------------------------------->
     <script src="./js/jquery.js" charset="utf-8"></script>
+    <script src="./js/jquery_validation_plugin.js" charset="utf-8"></script>
     <script src="./js/Book.js" charset="utf-8"></script>
     <script src="./js/library.js" charset="utf-8"></script>
     <script src="./js/Util.js" charset="utf-8"></script>
