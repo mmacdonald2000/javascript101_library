@@ -38,39 +38,58 @@ AddBooksUI.prototype._handleModalOpen = function () {
 
 //make book object from inputs
 AddBooksUI.prototype.makeBook = function () {
-  // serializeArray returns an array of objects with name and value key - name is the name from html value is the user input
-  // var serialized = $('form').serializeArray();
-  // var title = serialized[0].value;
-  // var author = serialized[1].value;
-  // var numberOfPages = serialized[2].value;
-  // var publishDate = serialized[3].value;
+  // serializeArray returns an array of objects with name and value keys - name is the name from html, value is the user input
+  var serializedInput = $('form').serializeArray();
 
-  var title = $('#formAddBookTitle').val();
-  var author = $('#formAddBookAuthor').val();
-  var numberOfPages = $('#formAddBookPages').val();
-  var pubDate = $('#formAddBookPubDate').val();
-  // var rating = $('#formAddBookRating').val();
-  // var cover = $('#formAddBookCover').val();
+    var holdingObj = new Object();
+    var bookValid = true;
+    //for each entry in the inputs put the value into the object with name as a key
+    $.each(serializedInput, function(index, entry){
+      if(entry.value){
+        holdingObj[entry.name] = entry.value;
+      } else {
+        //as is this does not stop the functionality-- Do I need to check for bookValid?
+        //if(bookValid && this.checkForDuplicates(holdingObj)){push}
+        bookValid = false;
+        alert("Please enter a value for " + entry.name)
+      }
+    });
+    //put the holdingObj into a Book object
+    var inputBook = new Book(holdingObj)
+    //return book
+    return inputBook;
 
-  var inputBook = new Book(title, author, numberOfPages, pubDate)
-
-  return inputBook;
 };
+
+
 
 //add books to queue
 AddBooksUI.prototype._queueBooks = function () {
+  //prevent button from closing modal
   event.preventDefault();
+  //make a book from input data
   inputBook = this.makeBook();
   console.log("This is the input: ");
   console.log(inputBook);
+  //put book on temporary bookshelf
+
+  //check if already on bookShelf and maybe if already on _tempBookShelf too
   this._tempBookShelf.push(inputBook);
   console.log("This is _tempBookShelf");
   console.log(this._tempBookShelf);
   this.queueCounter++;
   $('.queueNumber').text(this.queueCounter);
-  $('form').trigger('reset');
+  // $('form').trigger('reset');
 
   return;
+};
+
+//make a clear queue function
+AddBooksUI.prototype._clearQueue = function () {
+  event.preventDefault();
+  this._tempBookShelf = [];
+  this.queueCounter = 0;
+  $('.queueNumber').text(this.queueCounter);
 };
 
 //add Queued books to bookshelf
