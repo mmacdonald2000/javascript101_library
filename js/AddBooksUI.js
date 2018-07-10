@@ -64,8 +64,11 @@ AddBooksUI.prototype._queueBooks = function () {
   console.log("This is the input: ");
   console.log(inputBook);
   this._tempBookShelf.push(inputBook);
+  console.log("This is _tempBookShelf");
+  console.log(this._tempBookShelf);
   this.queueCounter++;
   $('.queueNumber').text(this.queueCounter);
+  $('form').trigger('reset');
 
   return;
 };
