@@ -38,8 +38,8 @@ AddBooksUI.prototype._handleModalOpen = function () {
 
 //make book object from inputs
 AddBooksUI.prototype.makeBook = function () {
-
-  var serialized = $('form').serializeArray();
+  // serializeArray returns an array of objects with name and value key - name is the name from html value is the user input
+  // var serialized = $('form').serializeArray();
   // var title = serialized[0].value;
   // var author = serialized[1].value;
   // var numberOfPages = serialized[2].value;
