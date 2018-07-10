@@ -31,14 +31,8 @@ Library.prototype.addBook = function (book) {
   /*Purpose: Add a book object to your books array.
   Return: boolean true if it is not already added, false if it is already added.*/
 
-  //error handling - check if input is a {Book}
-  if (book instanceof Book){
-    for(i=0; i<window.bookShelf.length; i++){
-      //check if book is present, if present return false, otherwise push {Book} and return true
-      if(book.title === window.bookShelf[i].title){
-        return false;
-      }
-    }
+  //error handling - check if input is already in bookShelf
+  if (this.checkForDuplicates(book)){
     window.bookShelf.push(book);
     //store change to localStorage
     this.store();
@@ -259,8 +253,11 @@ Library.prototype.search = function (input, input2) {
 Library.prototype.recover = function (){
   //a function to recover the Library stored in localStorage
   var parsed = JSON.parse(localStorage.getItem(this._libraryKey));
-  for(i=0; i<parsed.length; i++){
-    window.bookShelf[i] = new Book(parsed[i].title, parsed[i].author, parsed[i].numberOfPages, parsed[i].publishDate);
+  if(parsed){
+    for(i=0; i<parsed.length; i++){
+      //change to take object instead of specific arguments
+      window.bookShelf[i] = new Book(parsed[i]);
+    }
   }
 }
 
@@ -276,6 +273,18 @@ Library.prototype.clearAll= function () {
   window.bookShelf.splice(0, window.bookShelf.length);
   this.store();
   return window.bookShelf
+};
+
+Library.prototype.checkForDuplicates = function (book) {
+  if (book){
+    for(i=0; i<window.bookShelf.length; i++){
+      //check if book is present, if present return false, otherwise return true
+      if(book.title === window.bookShelf[i].title){
+        return false;
+      }
+    }
+    return true;
+  }
 };
 
 
