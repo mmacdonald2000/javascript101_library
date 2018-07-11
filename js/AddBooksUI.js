@@ -110,42 +110,42 @@ AddBooksUI.prototype._addBooksToLIb = function () {
   return;
 };
 
-AddBooksUI.prototype.validator = function (input) {
-  //uses jQuery Validation Plugin: not currently using in code (haven't tested)
-
-  // //Example: jQuery Form Validation Plugin
-  // $(document).ready(function() {
-  //     $('#your_form_id').ajaxForm( { beforeSubmit: dateCheck } );
-  // });
-  $("#formAddBook").validate({
-    rules: {
-      //basic syntax
-      title: "required",
-      author: "required",
-      numberOfPages: {
-        required: true,
-        number: true
-      },
-      publishDate: {
-        required: true,
-        date: true
-      }
-    },
-    messages: {
-      title: "Please enter a title",
-      author: "Please enter an author"
-      numberOfPages: {
-        required: "Please enter number of pages",
-        number: "Please enter a number"
-      },
-      publishDate: {
-        required: "Please enter a date",
-        minlength: "Please enter a date in mm/dd/yyyy format"
-      }
-    }
-  }
-  )
-};
+// AddBooksUI.prototype.validator = function (input) {
+//   //uses jQuery Validation Plugin: not currently using in code (haven't tested)
+//
+//   // //Example: jQuery Form Validation Plugin
+//   // $(document).ready(function() {
+//   //     $('#your_form_id').ajaxForm( { beforeSubmit: dateCheck } );
+//   // });
+//   $("#formAddBook").validate({
+//     rules: {
+//       //basic syntax
+//       title: "required",
+//       author: "required",
+//       numberOfPages: {
+//         required: true,
+//         number: true
+//       },
+//       publishDate: {
+//         required: true,
+//         date: true
+//       }
+//     },
+//     messages: {
+//       title: "Please enter a title",
+//       author: "Please enter an author"
+//       numberOfPages: {
+//         required: "Please enter number of pages",
+//         number: "Please enter a number"
+//       },
+//       publishDate: {
+//         required: "Please enter a date",
+//         minlength: "Please enter a date in mm/dd/yyyy format"
+//       }
+//     }
+//   }
+//   )
+// };
 
 $(function(){
   window.gAddBooksUI = new AddBooksUI($('#addBookModal'));
