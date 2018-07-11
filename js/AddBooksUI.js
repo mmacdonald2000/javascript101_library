@@ -101,17 +101,13 @@ AddBooksUI.prototype._addBooksToLIb = function () {
   //if there are no books in queue push this book to bookShelf otherwise add queue to bookShelf
   if(this._queueCounter===0){
     inputBook = this.makeBook();
-    if(this.checkForDuplicates(inputBook)){
-      this.addBook(inputBook);
-    } else {
-      alert("This book is already on your bookshelf!");
-    }
+    this.checkForDuplicates(inputBook) ? this.addBook(inputBook) : alert("This book is already on your bookshelf!");
   } else {
     this.addBooks(this._tempBookShelf);
     this._clearQueue();
   }
 
-  this.$container.modal('hide');
+  // this.$container.modal('hide');
   return;
 };
 
