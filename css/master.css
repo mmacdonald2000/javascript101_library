@@ -62,6 +62,10 @@ td img {
   opacity: 1.0;
 }
 
+table tr td.no-books {
+  text-align: center;
+}
+
 form {
   width: 100%;
 }

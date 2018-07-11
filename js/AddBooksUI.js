@@ -95,8 +95,9 @@ AddBooksUI.prototype._clearQueue = function () {
 //add Queued books to bookshelf
 AddBooksUI.prototype._addBooksToLIb = function () {
   //stop default so modal doesn't immediately close
-  event.preventDefault();
+  // event.preventDefault();
   //if there are no books in queue push this book to bookShelf otherwise add queue to bookShelf
+  debugger;
   if(this._queueCounter===0){
     inputBook = this.makeBook();
     if(this.checkForDuplicates(inputBook)){

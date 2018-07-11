@@ -287,6 +287,15 @@ Library.prototype.checkForDuplicates = function (book) {
   }
 };
 
+Library.prototype._handleEventTrigger = function (sEvent, oData) {
+  var oData = oData || {};
+  if(sEvent){
+    var event = new CustomEvent(sEvent,oData);
+    document.dispatchEvent(event);
+  }
+  //have to use detail as the key in the object you pass
+};
+
 
 
 //We don't need this now since jquery is creating the instance

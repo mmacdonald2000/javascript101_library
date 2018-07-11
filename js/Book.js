@@ -3,12 +3,12 @@
 
 //make book take an object as argument
 var Book = function (bookObj){
+  this.cover = "I'm a cover"
   this.title = String(bookObj.title);
   this.author = String(bookObj.author);
   this.numberOfPages = Number(bookObj.numberOfPages);
   this.publishDate = new Date(String(bookObj.publishDate)).getUTCFullYear();
-  // this.rating = rating;
-  // this.cover = cover;
+  this.rating = 3;
   //have to use getUTCFullYear cuz otherwise the year is decremented every time it's pulled from localStorage
   //Why?
 };

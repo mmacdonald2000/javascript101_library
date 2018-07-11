@@ -56,7 +56,7 @@
     </div>
     <div class="row">
       <!-- Library Table -->
-      <table class="table table-hover table-striped table-dark table-bordered col">
+      <table id="data-table" class="table table-hover table-striped table-dark table-bordered col">
         <thead>
           <tr>
             <th><!-- Cover here--></th>
@@ -71,66 +71,9 @@
         <tbody>
           <!-- placeholder table rows -->
           <tr>
-            <td data-toggle="modal" data-target="#bookModal"><img src="./assets/filler_murray.jpg" alt="Cover art"></td>
-            <td contenteditable="true">The Slow Regard of Silent Things</td>
-            <td contenteditable="true">Patrick Rothfuss</td>
-            <td class="text-center">662</td>
-            <td>March 2007</td>
-            <td><span class="text-nowrap">
-              <i class="fas fa-star"></i>
-              <i class="fas fa-star"></i>
-              <i class="fas fa-star"></i>
-              <i class="fas fa-star"></i>
-              <i class="far fa-star"></i>
-            </span></td>
-            <td class="text-center"><input type="checkbox" name="Delete" value=""></td>
+            <td class="no-books" colspan="7">No books in your Library. </td>
           </tr>
-          <tr>
-            <td data-toggle="modal" data-target="#bookModal"><img src="./assets/filler_murray.jpg" alt="Cover art"></td>
-            <td contenteditable="true">Kingkiller Chronicle #3</td>
-            <td contenteditable="true">Patrick Rothfuss</td>
-            <td class="text-center">662</td>
-            <td>March 2007</td>
-            <td>
-              <i class="fas fa-star"></i>
-              <i class="fas fa-star"></i>
-              <i class="fas fa-star"></i>
-              <i class="fas fa-star"></i>
-              <i class="far fa-star"></i>
-            </td>
-            <td class="text-center"><input type="checkbox" name="Delete" value=""></td>
-          </tr>
-          <tr>
-            <td data-toggle="modal" data-target="#bookModal"><img src="./assets/filler_murray.jpg" alt="Cover art"></td>
-            <td contenteditable="true">The Wise Man's Fear</td>
-            <td contenteditable="true">Patrick Rothfuss</td>
-            <td class="text-center">662</td>
-            <td>March 2007</td>
-            <td><span class="text-nowrap">
-              <i class="fas fa-star"></i>
-              <i class="fas fa-star"></i>
-              <i class="fas fa-star"></i>
-              <i class="fas fa-star"></i>
-              <i class="far fa-star"></i>
-            </span></td>
-            <td class="text-center"><input type="checkbox" name="Delete" value=""></td>
-          </tr>
-          <tr>
-            <td data-toggle="modal" data-target="#bookModal"><img src="./assets/filler_murray.jpg" alt="Cover art"></td>
-            <td contenteditable="true">The Name of the Wind</td>
-            <td contenteditable="true">Patrick Rothfuss</td>
-            <td class="text-center">662</td>
-            <td>March 2007</td>
-            <td><span class="text-nowrap">
-              <i class="fas fa-star"></i>
-              <i class="fas fa-star"></i>
-              <i class="fas fa-star"></i>
-              <i class="fas fa-star"></i>
-              <i class="far fa-star"></i>
-            </span></td>
-            <td class="text-center"><input type="checkbox" name="Delete" value=""></td>
-          </tr>
-          <tr>
+          <!-- <tr>
             <td data-toggle="modal" data-target="#bookModal"><img src="./assets/filler_murray.jpg" alt="Cover art"></td>
             <td contenteditable="true">The Name of the Wind 2</td>
             <td contenteditable="true">Patrick Rothfuss</td>
@@ -144,7 +87,7 @@
               <i class="far fa-star"></i>
             </span></td>
             <td class="text-center"><input type="checkbox" name="Delete" value=""></td>
-          </tr>
+          </tr> -->
         </tbody>
 
       </table>
@@ -401,6 +344,7 @@
     <script src="./js/Util.js" charset="utf-8"></script>
     <script src="./js/ShowAuthorsUI.js" charset="utf-8"></script>
     <script src="./js/AddBooksUI.js" charset="utf-8"></script>
+    <script src="./js/DataTable.js" charset="utf-8"></script>
 
     <script src="./js/bootstrap.bundle.js" charset="utf-8"></script>
 
