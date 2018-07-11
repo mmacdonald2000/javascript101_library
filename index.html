@@ -25,13 +25,13 @@
       <h1 class="text-center welcome">Welcome to the Library</h1>
     </header>
 
-<!-- row 2- Library Function Buttons -->
+<!-- row 2- Library Function Buttons data-toggle="modal" data-target="#addBookModal">-->
     <div class="row justify-content-between">
       <!-- Add Books button -->
-      <button type="button" class="btn btn-light col bookshelf-buttons" aria-labelledby="Add books" data-toggle="modal" data-target="#addBookModal">Add Books</button>
+      <button type="button" class="btn btn-light col bookshelf-buttons" aria-labelledby="Add books" id="add-books-btn"> Add Books</button>
 
-      <!-- Show All Authors button -->
-      <button type="button" class="btn btn-secondary btn-light col bookshelf-buttons" aria-labelledby="show all authors" data-toggle="modal" data-target="#allAuthorModal">Show All Authors</button>
+      <!-- Show All Authors button  data-toggle="modal" data-target="#allAuthorModal"-->
+      <button type="button" class="btn btn-secondary btn-light col bookshelf-buttons" aria-labelledby="show all authors" id="show-all-authors">Show All Authors</button>
 
 
       <button type="button" class="btn dropdown-toggle btn-light col bookshelf-buttons" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" aria-labelledby="can't decide?">
@@ -163,17 +163,17 @@
             </button>
           </div>
           <div class="modal-body container">
-            <form>
+            <form id="formAddBook">
               <!--Title-->
               <div class="form-group row">
                 <label for="formAddBookTitle">Title</label>
-                <input type="text" id="formAddBookTitle" class="form-control col-md-12 col-sm-12 pr-2" placeholder="The Name of the Wind" required>
+                <input type="text" id="formAddBookTitle" class="form-control col-md-12 col-sm-12 pr-2" placeholder="The Name of the Wind" name="title" required>
               </div>
               <div class="row">
                 <!--Author-->
                 <div class="form-group">
                   <label for="formAddBookAuthor">Author</label>
-                  <input type="text" id="formAddBookAuthor" class="form-control col" placeholder="Patrick Rothfuss" required>
+                  <input type="text" id="formAddBookAuthor" class="form-control col" placeholder="Patrick Rothfuss" name="author" required>
                 </div>
                 <!--Rating-->
                 <div class="form-group">
@@ -234,12 +234,12 @@
                 <!--Pages-->
                 <div class="form-group">
                   <label for="formAddBookPages">Number of Pages</label>
-                  <input type="number" id="formAddBookPages" class="form-control col" placeholder="234" required>
+                  <input type="number" id="formAddBookPages" class="form-control col" placeholder="234" name="numberOfPages" required>
                 </div>
                 <!--PubDate-->
                 <div class="form-group">
                   <label for="formAddBookPubDate">Publication Date</label>
-                  <input type="date" id="formAddBookPubDate" class="form-control col" placeholder="03/2007" required>
+                  <input type="date" id="formAddBookPubDate" class="form-control col" placeholder="03/2007" name="publishDate" required>
                 </div>
               </div>
 
@@ -253,9 +253,16 @@
               <div class="row">
                 <!--Queue-->
                 <div class="form-group">
-                  <button class=" btn btn-secondary col">Add to Queue</button>
+                  <button class=" btn btn-secondary col queue-btn">Add to Queue</button>
                 </div>
-                <p><span class="queueNumber">(A number)</span>Book(s) added to Queue</p>
+
+                <p><span class="queueNumber">(0)</span> Book(s) added to Queue</p>
+              </div>
+              <div class="row">
+                <!-- Clear Queue -->
+                <div class="form-group">
+                  <button class=" btn btn-secondary col clear-queue-btn">Clear Queue</button>
+                </div>
               </div>
 
               <!--Submit Add all Books to library-->
@@ -387,9 +394,16 @@
 
 
 <!-- JavaScript -------------------------------------------------------------->
-    <script src="./js/library.js" charset="utf-8"></script>
     <script src="./js/jquery.js" charset="utf-8"></script>
+    <script src="./js/jquery_validation_plugin.js" charset="utf-8"></script>
+    <script src="./js/Book.js" charset="utf-8"></script>
+    <script src="./js/library.js" charset="utf-8"></script>
+    <script src="./js/Util.js" charset="utf-8"></script>
+    <script src="./js/ShowAuthorsUI.js" charset="utf-8"></script>
+    <script src="./js/AddBooksUI.js" charset="utf-8"></script>
+
     <script src="./js/bootstrap.bundle.js" charset="utf-8"></script>
+
 
 
   </body>
