@@ -278,7 +278,7 @@ Library.prototype.clearAll= function () {
 Library.prototype.checkForDuplicates = function (book) {
   if (book){
     for(i=0; i<window.bookShelf.length; i++){
-      //check if book is present, if present return false, otherwise return true
+      //check if book title is present, if present return false, otherwise return true
       if(book.title === window.bookShelf[i].title){
         return false;
       }

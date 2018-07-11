@@ -73,28 +73,19 @@ AddBooksUI.prototype._queueBooks = function () {
   event.preventDefault();
   //make a book from input data
   inputBook = this.makeBook();
-  console.log("This is the input: ");
-  console.log(inputBook);
-  //put book on temporary bookshelf
-  //check if already on bookShelf
-  console.log("Check following:")
-  console.log(this.checkForDuplicates(inputBook));
-  if(this.checkForDuplicates(inputBook) ){
-    //check if already on bookShelf
+  //check if already on bookShelf, if not push to temp and increase queue counter
+  if(this.checkForDuplicates(inputBook)){
     this._tempBookShelf.push(inputBook);
-    console.log("This is _tempBookShelf");
-    console.log(this._tempBookShelf);
     this._queueCounter++;
     $('.queueNumber').text(this._queueCounter);
     // $('form').trigger('reset');
   }
-
-
   return;
 };
 
-//make a clear queue function
+//function to clear the _tempBookShelf and reset the _queueCounter
 AddBooksUI.prototype._clearQueue = function () {
+  //stop default so modal doesn't immediately close
   event.preventDefault();
   this._tempBookShelf = [];
   this._queueCounter = 0;
@@ -103,10 +94,14 @@ AddBooksUI.prototype._clearQueue = function () {
 
 //add Queued books to bookshelf
 AddBooksUI.prototype._addBooksToLIb = function () {
+  //stop default so modal doesn't immediately close
   event.preventDefault();
+  //if there are no books in queue push this book to bookShelf otherwise add queue to bookShelf
   if(this._queueCounter===0){
     inputBook = this.makeBook();
-    this.addBook(inputBook);
+    if(this.checkForDuplicates(inputBook)){
+      this.addBook(inputBook);
+    };
   } else {
     this.addBooks(this._tempBookShelf);
     this._clearQueue();
@@ -117,6 +112,11 @@ AddBooksUI.prototype._addBooksToLIb = function () {
 
 AddBooksUI.prototype.validator = function (input) {
   //uses jQuery Validation Plugin: not currently using in code (haven't tested)
+
+  // //Example: jQuery Form Validation Plugin
+  // $(document).ready(function() {
+  //     $('#your_form_id').ajaxForm( { beforeSubmit: dateCheck } );
+  // });
   $("#formAddBook").validate({
     rules: {
       //basic syntax
@@ -151,9 +151,3 @@ $(function(){
   window.gAddBooksUI = new AddBooksUI($('#addBookModal'));
   window.gAddBooksUI.init();
 });
-
-// //jQuery Form Validation Plugin
-// $(document).ready(function() {
-//
-//     $('#your_form_id').ajaxForm( { beforeSubmit: dateCheck } );
-// });
