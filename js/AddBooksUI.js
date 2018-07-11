@@ -4,7 +4,7 @@ var AddBooksUI = function(container){
   Library.call(this);
   this._tempBookShelf = new Array();
   this.$container = container;
-  this.queueCounter = 0;
+  this._queueCounter = 0;
 };
 
 //extending from Library
@@ -43,20 +43,23 @@ AddBooksUI.prototype.makeBook = function () {
   var serializedInput = $('form').serializeArray();
 
     var holdingObj = new Object();
-    var bookValid = true;
-    //for each entry in the inputs put the value into the object with name as a key
+    var validBook = true;
+    //for each entry in the inputs put the value into the object with name as the key (if there's a value)
     $.each(serializedInput, function(index, entry){
-      if(entry.value){
+      if(entry.value !== ''){
         holdingObj[entry.name] = entry.value;
       } else {
-        //as is this does not stop the functionality-- Do I need to check for bookValid?
-        //if(bookValid && this.checkForDuplicates(holdingObj)){push}
-        bookValid = false;
+        validBook = false;
         alert("Please enter a value for " + entry.name)
       }
     });
-    //put the holdingObj into a Book object
-    var inputBook = new Book(holdingObj)
+    if(validBook){
+      //put the holdingObj into a Book object
+      var inputBook = new Book(holdingObj)
+    } else {
+      alert("This book does not have all required fields.")
+    }
+
     //return book
     return inputBook;
 
@@ -73,14 +76,19 @@ AddBooksUI.prototype._queueBooks = function () {
   console.log("This is the input: ");
   console.log(inputBook);
   //put book on temporary bookshelf
+  //check if already on bookShelf
+  console.log("Check following:")
+  console.log(this.checkForDuplicates(inputBook));
+  if(this.checkForDuplicates(inputBook) ){
+    //check if already on bookShelf
+    this._tempBookShelf.push(inputBook);
+    console.log("This is _tempBookShelf");
+    console.log(this._tempBookShelf);
+    this._queueCounter++;
+    $('.queueNumber').text(this._queueCounter);
+    // $('form').trigger('reset');
+  }
 
-  //check if already on bookShelf and maybe if already on _tempBookShelf too
-  this._tempBookShelf.push(inputBook);
-  console.log("This is _tempBookShelf");
-  console.log(this._tempBookShelf);
-  this.queueCounter++;
-  $('.queueNumber').text(this.queueCounter);
-  // $('form').trigger('reset');
 
   return;
 };
@@ -89,14 +97,14 @@ AddBooksUI.prototype._queueBooks = function () {
 AddBooksUI.prototype._clearQueue = function () {
   event.preventDefault();
   this._tempBookShelf = [];
-  this.queueCounter = 0;
-  $('.queueNumber').text(this.queueCounter);
+  this._queueCounter = 0;
+  $('.queueNumber').text(this._queueCounter);
 };
 
 //add Queued books to bookshelf
 AddBooksUI.prototype._addBooksToLIb = function () {
   event.preventDefault();
-  if(this.queueCounter===0){
+  if(this._queueCounter===0){
     inputBook = this.makeBook();
     this.addBook(inputBook);
   } else {
@@ -108,44 +116,35 @@ AddBooksUI.prototype._addBooksToLIb = function () {
 };
 
 AddBooksUI.prototype.validator = function (input) {
-  //use an .each check if kpv.value is truthy then do code
-  var serializedInput = $('form').serializeArray();
-  $.each(serializedInput, function(i, entry){
-    //if the value is an empty string return false, otherwise return true
-    if(entry){
-      return false;
+  //uses jQuery Validation Plugin: not currently using in code (haven't tested)
+  $("#formAddBook").validate({
+    rules: {
+      //basic syntax
+      title: "required",
+      author: "required",
+      numberOfPages: {
+        required: true,
+        number: true
+      },
+      publishDate: {
+        required: true,
+        date: true
+      }
+    },
+    messages: {
+      title: "Please enter a title",
+      author: "Please enter an author"
+      numberOfPages: {
+        required: "Please enter number of pages",
+        number: "Please enter a number"
+      },
+      publishDate: {
+        required: "Please enter a date",
+        minlength: "Please enter a date in mm/dd/yyyy format"
+      }
     }
-  });
-  return true;
-
-//   $("#formAddBook").validate({
-//     rules: {
-//       //basic syntax
-//       title: "required",
-//       author: "required",
-//       numberOfPages: {
-//         required: true,
-//         number: true
-//       },
-//       publishDate: {
-//         required: true,
-//         date: true
-//       }
-//     },
-//     messages: {
-//       title: "Please enter a title",
-//       author: "Please enter an author"
-//       numberOfPages: {
-//         required: "Please enter number of pages",
-//         number: "Please enter a number"
-//       },
-//       publishDate: {
-//         required: "Please enter a date",
-//         minlength: "Please enter a date in mm/dd/yyyy format"
-//       }
-//     }
-//   }
-//   )
+  }
+  )
 };
 
 $(function(){
