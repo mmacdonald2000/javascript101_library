@@ -78,7 +78,9 @@ AddBooksUI.prototype._queueBooks = function () {
     this._tempBookShelf.push(inputBook);
     this._queueCounter++;
     $('.queueNumber').text(this._queueCounter);
-    // $('form').trigger('reset');
+    $('form').trigger('reset');
+  } else {
+    alert("This book is already on your Bookshelf!")
   }
   return;
 };
@@ -95,19 +97,21 @@ AddBooksUI.prototype._clearQueue = function () {
 //add Queued books to bookshelf
 AddBooksUI.prototype._addBooksToLIb = function () {
   //stop default so modal doesn't immediately close
-  // event.preventDefault();
+  event.preventDefault();
   //if there are no books in queue push this book to bookShelf otherwise add queue to bookShelf
-  debugger;
   if(this._queueCounter===0){
     inputBook = this.makeBook();
     if(this.checkForDuplicates(inputBook)){
       this.addBook(inputBook);
-    };
+    } else {
+      alert("This book is already on your bookshelf!");
+    }
   } else {
     this.addBooks(this._tempBookShelf);
     this._clearQueue();
   }
-  // this.$container.modal('hide');
+
+  this.$container.modal('hide');
   return;
 };
 
@@ -134,7 +138,7 @@ AddBooksUI.prototype._addBooksToLIb = function () {
 //     },
 //     messages: {
 //       title: "Please enter a title",
-//       author: "Please enter an author"
+//       author: "Please enter an author",
 //       numberOfPages: {
 //         required: "Please enter number of pages",
 //         number: "Please enter a number"

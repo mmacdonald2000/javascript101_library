@@ -36,6 +36,8 @@ Library.prototype.addBook = function (book) {
     window.bookShelf.push(book);
     //store change to localStorage
     this.store();
+    //trigger _updateTable
+    this._handleEventTrigger('objUpdate', {details: "testing"})
     return true;
   } else {
     console.log("Error: input must be in the Book object format")
