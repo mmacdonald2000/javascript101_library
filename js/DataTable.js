@@ -2,7 +2,7 @@
 var DataTable = function(container){
   Library.call(this);
   this.$container = container;
-  this._queue = new Array();
+  this._trash = [];
 };
 
 //extending from Library
@@ -17,6 +17,7 @@ DataTable.prototype.init = function () {
 
 DataTable.prototype._bindEvents = function () {
   //add delete functionality here
+  this.$container.find('.delete-book').on('click', $.proxy(this._deleteRow, this));
 };
 
 DataTable.prototype._bindCustomListeners = function () {
@@ -93,6 +94,24 @@ DataTable.prototype._createHeaderRow = function () {
   tr.append(deleteTH);
   return tr;
 };
+
+DataTable.prototype._deleteRow = function (e) {
+  //create variable to target the row of the delete icon
+  var $target = $(e.currentTarget).closest('tr');
+  //create variable of the title of that row
+  var title = $target.attr("title");
+  //if delete is confirmed delete, otherwise do nothing
+  if(confirm("Are you sure you want to delete this book?")){
+    //push book with matching title to _trash in case they want to undo delete - need to create this functionality
+    this._trash.push(this.getBookByTitle(title));
+    //remove book from bookShelf
+    this.removeBookbyTitle(title);
+    //remove row from html (detach keeps a copy in memory: I'm not sure if I want this or not)
+    $target.detach();
+  }
+  return false;
+};
+
 
 
 $(function(){
