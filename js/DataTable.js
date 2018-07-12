@@ -41,6 +41,8 @@ DataTable.prototype._updateTable = function () {
 DataTable.prototype._createRow = function (book) {
   //create table row variable
   var tr = document.createElement('tr');
+  //add an attribute to tr with the title as the value so that we can target the title when deleting rows
+  $(tr).attr('title', book.title);
   // create table data variable for delete column
   var deleteTD = document.createElement('td');
   //create i element for delete column
