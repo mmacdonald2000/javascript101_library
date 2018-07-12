@@ -19,7 +19,7 @@ DataTable.prototype._bindEvents = function () {
   //add delete functionality here
   this.$container.find('.delete-book').on('click', $.proxy(this._deleteRow, this));
   //Edit functionality
-  this.$container.find($("td[contenteditable='true']")).on('focus', $.proxy(this._resaveRow(), this));
+  // this.$container.find($("td[contenteditable='true']")).on('focus', $.proxy(this._resaveRow(), this));
 };
 
 DataTable.prototype._bindCustomListeners = function () {
