@@ -1,4 +1,4 @@
-/* prominant colors from Googles API:
+/* prominant colors from Google's API:
 #744913 - rgb(116,73,19) light brown
 #9F6A20 - rgb(159,106,32) lighter tan
 #271909 - rgb(39,25,9) dark brown/black
@@ -49,6 +49,7 @@ header, .my-bookshelf, .login {
   margin: 1em;
 }
 
+/* table styling------------------------------------------ */
 table {
   margin: 1em;
   opacity: .95;
@@ -58,14 +59,39 @@ th {
   font: bold;
 }
 
-td img {
-  opacity: 1.0;
-}
-
 table tr td.no-books {
   text-align: center;
 }
 
+td img {
+  opacity: 1.0;
+}
+
+/* hovering pencil icon --not working -------------------------*/
+
+/* make room for edit icon */
+td[contenteditable]:after {
+  width: 8px;
+  height: 8px;
+  display: inline-block;
+  content: ' ';
+}
+
+/* on hover show icon */
+td[contenteditable]:hover:after {
+  font-family: FontAwesome;
+  content: '\f044';
+  /* icon isn't showing up right - how do I get the unicode to pick it up? */
+}
+
+/* don't show icon after click */
+td[contenteditable]:focus:after {
+  width: 0;
+  content: '';
+}
+
+
+/* Modal styling ------------------------------------------ */
 form {
   width: 100%;
 }
