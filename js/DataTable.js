@@ -28,7 +28,7 @@ DataTable.prototype._updateTable = function () {
   //Make Table Head Dynamically
   var $thead = this.$container.find('thead');
   $thead.empty();
-  $thead.append(_self._createHeaderRow(window.bookShelf[0]));
+  $thead.append(_self._createHeaderRow());
   // Make Table Body Dynamically
   var $tbody = this.$container.find('tbody');
   $tbody.empty();
@@ -61,31 +61,32 @@ DataTable.prototype._createRow = function (book) {
   return tr;
 };
 
-DataTable.prototype._createHeaderRow = function (book) {
+DataTable.prototype._createHeaderRow = function () {
+  var book = new Book({});
   var tr = document.createElement('tr');
-  //a prettier way to make the header
-  var thCover = document.createElement('th');
-  var thTitle = document.createElement('th');
-  var thAuthor = document.createElement('th');
-  var thPages = document.createElement('th');
-  var thPubDate = document.createElement('th');
-  var thRating = document.createElement('th');
+  // //a prettier way to make the header
+  // var thCover = document.createElement('th');
+  // var thTitle = document.createElement('th');
+  // var thAuthor = document.createElement('th');
+  // var thPages = document.createElement('th');
+  // var thPubDate = document.createElement('th');
+  // var thRating = document.createElement('th');
+  //
+  // $(thCover).text("");
+  // $(thTitle).text("Title");
+  // $(thAuthor).text("Author");
+  // $(thPages).text("Pages");
+  // $(thPubDate).text("Date of Publication");
+  // $(thRating).text("Rating");
+  // tr.append(thCover, thTitle, thAuthor, thPages, thPubDate, thRating);
 
-  $(thCover).text("");
-  $(thTitle).text("Title");
-  $(thAuthor).text("Author");
-  $(thPages).text("Pages");
-  $(thPubDate).text("Date of Publication");
-  $(thRating).text("Rating");
-  tr.append(thCover, thTitle, thAuthor, thPages, thPubDate, thRating);
-
-  // //a silly way to dynamically make the header
-  // for (var key in book) {
-  //   var th = document.createElement('th')
-  //   // console.log(key);
-  //   $(th).text(key);
-  //   tr.append(th);
-  // };
+  //a silly way to dynamically make the header
+  for (var key in book) {
+    var th = document.createElement('th')
+    // console.log(key);
+    $(th).text(makeTitle(key));
+    tr.append(th);
+  };
   // append deleteTD here
   var deleteTH = document.createElement('th');
   $(deleteTH).text("Delete?");
