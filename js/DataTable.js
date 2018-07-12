@@ -18,6 +18,8 @@ DataTable.prototype.init = function () {
 DataTable.prototype._bindEvents = function () {
   //add delete functionality here
   this.$container.find('.delete-book').on('click', $.proxy(this._deleteRow, this));
+  //Edit functionality
+  this.$container.find($("td[contenteditable='true']")).on('focus', $.proxy(this._resaveRow(), this));
 };
 
 DataTable.prototype._bindCustomListeners = function () {
@@ -57,6 +59,7 @@ DataTable.prototype._createRow = function (book) {
   for (var key in book) {
     var td = document.createElement('td')
     $(td).text(book[key]);
+    if (key != 'cover'){$(td).attr('contenteditable', 'true')};
     tr.append(td);
   };
   //append deleteTD here
@@ -114,6 +117,9 @@ DataTable.prototype._deleteRow = function (e) {
   return false;
 };
 
+DataTable.prototype._resaveRow = function () {
+  alert("You targeted... wisely")
+};
 
 
 $(function(){
