@@ -59,7 +59,14 @@ DataTable.prototype._createRow = function (book) {
   for (var key in book) {
     var td = document.createElement('td')
     $(td).text(book[key]);
-    if (key != 'cover'){$(td).attr('contenteditable', 'true')};
+    if (key != 'cover') {$(td).attr('contenteditable', 'true')};
+    if (key == 'cover') {
+      var img = document.createElement('img');
+      $(img).attr('src', book[key]);
+      $(td).html(img);
+      $(td).attr("data-toggle", "modal");
+      $(td).attr("data-target", "#bookModal");
+    };
     tr.append(td);
   };
   //append deleteTD here
