@@ -1,3 +1,4 @@
+//a UI to handle adding books from a modal
 //contructor - container is a placeholder for the selector of the modal
 var AddBooksUI = function(container){
   //reassign 'this' to the instance of Library -- native javaScript version of proxy

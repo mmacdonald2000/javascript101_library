@@ -1,4 +1,4 @@
-
+//a UI to handle making and displaying a table of books
 var DataTable = function(container){
   Library.call(this);
   this.$container = container;
@@ -94,7 +94,6 @@ DataTable.prototype._createHeaderRow = function () {
 };
 
 DataTable.prototype._deleteRow = function (e) {
-  console.log(e);
   //create variable to target the row of the delete icon
   var $target = $(e.currentTarget).closest('tr');
   //create variable of the title of that row

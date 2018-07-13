@@ -1,4 +1,4 @@
-
+//a UI to handle removing books from a modal
 var RemoveBooksUI = function(container){
   Library.call(this);
   this.$container = container;

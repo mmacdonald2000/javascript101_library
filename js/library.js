@@ -1,4 +1,4 @@
-/*Class to represent a Library with functions to add, remove, and look up books in various ways*/
+/*"Class" to represent a Library with functions to add, remove, and look up books in various ways*/
 
 //Sington example from Kyle:
 var Library;
