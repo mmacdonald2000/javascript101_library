@@ -125,24 +125,25 @@ Library.prototype.removeBookByAuthor = function (authorName) {
 Library.prototype.getBookByTitle = function (title) {
   /*Purpose: Return all books that completely or partially matches the string title passed into the function
   Return: array of book objects if you find books with matching titles, empty array if no books are found*/
+  var titleResults = new Array();
+
   if(title){
-    var regex = new RegExp(title, 'gi');
-    var hasTitleResults = new Array();
+    // var regex = new RegExp(title, 'gi');
 
     for(i=0; i<window.bookShelf.length; i++){
       //create holder variable because dot notation was getting crazy
       //toLowerCase allows the input to be matched regardless of capitalization (must use on both input and .title)
-      var bookShelfTitle = window.bookShelf[i].title;
+      var bookShelfTitle = window.bookShelf[i].title.toLowerCase();
       //check if there is a match, then push the {Book} to results
       //match checks for exact match and outputs an array
-      if(bookShelfTitle.match(regex) !== null){
-        hasTitleResults.push(window.bookShelf[i]);
+      if(bookShelfTitle.match(title.toLowerCase()) !== null){
+        titleResults.push(window.bookShelf[i]);
       };
     }
-    return hasTitleResults;
   } else {
     console.log("Please enter a valid title.")
   }
+  return titleResults;
 };
 
 Library.prototype.getBooksByAuthor = function (authorName) {
