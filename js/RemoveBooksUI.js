@@ -13,65 +13,55 @@ RemoveBooksUI.prototype.init = function () {
 };
 
 RemoveBooksUI.prototype._bindEvents = function () {
-
-
   $('#removeButton').on('click', $.proxy(this._handleRemoveBooks, this));
-
-  return false;
+  return;
 };
 
 
 RemoveBooksUI.prototype._handleRemoveBooks = function () {
   var title = $('#formRemoveBookTitle').val();
   var author = $('#formRemoveBookAuthor').val();
-  console.log(title);
-  console.log(author);
 
-  validTitle = this._checkTitle(title);
-  validAuthor = this._checkAuthor(author);
 
-  tBook = this.getBookByTitle(title);
-  aBooks = this.getBooksByAuthor(author);
-  allBooks = aBooks.concat(tBook);
+  if(title && !author){
+    //Remove book by Title
+    this._removeBooksByTitle(title);
+  } else if(author && !title){
+    this._removeBooksByAuthor(author);
+  } if(author && title){
+    //Remove books by both
+    this._removeBooksByTitle(title);
+    this._removeBooksByAuthor(author);
+  } else if(!title && !author){
+    alert ("You must enter a valid title or author to remove books.")
+  }
+  return;
+};
 
-    if(validTitle && validAuthor){
-      if(confirm("Are you sure you want to delete these books?" + allBooks)) {
-        this.removeBookbyTitle(this._title);
-        this.removeBookByAuthor(this._author);
-      }
-    } else if (validTitle && !validAuthor) {
-      if(confirm("Are you sure you want to delete " + book + "?")) {
-        this.removeBookbyTitle(this._title);
-      }
-    } else if (!validTitle && validAuthor) {
-      if (confirm("Are you sure you want to delete these books?" + aBooks)) {
-        this.removeBookByAuthor(this._author);
-      }
-    } else {
-      alert("Please enter a valid title or author to remove books.");
+RemoveBooksUI.prototype._removeBooksByTitle = function (title) {
+  //Remove book by Title
+  if (this.getBookByTitle(title).length) {
+    if(confirm("Are you sure you want to remove " + title + "?")){
+      this.removeBookbyTitle(title);
+      console.log(title + " was removed.")
     }
-
-
+  } else {
+    alert("This title does not exist on your bookshelf.")
+  }
+  return;
 };
 
-RemoveBooksUI.prototype._checkTitle = function (title) {
-  var validTitle;
-  if(this.getBookByTitle(title)){
-    validTitle = true;
+RemoveBooksUI.prototype._removeBooksByAuthor = function (author) {
+  //Remove book by Author
+  if (this.getBooksByAuthor(author).length) {
+    if(confirm("Are you sure you want to remove all books by " + author + "?")){
+      this.removeBookByAuthor(author);
+      console.log("Books by " + author + " were removed.")
+    }
   } else {
-    validTitle = false;
-  };
-  return validTitle
-};
-
-RemoveBooksUI.prototype._checkAuthor = function (author) {
-  var validAuthor;
-  if(this.getBooksByAuthor(author)){
-    validAuthor = true;
-  } else {
-    validAuthor = false;
-  };
-  return validAuthor;
+    alert("This author does not exist on your bookshelf.")
+  }
+  return;
 };
 
 
