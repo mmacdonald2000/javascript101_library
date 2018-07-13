@@ -17,9 +17,10 @@ DataTable.prototype.init = function () {
 
 DataTable.prototype._bindEvents = function () {
   //add delete functionality here
+
   this.$container.find('.delete-book').on('click', $.proxy(this._deleteRow, this));
   //Edit functionality
-  this.$container.find($("td[contenteditable='true']")).on('focus', $.proxy(this._resaveRow, this));
+  this.$container.find($("td[contenteditable='true']")).on('blur', $.proxy(this._resaveRow, this));
 };
 
 DataTable.prototype._bindCustomListeners = function () {
@@ -77,23 +78,8 @@ DataTable.prototype._createRow = function (book) {
 DataTable.prototype._createHeaderRow = function () {
   var book = new Book({});
   var tr = document.createElement('tr');
-  // //a prettier way to make the header
-  // var thCover = document.createElement('th');
-  // var thTitle = document.createElement('th');
-  // var thAuthor = document.createElement('th');
-  // var thPages = document.createElement('th');
-  // var thPubDate = document.createElement('th');
-  // var thRating = document.createElement('th');
-  //
-  // $(thCover).text("");
-  // $(thTitle).text("Title");
-  // $(thAuthor).text("Author");
-  // $(thPages).text("Pages");
-  // $(thPubDate).text("Date of Publication");
-  // $(thRating).text("Rating");
-  // tr.append(thCover, thTitle, thAuthor, thPages, thPubDate, thRating);
 
-  //a silly way to dynamically make the header
+  //dynamically make the header
   for (var key in book) {
     var th = document.createElement('th')
     // console.log(key);
@@ -108,6 +94,7 @@ DataTable.prototype._createHeaderRow = function () {
 };
 
 DataTable.prototype._deleteRow = function (e) {
+  console.log(e);
   //create variable to target the row of the delete icon
   var $target = $(e.currentTarget).closest('tr');
   //create variable of the title of that row
@@ -124,7 +111,8 @@ DataTable.prototype._deleteRow = function (e) {
   return false;
 };
 
-DataTable.prototype._resaveRow = function () {
+DataTable.prototype._resaveRow = function (e) {
+  console.log(e);
   alert("You targeted... wisely")
 };
 
