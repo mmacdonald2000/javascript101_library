@@ -123,18 +123,24 @@ Library.prototype.removeBookByAuthor = function (authorName) {
 Library.prototype.getBookByTitle = function (title) {
   /*Purpose: Return all books that completely or partially matches the string title passed into the function
   Return: array of book objects if you find books with matching titles, empty array if no books are found*/
-  var hasTitleResults = new Array();
-  for(i=0; i<window.bookShelf.length; i++){
-    //create holder variable because dot notation was getting crazy
-    //toLowerCase allows the input to be matched regardless of capitalization (must use on both input and .title)
-    var bookShelfTitle = window.bookShelf[i].title.toLowerCase();
-    //check if there is a match, then push the {Book} to results
-    //match checks for exact match and outputs an array
-    if(bookShelfTitle.match(title.toLowerCase()) !== null){
-      hasTitleResults.push(window.bookShelf[i]);
-    };
+  if(title){
+    var regex = new RegExp(title, 'gi');
+    var hasTitleResults = new Array();
+
+    for(i=0; i<window.bookShelf.length; i++){
+      //create holder variable because dot notation was getting crazy
+      //toLowerCase allows the input to be matched regardless of capitalization (must use on both input and .title)
+      var bookShelfTitle = window.bookShelf[i].title;
+      //check if there is a match, then push the {Book} to results
+      //match checks for exact match and outputs an array
+      if(bookShelfTitle.match(regex) !== null){
+        hasTitleResults.push(window.bookShelf[i]);
+      };
+    }
+    return hasTitleResults;
+  } else {
+    console.log("Please enter a valid title.")
   }
-  return hasTitleResults;
 };
 
 Library.prototype.getBooksByAuthor = function (authorName) {
@@ -142,14 +148,20 @@ Library.prototype.getBooksByAuthor = function (authorName) {
   Return: array of books if you find books with match authors, empty array if no books match*/
 
   //reuse logic from getBookByTitle
-  var hasAuthorResults = new Array();
-  for(i=0; i<window.bookShelf.length; i++){
-    var bookShelfAuthor = window.bookShelf[i].author.toLowerCase();
-    if(bookShelfAuthor.match(authorName.toLowerCase()) !== null){
-      hasAuthorResults.push(window.bookShelf[i]);
-    };
+  if(authorName){
+    var regex = new RegExp(authorName, 'gi');
+    var hasAuthorResults = new Array();
+    for(i=0; i<window.bookShelf.length; i++){
+      var bookShelfAuthor = window.bookShelf[i].author;
+      if(bookShelfAuthor.match(regex) !== null){
+        hasAuthorResults.push(window.bookShelf[i]);
+      };
+    }
+    return hasAuthorResults;
+  } else {
+    console.log("Please enter a valid author name.");
+    return [];
   }
-  return hasAuthorResults;
 
 };
 
