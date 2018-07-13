@@ -15,16 +15,11 @@ RemoveBooksUI.prototype.init = function () {
 };
 
 RemoveBooksUI.prototype._bindEvents = function () {
-  $('#deleteBooks').on('click', $.proxy(this._handleModalOpen(), this));
 
-  $('#removeButton').on('click', $.proxy(this._handleRemoveBooks()), this);
 
-  // return;
-};
+  $('#removeButton').on('click', $.proxy(this._handleRemoveBooks, this));
 
-RemoveBooksUI.prototype._handleModalOpen = function () {
-  this.$container.modal('show');
-  return;
+  return false;
 };
 
 RemoveBooksUI.prototype._handleRemoveBooks = function () {
