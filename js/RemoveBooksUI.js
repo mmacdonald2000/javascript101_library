@@ -3,8 +3,6 @@ var RemoveBooksUI = function(container){
   Library.call(this);
   this.$container = container;
   this._trash = [];
-  this._title = $('#formRemoveBookTitle').val();
-  this._author = $('#formRemoveBookAuthor').val();
 };
 
 RemoveBooksUI.prototype = Object.create(Library.prototype);
@@ -56,6 +54,24 @@ RemoveBooksUI.prototype._handleRemoveBooks = function () {
 
 };
 
+RemoveBooksUI.prototype._checkTitle = function (title) {
+  var validTitle;
+  if(this.getBookByTitle(title)){
+    validTitle = true;
+  } else {
+    validTitle = false;
+  };
+  return validTitle
+};
+
+RemoveBooksUI.prototype._checkAuthor = function (author) {
+  var validAuthor;
+  if(this.getBooksByAuthor(author)){
+    validAuthor = true;
+  } else {
+    validAuthor = false;
+  };
+  return validAuthor;
 };
 
 
