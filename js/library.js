@@ -37,7 +37,7 @@ Library.prototype.addBook = function (book) {
     //store change to localStorage
     this.store();
     //trigger _updateTable
-    this._handleEventTrigger('objUpdate', {details: "testing"})
+    this._handleEventTrigger('tableUpdate', {details: "addBook"})
     return true;
   } else {
     console.log("Error: input must be in the Book object format")
@@ -85,6 +85,7 @@ Library.prototype.removeBookbyTitle = function (title) {
   }
   //if removed is not 0, book was removed, return true
   if(removed > 0){
+    this._handleEventTrigger('tableUpdate', {details: "removeBookbyTitle"})
     //store change to localStorage
     this.store();
     return true;
@@ -113,6 +114,7 @@ Library.prototype.removeBookByAuthor = function (authorName) {
     };
   }
   if(removed > 0){
+    this._handleEventTrigger('tableUpdate', {details: "removeBookByAuthor"})
     this.store();
     return true;
   } else {

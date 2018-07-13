@@ -23,7 +23,7 @@ DataTable.prototype._bindEvents = function () {
 };
 
 DataTable.prototype._bindCustomListeners = function () {
-  $(document).on('objUpdate', $.proxy(this._updateTable, this));
+  $(document).on('tableUpdate', $.proxy(this._updateTable, this));
 };
 
 DataTable.prototype._updateTable = function () {
