@@ -232,20 +232,22 @@
             </button>
           </div>
           <div class="modal-body container-fluid">
-            <!--Title-->
-            <div class="form-group">
-              <label for="formRemoveBookTitle">Remove by Title</label>
-              <input type="text" id="formRemoveBookTitle" class="form-control">
-            </div>
-            <!--Author-->
-            <div class="form-group">
-              <label for="formRemoveBookAuthor">Remove by Author</label>
-              <input type="text" id="formRemoveBookAuthor" class="form-control">
-              <p>*This option will remove <u>all</u> books by the same author*</p>
-            </div>
+            <form class="formRemoveBook" action="index.html" method="post">
+              <!--Title-->
+              <div class="form-group">
+                <label for="formRemoveBookTitle">Remove by Title</label>
+                <input type="text" id="formRemoveBookTitle" class="form-control">
+              </div>
+              <!--Author-->
+              <div class="form-group">
+                <label for="formRemoveBookAuthor">Remove by Author</label>
+                <input type="text" id="formRemoveBookAuthor" class="form-control">
+                <p>*This option will remove <u>all</u> books by the same author*</p>
+              </div>
+            </form>
           </div>
           <div class="modal-footer">
-            <button type="button" class="btn btn-dark" id="removeButton">Remove Book(s)</button>
+            <button type="button" class="btn btn-dark" id="removeButton" data-dismiss="modal" >Remove Book(s)</button>
           </div>
         </div>
       </div>
