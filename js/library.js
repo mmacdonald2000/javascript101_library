@@ -208,9 +208,12 @@ Library.prototype.getRandomBook = function () {
   //Math.random gives a random number between 0 & 1,
   //*length will make it between 0 and length
   //Math.floor rounds number down to nearest integer
-  var randomBook = new Array();
-  randomBook = window.bookShelf[Math.floor(Math.random()*window.bookShelf.length)];
-  return randomBook;
+  if(window.bookShelf.length === 0){
+    return null;
+  } else {
+    var randomBook = window.bookShelf[Math.floor(Math.random()*window.bookShelf.length)];
+    return randomBook;
+  }
 };
 
 Library.prototype.getRandomAuthorName = function () {
