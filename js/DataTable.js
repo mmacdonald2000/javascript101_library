@@ -17,8 +17,7 @@ DataTable.prototype.init = function () {
 };
 
 DataTable.prototype._bindEvents = function () {
-  //add delete functionality here
-
+  //delete functionality
   this.$container.on('click', '.delete-book', $.proxy(this._deleteRow, this));
   //Edit functionality
   this.$container.find($("td[contenteditable='true']")).on('blur', $.proxy(this._resaveRow, this));
@@ -131,6 +130,16 @@ DataTable.prototype._deleteRow = function (e) {
 DataTable.prototype._resaveRow = function (e) {
   console.log(e);
   // alert("You targeted... wisely")
+};
+
+DataTable.prototype._searchUI = function (e) {
+  e.preventDefault();
+  console.log(e);
+  searchInput = $('#search-input').val();
+  console.log(this.search(searchInput));
+  if(searchInput){
+    this._handleEventTrigger('specialUpdate', this.search(searchInput));
+  }
 };
 
 
