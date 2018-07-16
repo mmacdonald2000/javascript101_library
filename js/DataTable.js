@@ -2,6 +2,7 @@
 var DataTable = function(container){
   Library.call(this);
   this.$container = container;
+  //what do I want to do with this?
   this._trash = [];
 };
 
@@ -44,6 +45,7 @@ DataTable.prototype._updateTable = function () {
 DataTable.prototype._createRow = function (book) {
   //create table row variable
   var tr = document.createElement('tr');
+  $(tr).addClass('table-row');
   //add an attribute to tr with the title as the value so that we can target the title when deleting rows
   $(tr).attr('title', book.title);
   // create table data variable for delete column
@@ -64,9 +66,13 @@ DataTable.prototype._createRow = function (book) {
     if (key == 'cover') {
       var img = document.createElement('img');
       $(img).attr('src', book[key]);
+      $(img).attr('alt', 'Cover Art');
+      $(img).attr('id', 'coverArtBookModal');
+      $(img).addClass('btn');
       $(td).html(img);
       $(td).attr("data-toggle", "modal");
       $(td).attr("data-target", "#bookModal");
+      // console.log(td);
     };
     tr.append(td);
   };
@@ -112,7 +118,7 @@ DataTable.prototype._deleteRow = function (e) {
 
 DataTable.prototype._resaveRow = function (e) {
   console.log(e);
-  alert("You targeted... wisely")
+  // alert("You targeted... wisely")
 };
 
 
