@@ -61,6 +61,7 @@ Library.prototype.addBooks = function (books) {
       }
     }
     return count;
+    this._handleEventTrigger('tableUpdate', {details: "added Books: "+ count})
   } else {
     console.log("Error: input must be in array format")
   }
@@ -250,7 +251,7 @@ Library.prototype.getBookByPubDate = function (pubDate, range){
   //Returns an array of books with matching publishDate
     var hasResults = [];
     //range is an optional variable that is either the number the user inputs or 0
-    var range = range || 0;
+    var range = range || 5;
     //loope through bookShelf
     for(i=0; i<window.bookShelf.length; i++){
       //create variable pointing toward publishDate
@@ -265,13 +266,9 @@ Library.prototype.getBookByPubDate = function (pubDate, range){
 
 Library.prototype.search = function (input, input2) {
   //if input is a string search by Title and author
-  if (input && typeof input === "string"){
+  if (input){
     //call previous funtions and concatenate into one array
-    var results = this.getBookByTitle(input).concat(this.getBooksByAuthor(input));
-    //else if input is a number search by numberOfPages and publishDate
-  } else if (input && typeof input === "number"){
-    //call previous functions and concatenate into one array
-    var results = this.getBookByPageCount(input, input2).concat(this.getBookByPubDate(input, input2));
+    var results = this.getBookByTitle(input).concat(this.getBooksByAuthor(input)).concat(this.getBookByPageCount(parseInt(input), parseInt(input2))).concat(this.getBookByPubDate(parseInt(input), parseInt(input2)));
   }
   return results;
 };
