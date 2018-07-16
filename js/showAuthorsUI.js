@@ -1,3 +1,4 @@
+//a UI to populate the all authors modal
 var ShowAuthorsUI = function(modal_id) {
   this.$container = modal_id;
   Library.call(this);//set the this keyword to Library so that we can call anything in the library using 'this': "resetting scope"
