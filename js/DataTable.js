@@ -18,7 +18,7 @@ DataTable.prototype.init = function () {
 DataTable.prototype._bindEvents = function () {
   //add delete functionality here
 
-  this.$container.find('.delete-book').on('click', $.proxy(this._deleteRow, this));
+  this.$container.on('click', '.delete-book', $.proxy(this._deleteRow, this));
   //Edit functionality
   this.$container.find($("td[contenteditable='true']")).on('blur', $.proxy(this._resaveRow, this));
 };
