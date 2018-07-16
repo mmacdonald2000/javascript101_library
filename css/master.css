@@ -65,6 +65,7 @@ table tr td.no-books {
 
 td img {
   opacity: 1.0;
+  max-height: 100px;
 }
 
 /* hovering pencil icon --not working -------------------------*/
