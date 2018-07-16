@@ -146,6 +146,14 @@ Library.prototype.getBookByTitle = function (title) {
   return titleResults;
 };
 
+Library.prototype.getOneBookByTitle = function (title) {
+  for (var i = 0; i < window.bookShelf.length; i++) {
+    if(window.bookShelf[i].title.toLowerCase() === title.toLowerCase()){
+      return window.bookShelf[i]
+    }
+  }
+};
+
 Library.prototype.getBooksByAuthor = function (authorName) {
   /* Purpose: Finds all books where the author’s name partially or completely matches the authorName argument passed to the function.
   Return: array of books if you find books with match authors, empty array if no books match*/
