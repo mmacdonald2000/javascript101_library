@@ -3,7 +3,7 @@
 
 //make book take an object as argument
 var Book = function (bookObj){
-  this.cover = bookObj.cover || "./assets/filler_murray.jpg"
+  this.cover = bookObj.cover || "./assets/murray_2x3.jpg"
   this.title = String(bookObj.title);
   this.author = String(bookObj.author);
   this.numberOfPages = Number(bookObj.numberOfPages);
