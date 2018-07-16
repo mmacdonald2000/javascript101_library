@@ -11,7 +11,7 @@ DataTable.prototype = Object.create(Library.prototype);
 
 DataTable.prototype.init = function () {
   this.recover();
-  this._updateTable();
+  this._updateTable(window.bookShelf);
   this._bindEvents();
   this._bindCustomListeners();
 };
@@ -22,13 +22,25 @@ DataTable.prototype._bindEvents = function () {
   this.$container.on('click', '.delete-book', $.proxy(this._deleteRow, this));
   //Edit functionality
   this.$container.find($("td[contenteditable='true']")).on('blur', $.proxy(this._resaveRow, this));
+
+  $('.search-form').on('submit', $.proxy(this._searchUI, this));
+
+  $('#allBooksBtn').on('click', $.proxy(this._updateTable, this, window.bookShelf));
 };
 
 DataTable.prototype._bindCustomListeners = function () {
-  $(document).on('tableUpdate', $.proxy(this._updateTable, this));
+  $(document).on('tableUpdate', $.proxy(this._updateTable, this, window.bookShelf));
+
+  $(document).on('specialUpdate', $.proxy(this._updateTableWithE, this));
+
 };
 
-DataTable.prototype._updateTable = function () {
+DataTable.prototype._updateTableWithE = function (e) {
+  //pass the value held in detail key of the event
+  this._updateTable(e.detail);
+};
+
+DataTable.prototype._updateTable = function (bookshelf) {
   var _self = this;
   //Make Table Head Dynamically
   var $thead = this.$container.find('thead');
@@ -37,7 +49,7 @@ DataTable.prototype._updateTable = function () {
   // Make Table Body Dynamically
   var $tbody = this.$container.find('tbody');
   $tbody.empty();
-  $.each(window.bookShelf, function(index, book){
+  $.each(bookshelf, function(index, book){
     $tbody.append(_self._createRow(book));
   });
 };

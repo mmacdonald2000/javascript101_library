@@ -37,7 +37,7 @@ Library.prototype.addBook = function (book) {
     //store change to localStorage
     this.store();
     //trigger _updateTable
-    this._handleEventTrigger('tableUpdate', {details: "addBook"})
+    this._handleEventTrigger('tableUpdate')
     return true;
   } else {
     console.log("Error: input must be in the Book object format")
@@ -318,7 +318,7 @@ Library.prototype.checkForDuplicates = function (book) {
 Library.prototype._handleEventTrigger = function (sEvent, oData) {
   var oData = oData || {};
   if(sEvent){
-    var event = new CustomEvent(sEvent,oData);
+    var event = new CustomEvent(sEvent,{'detail': oData});
     document.dispatchEvent(event);
   }
   //have to use detail as the key in the object you pass
