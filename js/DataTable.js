@@ -107,7 +107,7 @@ DataTable.prototype._deleteRow = function (e) {
   //if delete is confirmed delete, otherwise do nothing
   if(confirm("Are you sure you want to delete this book?")){
     //push book with matching title to _trash in case they want to undo delete - need to create this functionality
-    this._trash.push(this.getBookByTitle(title));
+    this._trash.push(this.getOneBookByTitle(title));
     //remove book from bookShelf
     this.removeBookbyTitle(title);
     //remove row from html (detach keeps a copy in memory: I'm not sure if I want this or not)
