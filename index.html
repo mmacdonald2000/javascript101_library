@@ -15,9 +15,12 @@
 <!-- row 1 -->
     <div class="row justify-content-between">
       <!-- Show All Books button -->
-      <button type="button" class="btn btn-light bookshelf-buttons" aria-labelledby="My Bookshelf" data-toggle="modal" data-target="#allBookModal">My Bookshelf</button>
+      <button id="allBooksBtn" type="button" class="btn btn-light bookshelf-buttons" aria-labelledby="My Bookshelf">My Bookshelf</button>
       <!-- search bar -->
-      <input type="search" class="form-control ds-input search-bar" id="search-input" placeholder="Search..." autocomplete="off" data-siteurl="index.html" dir="auto">
+      <!-- wrap in a form use on submit -->
+      <form class="search-form search-bar" action="index.html" method="post">
+        <input type="search" class="form-control ds-input" id="search-input" placeholder="Search..." autocomplete="off" data-siteurl="index.html" dir="auto">
+      </form>
     </div>
 
     <!-- Jumbotron -->
@@ -345,6 +348,7 @@
     <script src="./js/DataTable.js" charset="utf-8"></script>
     <script src="./js/RemoveBooksUI.js" charset="utf-8"></script>
     <script src="./js/RandomBookUI.js" charset="utf-8"></script>
+    <script src="./js/RandomAuthorUI.js" charset="utf-8"></script>
     <script src="./fonts/fontawesome/fontawesome.js" charset="utf-8"></script>
 
     <script src="./js/bootstrap.bundle.js" charset="utf-8"></script>
