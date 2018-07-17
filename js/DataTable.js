@@ -20,7 +20,11 @@ DataTable.prototype._bindEvents = function () {
   //delete functionality
   this.$container.on('click', '.delete-book', $.proxy(this._deleteRow, this));
   //Edit functionality
-  this.$container.find($("td[contenteditable='true']")).on('blur', $.proxy(this._resaveRow, this));
+  this.$container.on('click', '.edit-book', $.proxy(this._makeEditable, this));
+
+  this.$container.on('click', '.save-book', $.proxy(this._resaveRow, this));
+  //figure out how to make this only update on a click
+  // this.$container.find("tr").on('blur', "td[contenteditable='true']", $.proxy(this._resaveRow, this));
 
   $('.search-form').on('submit', $.proxy(this._searchUI, this));
 
@@ -67,15 +71,18 @@ DataTable.prototype._createRow = function (book) {
   $(deleteI).addClass('far fa-times-circle btn delete-book')
   //add input to table data
   deleteTD.append(deleteI);
+  var editI = document.createElement('i');
+  $(editI).addClass('far fa-edit btn edit-book');
+  deleteTD.append(editI);
 
 
   //for each key in {Book} make a table data and add text to it
   for (var key in book) {
     var td = document.createElement('td')
     $(td).text(book[key]);
+    $(td).attr('id', key);
     if (key != 'cover') {
-      $(td).attr('contenteditable', 'true');
-      $(td).attr(key, book[key]);
+      $(td).attr('contenteditable', 'false');
     };
     if (key == 'cover') {
       var img = document.createElement('img');
@@ -131,52 +138,46 @@ DataTable.prototype._deleteRow = function (e) {
 };
 
 DataTable.prototype._resaveRow = function (e) {
-  console.log(e);
+  //grab row of the clicked button
   var $target = $(e.currentTarget).closest('tr');
-  var editInput = e.currentTarget.innerText;
-  console.log($target);
-  console.log(editInput);
   var oldBookTitle = $target.attr('title');
-  console.log(oldBookTitle);
-  if(confirm("Are you sure you want to edit this book" + oldBookTitle + "?")){
-    this.removeBookbyTitle(oldBookTitle)
-
+  if(confirm("Are you sure you want to edit this book '" + oldBookTitle + "'?")){
+    this.removeBookbyTitle(oldBookTitle);
     var newTarget = $target.children();
-    console.log(newTarget);
-    console.log(newTarget[1].innerText)
-    oBook = {cover: newTarget[0].innerText,
-    title: newTarget[1].innerText,
-    author: newTarget[2].innerText,
-    numberOfPages: newTarget[3].innerText,
-    publishDate: newTarget[4].innerText,
-    rating: newTarget[5].innerText
+    //use children of tr to get book info into object
+    var oBook = {
+      cover: newTarget[0].innerText,
+      title: newTarget[1].innerText,
+      author: newTarget[2].innerText,
+      numberOfPages: newTarget[3].innerText,
+      publishDate: newTarget[4].innerText,
+      rating: newTarget[5].innerText
     }
+    //make a new book with object
     var newBook = new Book(oBook);
 
-    // newBook.cover = newTarget[0].innerText;
-    // newBook.title = newTarget[1].innerText;
-    // newBook.author = newTarget[2].innerText;
-    // newBook.numberOfPages = newTarget[3].innerText;
-    // newBook.publishDate = newTarget[4].innerText;
-    // newBook.rating = newTarget[5].innerText;
-    window.bookShelf.push(newBook);
-    this._handleEventTrigger('tableUpdate');
-    //deletes the edited book on refresh -- why?
+    this.addBook(newBook);
+    //change icon back to edit icon
+    $target.find('td i.save-book').addClass('btn far fa-edit edit-book');
+  } else {
+    $target.find('td i.save-book').addClass('btn far fa-edit edit-book');
+  }
+};
 
-  };
-
-  // for (var td in $target){
-  //   attribute = $(td).attr(td);
-  //   console.log(attribute);
-  //   console.log(td);
-  //   td.innerText = newBook.attribute;
-  // }
-  // alert("You targeted... wisely")
+DataTable.prototype._makeEditable = function (e) {
+  var $target = $(e.currentTarget).closest('tr')
+  //make td's in target tr contenteditable
+  $target.children('td#title').attr('contenteditable','true');
+  $target.children('td#author').attr('contenteditable','true');
+  $target.children('td#numberOfPages').attr('contenteditable','true');
+  $target.children('td#publishDate').attr('contenteditable','true');
+  $target.children('td#rating').attr('contenteditable','true');
+  //change icon to save icon
+  $target.find('td i.edit-book').addClass('btn far fa-save save-book');
 };
 
 DataTable.prototype._searchUI = function (e) {
   e.preventDefault();
-  console.log(e);
   searchInput = $('#search-input').val();
   console.log(this.search(searchInput));
   if(searchInput){
