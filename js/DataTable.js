@@ -179,7 +179,7 @@ DataTable.prototype._makeEditable = function (e) {
   $target.children('td#publishDate').attr('contenteditable','true');
   $target.children('td#rating').attr('contenteditable','true');
   //change icon to save icon
-  $target.find('td i.edit-book').addClass('fa-save save-book').removeClass('fa-save save-book');
+  $target.find('td i.edit-book').addClass('fa-save save-book').removeClass('fa-edit edit-book');
 };
 
 DataTable.prototype._searchUI = function (e) {
