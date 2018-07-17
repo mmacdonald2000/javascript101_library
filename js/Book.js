@@ -8,7 +8,7 @@ var Book = function (bookObj){
   this.author = String(bookObj.author);
   this.numberOfPages = Number(bookObj.numberOfPages);
   this.publishDate = new Date(String(bookObj.publishDate)).getUTCFullYear();
-  this.rating = 3;
+  this.rating = bookObj.rating || 0;
   //have to use getUTCFullYear cuz otherwise the year is decremented every time it's pulled from localStorage
   //Why?
 };

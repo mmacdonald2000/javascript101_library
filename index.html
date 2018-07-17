@@ -8,6 +8,7 @@
 
     <link rel="stylesheet" href="./css/bootstrap.css">
     <link rel="stylesheet" href="./fonts/fontawesome/web-fonts-with-css/css/fontawesome-all.css">
+    <link rel="stylesheet" href="./jquery-bar-rating-master/dist/themes/fontawesome-stars.css">
     <link rel="stylesheet" href="./css/master.css">
   </head>
   <body class="container-fluid">
@@ -124,11 +125,18 @@
                 <!--Rating-->
                 <div class="form-group">
                   <label for="formAddBookRating">Rating</label>
-                  <button type="button" id="formAddBookRating" class="form-control btn col dropdown-toggle" data-toggle="dropdown">
+                  <!-- <button type="button" id="formAddBookRating" class="form-control btn col dropdown-toggle" data-toggle="dropdown">
                      None
-                  </button>
-                  <div class="dropdown-menu add-book-rating-dropdown" aria-labelledby="dropdown buttons">
-                    <!-- Rating drop downs -->
+                  </button> -->
+                  <select id="example formAddBookRating" class="form-control col" name="rating">
+                    <option value="1">1</option>
+                    <option value="2">2</option>
+                    <option value="3">3</option>
+                    <option value="4">4</option>
+                    <option value="5">5</option>
+                  </select>
+                  <!-- <div class="dropdown-menu add-book-rating-dropdown" aria-labelledby="dropdown buttons">
+
                     <a class="dropdown-item"aria-labelledby="None">None</a>
                     <a class="dropdown-item" aria-labelledby="0 stars">
                       <i class="far fa-star"></i>
@@ -340,6 +348,14 @@
 <!-- JavaScript -------------------------------------------------------------->
     <script src="./js/jquery.js" charset="utf-8"></script>
     <script src="./js/jquery_validation_plugin.js" charset="utf-8"></script>
+    <script src="./jquery-bar-rating-master/dist/jquery.barrating.min.js"></script>
+    <script type="text/javascript">
+       $(function() {
+          $('#example').barrating({
+            theme: 'fontawesome-stars'
+          });
+       });
+    </script>
     <script src="./js/Book.js" charset="utf-8"></script>
     <script src="./js/library.js" charset="utf-8"></script>
     <script src="./js/Util.js" charset="utf-8"></script>
