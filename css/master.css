@@ -6,6 +6,7 @@
 #3D2D19 - rgb(61,45,25) greenish brown
 */
 
+
 body{
   background-color: black;
   background-image: url(../assets/trinity_library5_bw.jpg);
@@ -78,6 +79,14 @@ form {
   padding: 0 1em;
 }
 
+#preview-image {
+  max-height: 100px;
+}
+
+#bookModalCover {
+  max-height: 200px;
+}
+
 .font-awesome {
   font-family: 'Font Awesome\ 5 Free';
 }
@@ -109,7 +118,7 @@ form {
   opacity: 1;
 }
 
- .modal-header {
+.modal-header {
   background-image: url(../assets/trinity_library3_bw.jpg);
   background-repeat: no-repeat;
   background-position: center;
