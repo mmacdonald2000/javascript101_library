@@ -73,7 +73,10 @@ DataTable.prototype._createRow = function (book) {
   for (var key in book) {
     var td = document.createElement('td')
     $(td).text(book[key]);
-    if (key != 'cover') {$(td).attr('contenteditable', 'true')};
+    if (key != 'cover') {
+      $(td).attr('contenteditable', 'true');
+      $(td).attr(key, book[key]);
+    };
     if (key == 'cover') {
       var img = document.createElement('img');
       $(img).attr('src', book[key]);
@@ -129,6 +132,45 @@ DataTable.prototype._deleteRow = function (e) {
 
 DataTable.prototype._resaveRow = function (e) {
   console.log(e);
+  var $target = $(e.currentTarget).closest('tr');
+  var editInput = e.currentTarget.innerText;
+  console.log($target);
+  console.log(editInput);
+  var oldBookTitle = $target.attr('title');
+  console.log(oldBookTitle);
+  if(confirm("Are you sure you want to edit this book" + oldBookTitle + "?")){
+    this.removeBookbyTitle(oldBookTitle)
+
+    var newTarget = $target.children();
+    console.log(newTarget);
+    console.log(newTarget[1].innerText)
+    oBook = {cover: newTarget[0].innerText,
+    title: newTarget[1].innerText,
+    author: newTarget[2].innerText,
+    numberOfPages: newTarget[3].innerText,
+    publishDate: newTarget[4].innerText,
+    rating: newTarget[5].innerText
+    }
+    var newBook = new Book(oBook);
+
+    // newBook.cover = newTarget[0].innerText;
+    // newBook.title = newTarget[1].innerText;
+    // newBook.author = newTarget[2].innerText;
+    // newBook.numberOfPages = newTarget[3].innerText;
+    // newBook.publishDate = newTarget[4].innerText;
+    // newBook.rating = newTarget[5].innerText;
+    window.bookShelf.push(newBook);
+    this._handleEventTrigger('tableUpdate');
+    //deletes the edited book on refresh -- why?
+
+  };
+
+  // for (var td in $target){
+  //   attribute = $(td).attr(td);
+  //   console.log(attribute);
+  //   console.log(td);
+  //   td.innerText = newBook.attribute;
+  // }
   // alert("You targeted... wisely")
 };
 
