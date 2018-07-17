@@ -51,7 +51,7 @@ AddBooksUI.prototype.makeBook = function () {
         holdingObj[entry.name] = entry.value;
       } else {
         validBook = false;
-        alert("Please enter a value for " + entry.name)
+        // alert("Please enter a value for " + entry.name)
       }
     });
     if(validBook){
@@ -100,15 +100,27 @@ AddBooksUI.prototype._addBooksToLIb = function () {
   //stop default so modal doesn't immediately close
   event.preventDefault();
   //if there are no books in queue push this book to bookShelf otherwise add queue to bookShelf
-  if(this._queueCounter===0){
+  if(this._queueCounter===0 && $('form').val()===''){
     inputBook = this.makeBook();
-    this.checkForDuplicates(inputBook) ? this.addBook(inputBook) : alert("This book is already on your bookshelf!");
+    if(this.checkForDuplicates(inputBook)){
+      this.addBook(inputBook);
+      $('form').trigger('reset');
+      this.$container.modal('hide');
+    } else {
+      alert("This book is missing entry fields or is already on your bookshelf.");
+    }
   } else {
+    if($('form').val()!==''){
+      inputBook = this.makeBook();
+      if(this.checkForDuplicates(inputBook)){
+        this.addBook(inputBook);
+        $('form').trigger('reset');
+      }
+    }
     this.addBooks(this._tempBookShelf);
     this._clearQueue();
+    this.$container.modal('hide');
   }
-
-  // this.$container.modal('hide');
   return;
 };
 
