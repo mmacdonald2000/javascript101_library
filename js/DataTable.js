@@ -141,7 +141,8 @@ DataTable.prototype._resaveRow = function (e) {
   //grab row of the clicked button
   var $target = $(e.currentTarget).closest('tr');
   var oldBookTitle = $target.attr('title');
-  if(confirm("Are you sure you want to edit this book '" + oldBookTitle + "'?")){
+  var answer = confirm('Are you sure you want to edit this book "' + oldBookTitle + '"?');
+  if(answer){
     this.removeBookbyTitle(oldBookTitle);
     var newTarget = $target.children();
     //use children of tr to get book info into object
@@ -158,9 +159,14 @@ DataTable.prototype._resaveRow = function (e) {
 
     this.addBook(newBook);
     //change icon back to edit icon
-    $target.find('td i.save-book').addClass('btn far fa-edit edit-book');
-  } else {
-    $target.find('td i.save-book').addClass('btn far fa-edit edit-book');
+    $target.find('td i.save-book').addClass('fa-edit edit-book').removeClass('fa-save save-book');
+  } else if (answer === false){
+    $target.children('td#title').attr('contenteditable','false');
+    $target.children('td#author').attr('contenteditable','false');
+    $target.children('td#numberOfPages').attr('contenteditable','false');
+    $target.children('td#publishDate').attr('contenteditable','false');
+    $target.children('td#rating').attr('contenteditable','false');
+    $target.find('td i.save-book').addClass('fa-edit edit-book').removeClass('fa-save save-book');
   }
 };
 
@@ -173,7 +179,7 @@ DataTable.prototype._makeEditable = function (e) {
   $target.children('td#publishDate').attr('contenteditable','true');
   $target.children('td#rating').attr('contenteditable','true');
   //change icon to save icon
-  $target.find('td i.edit-book').addClass('btn far fa-save save-book');
+  $target.find('td i.edit-book').addClass('fa-save save-book').removeClass('fa-save save-book');
 };
 
 DataTable.prototype._searchUI = function (e) {
