@@ -68,29 +68,6 @@ td img {
   max-height: 100px;
 }
 
-/* hovering pencil icon --not working -------------------------*/
-
-/* make room for edit icon */
-td[contenteditable]:after {
-  width: 8px;
-  height: 8px;
-  display: inline-block;
-  content: ' ';
-}
-
-/* on hover show icon */
-td[contenteditable]:hover:after {
-  font-family: FontAwesome;
-  content: '\f044';
-  /* icon isn't showing up right - how do I get the unicode to pick it up? */
-}
-
-/* don't show icon after click */
-td[contenteditable]:focus:after {
-  width: 0;
-  content: '';
-}
-
 
 /* Modal styling ------------------------------------------ */
 form {
