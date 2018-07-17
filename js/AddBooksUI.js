@@ -29,6 +29,8 @@ AddBooksUI.prototype._bindEvents = function () {
   this.$container.find('.clear-queue-btn').on('click', $.proxy(this._clearQueue, this));
   //bind event to add books to library
   this.$container.find('#formAddAllBooks').on('click', $.proxy(this._addBooksToLIb, this));
+
+  this.$container.find('#formAddBookCover').on('change', $.proxy(this._handleImageUpload, this))
   // return;
 };
 
@@ -54,6 +56,10 @@ AddBooksUI.prototype.makeBook = function () {
         // alert("Please enter a value for " + entry.name)
       }
     });
+    var cover = $('#preview-image').attr('src');
+    console.log(cover);
+    holdingObj['cover'] = cover;
+    console.log(holdingObj);
     if(validBook){
       //put the holdingObj into a Book object
       var inputBook = new Book(holdingObj)
@@ -122,6 +128,25 @@ AddBooksUI.prototype._addBooksToLIb = function () {
     this.$container.modal('hide');
   }
   return;
+};
+
+//encode image up
+AddBooksUI.prototype._handleImageUpload = function () {
+
+  var preview = document.querySelector('#preview-image');
+  var file    = document.querySelector('input[type=file]').files[0];
+  var reader  = new FileReader();
+
+  reader.addEventListener("load", function () {
+    preview.src = reader.result;
+  }, false);
+
+  if (file) {
+    var cover = reader.readAsDataURL(file);
+
+  }
+  return cover;
+
 };
 
 // AddBooksUI.prototype.validator = function (input) {
