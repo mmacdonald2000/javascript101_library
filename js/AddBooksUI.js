@@ -76,16 +76,19 @@ AddBooksUI.prototype.makeBook = function () {
 AddBooksUI.prototype._queueBooks = function () {
   //prevent button from closing modal
   event.preventDefault();
-  //make a book from input data
-  inputBook = this.makeBook();
-  //check if already on bookShelf, if not push to temp and increase queue counter
-  if(this.checkForDuplicates(inputBook)){
-    this._tempBookShelf.push(inputBook);
-    this._queueCounter++;
-    $('.queueNumber').text(this._queueCounter);
-    $('form').trigger('reset');
-  } else {
-    alert("This book is already on your Bookshelf!")
+  if ($('form').val() !== 0) {
+    //make a book from input data
+    inputBook = this.makeBook();
+    //check if already on bookShelf, if not push to temp and increase queue counter
+    if(this.checkForDuplicates(inputBook)){
+      this._tempBookShelf.push(inputBook);
+      this._queueCounter++;
+      $('.queueNumber').text(this._queueCounter);
+      $('form').trigger('reset');
+      $('#preview-image').removeClass("show").addClass("hide");
+    } else {
+      alert("This book is already on your Bookshelf!")
+    }
   }
   return;
 };
