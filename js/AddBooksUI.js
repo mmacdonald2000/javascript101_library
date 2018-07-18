@@ -73,7 +73,7 @@ AddBooksUI.prototype.makeBook = function () {
 
 
 //add books to queue
-AddBooksUI.prototype._queueBooks = function () {
+AddBooksUI.prototype._queueBooks = function (event) {
   //prevent button from closing modal
   event.preventDefault();
   if ($('form').val() !== 0) {
@@ -94,7 +94,7 @@ AddBooksUI.prototype._queueBooks = function () {
 };
 
 //function to clear the _tempBookShelf and reset the _queueCounter
-AddBooksUI.prototype._clearQueue = function () {
+AddBooksUI.prototype._clearQueue = function (event) {
   //stop default so modal doesn't immediately close
   event.preventDefault();
   this._tempBookShelf = [];
@@ -105,7 +105,7 @@ AddBooksUI.prototype._clearQueue = function () {
 };
 
 //add Queued books to bookshelf
-AddBooksUI.prototype._addBooksToLIb = function () {
+AddBooksUI.prototype._addBooksToLIb = function (event) {
   //stop default so modal doesn't immediately close
   event.preventDefault();
   //if there are no books in queue push this book to bookShelf otherwise add queue to bookShelf
@@ -129,7 +129,7 @@ AddBooksUI.prototype._addBooksToLIb = function () {
       }
     }
     this.addBooks(this._tempBookShelf);
-    this._clearQueue();
+    this._clearQueue(event);
     this.$container.modal('hide');
   }
   return;
@@ -138,7 +138,6 @@ AddBooksUI.prototype._addBooksToLIb = function () {
 //encode image up
 AddBooksUI.prototype._handleImageUpload = function () {
   $('#preview-image').removeClass("hide").addClass("show");
-  
 
   var preview = document.querySelector('#preview-image');
   var file    = document.querySelector('input[type=file]').files[0];
