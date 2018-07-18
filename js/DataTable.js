@@ -147,7 +147,7 @@ DataTable.prototype._resaveRow = function (e) {
     var newTarget = $target.children();
     //use children of tr to get book info into object
     var oBook = {
-      cover: newTarget[0].innerText,
+      cover: $(newTarget[0]).find('img').attr('src'),
       title: newTarget[1].innerText,
       author: newTarget[2].innerText,
       numberOfPages: newTarget[3].innerText,
