@@ -60,8 +60,9 @@ Library.prototype.addBooks = function (books) {
         count++;
       }
     }
-    return count;
     this._handleEventTrigger('tableUpdate', {details: "added Books: "+ count})
+    return count;
+
   } else {
     console.log("Error: input must be in array format")
   }
