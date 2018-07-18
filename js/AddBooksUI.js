@@ -30,7 +30,7 @@ AddBooksUI.prototype._bindEvents = function () {
   //bind event to add books to library
   this.$container.find('#formAddAllBooks').on('click', $.proxy(this._addBooksToLIb, this));
 
-  this.$container.find('#formAddBookCover').on('change', $.proxy(this._handleImageUpload, this))
+  this.$container.on('change','#formAddBookCover', $.proxy(this._handleImageUpload, this))
   // return;
 };
 
@@ -57,9 +57,7 @@ AddBooksUI.prototype.makeBook = function () {
       }
     });
     var cover = $('#preview-image').attr('src');
-    console.log(cover);
     holdingObj['cover'] = cover;
-    console.log(holdingObj);
     if(validBook){
       //put the holdingObj into a Book object
       var inputBook = new Book(holdingObj)
