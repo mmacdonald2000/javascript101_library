@@ -84,11 +84,11 @@ form {
 }
 
 #bookModalCover {
-  max-height: 200px;
+  max-height: 300px;
 }
 
 .font-awesome {
-  font-family: 'Font Awesome\ 5 Free';
+  font-family: FontAwesome;
 }
 .add-book-rating-dropdown {
   background-color: rgb(224,224,224);
