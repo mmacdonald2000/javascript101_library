@@ -69,6 +69,15 @@ td img {
   max-height: 100px;
 }
 
+/* trying to style mobile first...
+.numberOfPages{
+  display: none;
+}
+
+.rating{
+  display: none;
+} */
+
 
 /* Modal styling ------------------------------------------ */
 form {
@@ -90,8 +99,19 @@ form {
 .font-awesome {
   font-family: FontAwesome;
 }
+
 .add-book-rating-dropdown {
   background-color: rgb(224,224,224);
+}
+
+.show {
+  display:block;
+  margin:auto;
+}
+
+.hide {
+  display: none;
+  margin:auto;
 }
 
 
@@ -126,3 +146,13 @@ form {
   color: rgb(224,224,224);
   border: 1px solid rgb(224,224,224);
 }
+
+/* trying to style mobile first - not working
+ @media only screen and (max-width: 600px) {
+  .numberOfPages{
+    display: block;
+  }
+
+  .rating {
+    display: block;
+  } */
