@@ -99,6 +99,8 @@ AddBooksUI.prototype._clearQueue = function () {
   this._tempBookShelf = [];
   this._queueCounter = 0;
   $('.queueNumber').text(this._queueCounter);
+  $('form').trigger('reset');
+  $('#preview-image').removeClass("show").addClass("hide");
 };
 
 //add Queued books to bookshelf
@@ -111,6 +113,7 @@ AddBooksUI.prototype._addBooksToLIb = function () {
     if(this.checkForDuplicates(inputBook)){
       this.addBook(inputBook);
       $('form').trigger('reset');
+      $('#preview-image').removeClass("hide").addClass("show");
       this.$container.modal('hide');
     } else {
       alert("This book is missing entry fields or is already on your bookshelf.");
@@ -121,6 +124,7 @@ AddBooksUI.prototype._addBooksToLIb = function () {
       if(this.checkForDuplicates(inputBook)){
         this.addBook(inputBook);
         $('form').trigger('reset');
+        $('#preview-image').removeClass("hide").addClass("show");
       }
     }
     this.addBooks(this._tempBookShelf);
@@ -132,6 +136,8 @@ AddBooksUI.prototype._addBooksToLIb = function () {
 
 //encode image up
 AddBooksUI.prototype._handleImageUpload = function () {
+  $('#preview-image').removeClass("hide").addClass("show");
+  
 
   var preview = document.querySelector('#preview-image');
   var file    = document.querySelector('input[type=file]').files[0];
