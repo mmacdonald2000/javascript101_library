@@ -69,7 +69,13 @@ td img {
   max-height: 100px;
 }
 
-/* trying to style mobile first...
+/* trying to style mobile first... not working 7/18/18*/
+
+/* .collapse-columns {
+  visibility: collapse;
+} */
+
+/* }
 .numberOfPages{
   display: none;
 }

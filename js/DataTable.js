@@ -55,6 +55,16 @@ DataTable.prototype._updateTable = function (bookshelf) {
   $.each(bookshelf, function(index, book){
     $tbody.append(_self._createRow(book));
   });
+  //fix mobile-first design - doesn't work 7/18/18
+  $('td:nth-child(4),th:nth-child(4)').hide();
+  $('td:nth-child(5),th:nth-child(5)').hide();
+  $('td:nth-child(6),th:nth-child(6)').hide();
+
+  if($(window).width() >= 600){
+    $('td:nth-child(4),th:nth-child(4)').show();
+    $('td:nth-child(5),th:nth-child(5)').show();
+    $('td:nth-child(6),th:nth-child(6)').show();
+  }
 };
 
 DataTable.prototype._createRow = function (book) {
@@ -111,6 +121,7 @@ DataTable.prototype._createHeaderRow = function () {
     var th = document.createElement('th')
     // console.log(key);
     $(th).text(makeTitle(key));
+
     tr.append(th);
   };
   // append deleteTD here
