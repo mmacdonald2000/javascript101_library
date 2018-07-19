@@ -8,6 +8,7 @@
 
     <link rel="stylesheet" href="./css/bootstrap.css">
     <link rel="stylesheet" href="./fonts/fontawesome/web-fonts-with-css/css/fontawesome-all.css">
+    <link rel="stylesheet" href="./jquery-bar-rating-master/dist/themes/fontawesome-stars.css">
     <link rel="stylesheet" href="./css/master.css">
   </head>
   <body class="container-fluid">
@@ -15,9 +16,12 @@
 <!-- row 1 -->
     <div class="row justify-content-between">
       <!-- Show All Books button -->
-      <button type="button" class="btn btn-light bookshelf-buttons" aria-labelledby="My Bookshelf" data-toggle="modal" data-target="#allBookModal">My Bookshelf</button>
+      <button id="allBooksBtn" type="button" class="btn btn-light bookshelf-buttons" aria-labelledby="My Bookshelf">My Bookshelf</button>
       <!-- search bar -->
-      <input type="search" class="form-control ds-input search-bar" id="search-input" placeholder="Search..." autocomplete="off" data-siteurl="index.html" dir="auto">
+      <!-- wrap in a form use on submit -->
+      <form class="search-form search-bar" action="index.html" method="post">
+        <input type="search" class="form-control ds-input" id="search-input" placeholder="Search..." autocomplete="off" data-siteurl="index.html" dir="auto">
+      </form>
     </div>
 
     <!-- Jumbotron -->
@@ -39,14 +43,14 @@
       </button>
         <div class="dropdown-menu" aria-labelledby="dropdown buttons">
           <!-- Random Books button -->
-          <a class="dropdown-item" data-toggle="modal" data-target="#bookModal" aria-labelledby="pick a book">Pick a Book</a>
+          <a class="dropdown-item pick-book-btn" data-toggle="modal" data-target="#bookModal" aria-labelledby="pick a book">Pick a Book</a>
           <!-- Random Authors button -->
-          <a class="dropdown-item" data-toggle="modal" data-target="#pickAuthorModal" aria-labelledby="pick an author">Pick an Author</a>
+          <a class="dropdown-item pick-author-btn" data-toggle="modal" data-target="#pickAuthorModal" aria-labelledby="pick an author">Pick an Author</a>
         </div>
 
 
       <!-- Remove Books button -->
-      <button type="button" class="btn btn-light col bookshelf-buttons" aria-labelledby="Remove Books" data-toggle="modal" data-target="#removeBookModal">Remove Books</button>
+      <button id="removeBooksMainButton"type="button" class="btn btn-light col bookshelf-buttons" aria-labelledby="Remove Books" data-toggle="modal" data-target="#removeBookModal">Remove Books</button>
 
     </div>
 
@@ -56,81 +60,24 @@
     </div>
     <div class="row">
       <!-- Library Table -->
-      <table class="table table-hover table-striped table-dark table-bordered col">
+      <table id="data-table" class="table table-hover table-striped table-dark table-bordered text-center col">
         <thead>
-          <tr>
-            <th><!-- Cover here--></th>
+          <!-- <tr>
+            <th>Cover here</th>
             <th>Title</th>
             <th>Author</th>
             <th>Pages</th>
             <th>Date of Publication</th>
             <th>Rating</th>
             <th>Delete?</th>
-          </tr>
+          </tr> -->
         </thead>
         <tbody>
           <!-- placeholder table rows -->
           <tr>
-            <td data-toggle="modal" data-target="#bookModal"><img src="./assets/filler_murray.jpg" alt="Cover art"></td>
-            <td contenteditable="true">The Slow Regard of Silent Things</td>
-            <td contenteditable="true">Patrick Rothfuss</td>
-            <td class="text-center">662</td>
-            <td>March 2007</td>
-            <td><span class="text-nowrap">
-              <i class="fas fa-star"></i>
-              <i class="fas fa-star"></i>
-              <i class="fas fa-star"></i>
-              <i class="fas fa-star"></i>
-              <i class="far fa-star"></i>
-            </span></td>
-            <td class="text-center"><input type="checkbox" name="Delete" value=""></td>
+            <td class="no-books" colspan="7">No books in your Library. </td>
           </tr>
-          <tr>
-            <td data-toggle="modal" data-target="#bookModal"><img src="./assets/filler_murray.jpg" alt="Cover art"></td>
-            <td contenteditable="true">Kingkiller Chronicle #3</td>
-            <td contenteditable="true">Patrick Rothfuss</td>
-            <td class="text-center">662</td>
-            <td>March 2007</td>
-            <td>
-              <i class="fas fa-star"></i>
-              <i class="fas fa-star"></i>
-              <i class="fas fa-star"></i>
-              <i class="fas fa-star"></i>
-              <i class="far fa-star"></i>
-            </td>
-            <td class="text-center"><input type="checkbox" name="Delete" value=""></td>
-          </tr>
-          <tr>
-            <td data-toggle="modal" data-target="#bookModal"><img src="./assets/filler_murray.jpg" alt="Cover art"></td>
-            <td contenteditable="true">The Wise Man's Fear</td>
-            <td contenteditable="true">Patrick Rothfuss</td>
-            <td class="text-center">662</td>
-            <td>March 2007</td>
-            <td><span class="text-nowrap">
-              <i class="fas fa-star"></i>
-              <i class="fas fa-star"></i>
-              <i class="fas fa-star"></i>
-              <i class="fas fa-star"></i>
-              <i class="far fa-star"></i>
-            </span></td>
-            <td class="text-center"><input type="checkbox" name="Delete" value=""></td>
-          </tr>
-          <tr>
-            <td data-toggle="modal" data-target="#bookModal"><img src="./assets/filler_murray.jpg" alt="Cover art"></td>
-            <td contenteditable="true">The Name of the Wind</td>
-            <td contenteditable="true">Patrick Rothfuss</td>
-            <td class="text-center">662</td>
-            <td>March 2007</td>
-            <td><span class="text-nowrap">
-              <i class="fas fa-star"></i>
-              <i class="fas fa-star"></i>
-              <i class="fas fa-star"></i>
-              <i class="fas fa-star"></i>
-              <i class="far fa-star"></i>
-            </span></td>
-            <td class="text-center"><input type="checkbox" name="Delete" value=""></td>
-          </tr>
-          <tr>
+          <!-- <tr>
             <td data-toggle="modal" data-target="#bookModal"><img src="./assets/filler_murray.jpg" alt="Cover art"></td>
             <td contenteditable="true">The Name of the Wind 2</td>
             <td contenteditable="true">Patrick Rothfuss</td>
@@ -144,7 +91,7 @@
               <i class="far fa-star"></i>
             </span></td>
             <td class="text-center"><input type="checkbox" name="Delete" value=""></td>
-          </tr>
+          </tr> -->
         </tbody>
 
       </table>
@@ -167,22 +114,29 @@
               <!--Title-->
               <div class="form-group row">
                 <label for="formAddBookTitle">Title</label>
-                <input type="text" id="formAddBookTitle" class="form-control col-md-12 col-sm-12 pr-2" placeholder="The Name of the Wind" name="title" required>
+                <input type="text" id="formAddBookTitle" class="form-control col-md-12 col-sm-12 pr-2" name="title" required>
               </div>
               <div class="row">
                 <!--Author-->
                 <div class="form-group">
                   <label for="formAddBookAuthor">Author</label>
-                  <input type="text" id="formAddBookAuthor" class="form-control col" placeholder="Patrick Rothfuss" name="author" required>
+                  <input type="text" id="formAddBookAuthor" class="form-control col" name="author" required>
                 </div>
                 <!--Rating-->
                 <div class="form-group">
                   <label for="formAddBookRating">Rating</label>
-                  <button type="button" id="formAddBookRating" class="form-control btn col dropdown-toggle" data-toggle="dropdown">
+                  <!-- <button type="button" id="formAddBookRating" class="form-control btn col dropdown-toggle" data-toggle="dropdown">
                      None
-                  </button>
-                  <div class="dropdown-menu add-book-rating-dropdown" aria-labelledby="dropdown buttons">
-                    <!-- Rating drop downs -->
+                  </button> -->
+                  <select id="example formAddBookRating" class="form-control col" name="rating">
+                    <option value="1">1</option>
+                    <option value="2">2</option>
+                    <option value="3">3</option>
+                    <option value="4">4</option>
+                    <option value="5">5</option>
+                  </select>
+                  <!-- <div class="dropdown-menu add-book-rating-dropdown" aria-labelledby="dropdown buttons">
+
                     <a class="dropdown-item"aria-labelledby="None">None</a>
                     <a class="dropdown-item" aria-labelledby="0 stars">
                       <i class="far fa-star"></i>
@@ -226,7 +180,7 @@
                       <i class="fas fa-star"></i>
                       <i class="fas fa-star"></i>
                     </a>
-                  </div>
+                  </div> -->
                 </div>
               </div>
 
@@ -234,12 +188,12 @@
                 <!--Pages-->
                 <div class="form-group">
                   <label for="formAddBookPages">Number of Pages</label>
-                  <input type="number" id="formAddBookPages" class="form-control col" placeholder="234" name="numberOfPages" required>
+                  <input type="number" id="formAddBookPages" class="form-control col" name="numberOfPages" required>
                 </div>
                 <!--PubDate-->
                 <div class="form-group">
                   <label for="formAddBookPubDate">Publication Date</label>
-                  <input type="date" id="formAddBookPubDate" class="form-control col" placeholder="03/2007" name="publishDate" required>
+                  <input type="date" id="formAddBookPubDate" class="form-control col" name="publishDate" required>
                 </div>
               </div>
 
@@ -247,8 +201,9 @@
                 <!--Cover file-->
                 <div class="form-group">
                   <label for="exampleFormControlFile1">Cover Art</label>
-                  <input type="file" class="form-control-file col pl-0" id="formAddBookCover">
+                  <input type="file" class="form-control-file col pl-0" id="formAddBookCover" accept="image/*">
                 </div>
+                <img id="preview-image" src="./assets/filler_murray.jpg" alt="Image preview" class="hide">
               </div>
               <div class="row">
                 <!--Queue-->
@@ -289,20 +244,22 @@
             </button>
           </div>
           <div class="modal-body container-fluid">
-            <!--Title-->
-            <div class="form-group">
-              <label for="formRemoveBookTitle">Remove by Title</label>
-              <input type="text" id="formRemoveBookTitle" class="form-control">
-            </div>
-            <!--Author-->
-            <div class="form-group">
-              <label for="formRemoveBookAuthor">Remove by Author</label>
-              <input type="text" id="formRemoveBookAuthor" class="form-control">
-              <p>*This option will remove <u>all</u> books by the same author*</p>
-            </div>
+            <form class="formRemoveBook" action="index.html" method="post">
+              <!--Title-->
+              <div class="form-group">
+                <label for="formRemoveBookTitle">Remove by Title</label>
+                <input type="text" id="formRemoveBookTitle" class="form-control">
+              </div>
+              <!--Author-->
+              <div class="form-group">
+                <label for="formRemoveBookAuthor">Remove by Author</label>
+                <input type="text" id="formRemoveBookAuthor" class="form-control">
+                <p>*This option will remove <u>all</u> books by the same author*</p>
+              </div>
+            </form>
           </div>
           <div class="modal-footer">
-            <button type="button" class="btn btn-dark" data-dismiss="modal">Remove Book(s)</button>
+            <button type="button" class="btn btn-dark" id="removeButton" data-dismiss="modal" >Remove Book(s)</button>
           </div>
         </div>
       </div>
@@ -320,11 +277,7 @@
           </div>
           <div class="modal-body">
             <ul>
-              <li>Patrick Rothfuss</li>
-              <li>Patrick Rothfuss</li>
-              <li>Patrick Rothfuss</li>
-              <li>Patrick Rothfuss</li>
-              <li>Patrick Rothfuss</li>
+
             </ul>
           </div>
           <div class="modal-footer">
@@ -346,7 +299,7 @@
           </div>
           <div class="modal-body container-fluid">
             <div class="media text-center">
-              <img class="align-self-start mr-3" src="./assets/murray_2x3.jpg" alt="Cover art">
+              <img id="bookModalCover" class="align-self-start mr-3" src="./assets/murray_2x3.jpg" alt="Cover art">
               <div class="media-body">
                 <h4 id="bookModalTitle" class="pb-5 pt-4">Name of the Wind</h4>
                 <h5>by <span id="bookModalAuthor" class="pt-5">Patrick Rothfuss</span></h5>
@@ -396,11 +349,24 @@
 <!-- JavaScript -------------------------------------------------------------->
     <script src="./js/jquery.js" charset="utf-8"></script>
     <script src="./js/jquery_validation_plugin.js" charset="utf-8"></script>
+    <script src="./jquery-bar-rating-master/dist/jquery.barrating.min.js"></script>
+    <script type="text/javascript">
+       $(function() {
+          $('#example').barrating({
+            theme: 'fontawesome-stars'
+          });
+       });
+    </script>
     <script src="./js/Book.js" charset="utf-8"></script>
     <script src="./js/library.js" charset="utf-8"></script>
     <script src="./js/Util.js" charset="utf-8"></script>
     <script src="./js/ShowAuthorsUI.js" charset="utf-8"></script>
     <script src="./js/AddBooksUI.js" charset="utf-8"></script>
+    <script src="./js/DataTable.js" charset="utf-8"></script>
+    <script src="./js/RemoveBooksUI.js" charset="utf-8"></script>
+    <script src="./js/RandomBookUI.js" charset="utf-8"></script>
+    <script src="./js/RandomAuthorUI.js" charset="utf-8"></script>
+    <script src="./fonts/fontawesome/fontawesome.js" charset="utf-8"></script>
 
     <script src="./js/bootstrap.bundle.js" charset="utf-8"></script>
 

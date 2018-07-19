@@ -1,10 +1,11 @@
-/* prominant colors from Googles API:
+/* prominant colors from Google's API:
 #744913 - rgb(116,73,19) light brown
 #9F6A20 - rgb(159,106,32) lighter tan
 #271909 - rgb(39,25,9) dark brown/black
 #84500A - rgb(132,80,10) goldish tan
 #3D2D19 - rgb(61,45,25) greenish brown
 */
+
 
 body{
   background-color: black;
@@ -49,6 +50,7 @@ header, .my-bookshelf, .login {
   margin: 1em;
 }
 
+/* table styling------------------------------------------ */
 table {
   margin: 1em;
   opacity: .95;
@@ -58,10 +60,32 @@ th {
   font: bold;
 }
 
-td img {
-  opacity: 1.0;
+table tr td.no-books {
+  text-align: center;
 }
 
+td img {
+  opacity: 1.0;
+  max-height: 100px;
+}
+
+/* trying to style mobile first... not working 7/18/18*/
+
+/* .collapse-columns {
+  visibility: collapse;
+} */
+
+/* }
+.numberOfPages{
+  display: none;
+}
+
+.rating{
+  display: none;
+} */
+
+
+/* Modal styling ------------------------------------------ */
 form {
   width: 100%;
 }
@@ -70,11 +94,30 @@ form {
   padding: 0 1em;
 }
 
+#preview-image {
+  max-height: 100px;
+}
+
+#bookModalCover {
+  max-height: 300px;
+}
+
 .font-awesome {
   font-family: FontAwesome;
 }
+
 .add-book-rating-dropdown {
   background-color: rgb(224,224,224);
+}
+
+.show {
+  display:block;
+  margin:auto;
+}
+
+.hide {
+  display: none;
+  margin:auto;
 }
 
 
@@ -101,7 +144,7 @@ form {
   opacity: 1;
 }
 
- .modal-header {
+.modal-header {
   background-image: url(../assets/trinity_library3_bw.jpg);
   background-repeat: no-repeat;
   background-position: center;
@@ -109,3 +152,13 @@ form {
   color: rgb(224,224,224);
   border: 1px solid rgb(224,224,224);
 }
+
+/* trying to style mobile first - not working
+ @media only screen and (max-width: 600px) {
+  .numberOfPages{
+    display: block;
+  }
+
+  .rating {
+    display: block;
+  } */
