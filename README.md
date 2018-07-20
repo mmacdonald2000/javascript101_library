@@ -1,4 +1,4 @@
-# javascript101_library
+# javascript_library_capstone
 Library API in javascript
 
-This is a preliminary API modeling a library.
+This is the front end of a preliminary API modeling a library.
