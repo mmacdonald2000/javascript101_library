@@ -1,0 +1,164 @@
+/* prominant colors from Google's API:
+#744913 - rgb(116,73,19) light brown
+#9F6A20 - rgb(159,106,32) lighter tan
+#271909 - rgb(39,25,9) dark brown/black
+#84500A - rgb(132,80,10) goldish tan
+#3D2D19 - rgb(61,45,25) greenish brown
+*/
+
+
+body{
+  background-color: black;
+  background-image: url(../assets/trinity_library5_bw.jpg);
+  background-repeat: repeat-y;
+  background-size: auto;
+  background-position: top;
+  height: 100%;
+  /* overflow: hidden; */
+  font-family: Georgia, "Times New Roman", fantasy;
+
+}
+
+header, .my-bookshelf, .login {
+  color: rgb(224,224,224);
+  text-shadow: 2px 2px 2px #000000;
+}
+
+.search-bar {
+  max-width: 30%;
+  margin: 1em;
+}
+
+.jumbotron {
+  background-color: transparent;
+}
+
+.bookshelf-buttons {
+  margin: 1em;
+  min-width: auto;
+  /* look for a way to make the min width the width of the letters */
+  max-width: 25%;
+  background-color: rgba(224,224,224,.7);
+  border-color: rgba(224,224,224,.7);
+}
+
+.dropdown-menu {
+  background-color: rgba(224,224,224,.7);
+}
+
+.my-bookshelf {
+  margin: 1em;
+}
+
+/* table styling------------------------------------------ */
+table {
+  margin: 1em;
+  opacity: .95;
+}
+
+th {
+  font: bold;
+}
+
+table tr td.no-books {
+  text-align: center;
+}
+
+td img {
+  opacity: 1.0;
+  max-height: 100px;
+}
+
+/* trying to style mobile first... not working 7/18/18*/
+
+/* .collapse-columns {
+  visibility: collapse;
+} */
+
+/* }
+.numberOfPages{
+  display: none;
+}
+
+.rating{
+  display: none;
+} */
+
+
+/* Modal styling ------------------------------------------ */
+form {
+  width: 100%;
+}
+
+.form-group {
+  padding: 0 1em;
+}
+
+#preview-image {
+  max-height: 100px;
+}
+
+#bookModalCover {
+  max-height: 300px;
+}
+
+.font-awesome {
+  font-family: FontAwesome;
+}
+
+.add-book-rating-dropdown {
+  background-color: rgb(224,224,224);
+}
+
+.show {
+  display:block;
+  margin:auto;
+}
+
+.hide {
+  display: none;
+  margin:auto;
+}
+
+
+
+/* looks cool but I don't think it will be functional */
+/* .modal {
+  background-image: url(../assets/trinity_library3.jpg);
+  background-size: cover;
+  background-repeat: no-repeat;
+} */
+
+
+.modal-content {
+  background-color: rgba(224,224,224,1);
+}
+
+/* .modal-header {
+  background-color: rgb(41,44,52);
+  color: rgb(224,224,224)
+} */
+
+.modal-header button {
+  color: rgb(224,224,224);
+  opacity: 1;
+}
+
+.modal-header {
+  background-image: url(../assets/trinity_library3_bw.jpg);
+  background-repeat: no-repeat;
+  background-position: center;
+  text-shadow: 2px 2px 2px black;
+  color: rgb(224,224,224);
+  border: 1px solid rgb(224,224,224);
+}
+
+/* trying to style mobile first - not working
+ @media only screen and (max-width: 600px) {
+  .numberOfPages{
+    display: block;
+  }
+
+  .rating {
+    display: block;
+  } */
