@@ -1,3 +1,4 @@
+//a UI to handle adding books from a modal
 //contructor - container is a placeholder for the selector of the modal
 var AddBooksUI = function(container){
   //reassign 'this' to the instance of Library -- native javaScript version of proxy
@@ -28,6 +29,8 @@ AddBooksUI.prototype._bindEvents = function () {
   this.$container.find('.clear-queue-btn').on('click', $.proxy(this._clearQueue, this));
   //bind event to add books to library
   this.$container.find('#formAddAllBooks').on('click', $.proxy(this._addBooksToLIb, this));
+
+  this.$container.on('change','#formAddBookCover', $.proxy(this._handleImageUpload, this))
   // return;
 };
 
@@ -50,9 +53,11 @@ AddBooksUI.prototype.makeBook = function () {
         holdingObj[entry.name] = entry.value;
       } else {
         validBook = false;
-        alert("Please enter a value for " + entry.name)
+        // alert("Please enter a value for " + entry.name)
       }
     });
+    var cover = $('#preview-image').attr('src');
+    holdingObj['cover'] = cover;
     if(validBook){
       //put the holdingObj into a Book object
       var inputBook = new Book(holdingObj)
@@ -68,46 +73,86 @@ AddBooksUI.prototype.makeBook = function () {
 
 
 //add books to queue
-AddBooksUI.prototype._queueBooks = function () {
+AddBooksUI.prototype._queueBooks = function (event) {
   //prevent button from closing modal
   event.preventDefault();
-  //make a book from input data
-  inputBook = this.makeBook();
-  //check if already on bookShelf, if not push to temp and increase queue counter
-  if(this.checkForDuplicates(inputBook)){
-    this._tempBookShelf.push(inputBook);
-    this._queueCounter++;
-    $('.queueNumber').text(this._queueCounter);
-    // $('form').trigger('reset');
+  if ($('form').val() !== 0) {
+    //make a book from input data
+    inputBook = this.makeBook();
+    //check if already on bookShelf, if not push to temp and increase queue counter
+    if(this.checkForDuplicates(inputBook)){
+      this._tempBookShelf.push(inputBook);
+      this._queueCounter++;
+      $('.queueNumber').text(this._queueCounter);
+      $('form').trigger('reset');
+      $('#preview-image').removeClass("show").addClass("hide");
+    } else {
+      alert("This book is already on your Bookshelf!")
+    }
   }
   return;
 };
 
 //function to clear the _tempBookShelf and reset the _queueCounter
-AddBooksUI.prototype._clearQueue = function () {
+AddBooksUI.prototype._clearQueue = function (event) {
   //stop default so modal doesn't immediately close
   event.preventDefault();
   this._tempBookShelf = [];
   this._queueCounter = 0;
   $('.queueNumber').text(this._queueCounter);
+  $('form').trigger('reset');
+  $('#preview-image').removeClass("show").addClass("hide");
 };
 
 //add Queued books to bookshelf
-AddBooksUI.prototype._addBooksToLIb = function () {
+AddBooksUI.prototype._addBooksToLIb = function (event) {
   //stop default so modal doesn't immediately close
   event.preventDefault();
   //if there are no books in queue push this book to bookShelf otherwise add queue to bookShelf
-  if(this._queueCounter===0){
+  if(this._queueCounter===0 && $('form').val()===''){
     inputBook = this.makeBook();
     if(this.checkForDuplicates(inputBook)){
       this.addBook(inputBook);
-    };
+      $('form').trigger('reset');
+      $('#preview-image').removeClass("hide").addClass("show");
+      this.$container.modal('hide');
+    } else {
+      alert("This book is missing entry fields or is already on your bookshelf.");
+    }
   } else {
+    if($('form').val()!==''){
+      inputBook = this.makeBook();
+      if(this.checkForDuplicates(inputBook)){
+        this.addBook(inputBook);
+        $('form').trigger('reset');
+        $('#preview-image').removeClass("hide").addClass("show");
+      }
+    }
     this.addBooks(this._tempBookShelf);
-    this._clearQueue();
+    this._clearQueue(event);
+    this.$container.modal('hide');
   }
-  // this.$container.modal('hide');
   return;
+};
+
+//encode image up
+AddBooksUI.prototype._handleImageUpload = function () {
+  $('#preview-image').removeClass("hide").addClass("show");
+
+  var preview = document.querySelector('#preview-image');
+  var file    = document.querySelector('input[type=file]').files[0];
+  var reader  = new FileReader();
+
+  reader.addEventListener("load", function () {
+    preview.src = reader.result;
+  }, false);
+
+  if (file) {
+    var cover = reader.readAsDataURL(file);
+
+  }
+  return cover;
+
 };
 
 // AddBooksUI.prototype.validator = function (input) {

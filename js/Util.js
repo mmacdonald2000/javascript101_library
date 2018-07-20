@@ -7,3 +7,24 @@ var bookShelf = new Array();
 //Format date from datetime function here
 
 //
+
+//make camelCase words into normal words
+var makeTitle = function(str){
+  //split using regex to find uppercase letter but keep it attached to the letters following it
+  var splits = str.split(/(?=[A-Z]+)/);
+  //split the first word up
+  var split1 = splits[0].split('');
+  //make the first letter upper case
+  split2 = split1[0].toUpperCase();
+  //rejoin the first word
+  var rejoin1 = split2;
+  for(i=1; i<split1.length; i++){
+    rejoin1 = rejoin1 + split1[i];
+  }
+  //reset the first word to capitalized word
+  splits[0] = rejoin1;
+  //rejoin the strings with a space in between
+  var rejoined = splits.join(" ");
+
+  return rejoined;
+}
