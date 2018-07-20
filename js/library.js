@@ -7,6 +7,7 @@ var Library;
   var instance;
 
   Library = function() {
+
     //If instance exists return instance
     if (instance) {
       return instance;
@@ -175,7 +176,6 @@ Library.prototype.getBooksByAuthor = function (authorName) {
     console.log("Please enter a valid author name.");
     return [];
   }
-
 };
 
 
@@ -271,7 +271,14 @@ Library.prototype.search = function (input, input2) {
     //call previous funtions and concatenate into one array
     var results = this.getBookByTitle(input).concat(this.getBooksByAuthor(input)).concat(this.getBookByPageCount(parseInt(input), parseInt(input2))).concat(this.getBookByPubDate(parseInt(input), parseInt(input2)));
   }
-  return results;
+  var resultsFilter = results.reduce(function(accumulator, current){
+    if (accumulator.indexOf(current) == -1){
+      accumulator.push(current);
+    }
+    return accumulator;
+  },[]);
+  // var resultsFilter = new Set(results); // May be an ES6 solution only?
+  return resultsFilter;
 };
 
 /*-----LOCAL STORAGE----------------------------------------------------------*/
@@ -334,3 +341,4 @@ Library.prototype._handleEventTrigger = function (sEvent, oData) {
 //     window.goldenLibrary.recover();
 //   }
 // });
+
