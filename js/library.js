@@ -36,8 +36,9 @@ Library.prototype.addBook = function (book) {
   //error handling - check if input is already in bookShelf
   if (this.checkForDuplicates(book)){
     window.bookShelf.push(book);
-    //store change to localStorage
-    // this.store();
+    // store in local storage
+    // this.store());
+    this.storeToDatabase(book);
     //trigger _updateTable
     this._handleEventTrigger('tableUpdate')
     return true;
@@ -346,6 +347,22 @@ Library.prototype._handleEventTrigger = function (sEvent, oData) {
 
 
 //get data from database
+//send data to database (Create(POST))
+Library.prototype.storeToDatabase = function (oBook) {
+  $.ajax({
+    url: window.libraryURL,
+    dataType: 'json',
+    method: 'POST',
+    data: oBook,
+    success: (data) => {
+      // console.log(data);
+      console.log("Sucessful upload to Database.")
+    },
+    error: (error) => {
+      console.log(error);
+    }
+  })
+};
 Library.prototype.getDataFromDatabase = function () {
   console.log("Database function was called");
   $.ajax({
