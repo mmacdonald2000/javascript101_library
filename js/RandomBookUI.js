@@ -39,7 +39,7 @@ RandomBookUI.prototype._pushBookInfo = function (book) {
 
 RandomBookUI.prototype._pushBookByTable = function (e) {
   //get book title & getBookByTitle
-  var title = $(e.currentTarget).closest('tr').attr('title');
+  var title = $(e.currentTarget).closest('tr').attr('data-title');
   var tableBook = this.getOneBookByTitle(title);
   this._pushBookInfo(tableBook);
 };
