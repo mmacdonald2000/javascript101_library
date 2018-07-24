@@ -16,7 +16,7 @@ var Library;
     instance = this;
     window.bookShelf = [];
     this._libraryKey = 'goldenLibrary';
-    window.libraryURL = 'http://localhost:3002/Library';
+    window.libraryURL = 'http://localhost:3002/Library/';
   }
 })();
 
@@ -345,8 +345,26 @@ Library.prototype._handleEventTrigger = function (sEvent, oData) {
 //   }
 // });
 
+Library.prototype.removeBookbyId = function (id) {
 
-//get data from database
+  var removed = 0;
+  for(i=0; i<window.bookShelf.length; i++){
+    var bookShelfId = window.bookShelf[i]._id;
+    if(bookShelfId === id){
+      window.bookShelf.splice(i, 1);
+      removed++;
+    };
+  }
+  if(removed > 0){
+    this._handleEventTrigger('tableUpdate', {details: "removeBookbyId"})
+    this.deleteFromDatabase(id);
+    return true;
+  } else {
+    return false;
+  }
+};
+/* ------------------- CRUD routes ----------------- */
+
 //send data to database (Create(POST))
 Library.prototype.storeToDatabase = function (oBook) {
   $.ajax({
@@ -380,5 +398,20 @@ Library.prototype.getDataFromDatabase = function () {
       }
       console.log(window.bookShelf)
     }
+  })
+};
+
+//delete data to database (Delete(DELETE))
+Library.prototype.deleteFromDatabase = function (id) {
+  $.ajax({
+    url: window.libraryURL + id,
+    dataType: 'text',
+    method: 'DELETE',
+    data: id,
+    success: (data) => {
+      // console.log(data);
+      console.log('Successful removal from Database.')
+    },
+    error: (error) => console.log(error)
   })
 };

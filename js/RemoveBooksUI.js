@@ -40,9 +40,11 @@ RemoveBooksUI.prototype._handleRemoveBooks = function () {
 
 RemoveBooksUI.prototype._removeBooksByTitle = function (title) {
   //Remove book by Title
-  if (this.getBookByTitle(title).length) {
+  targetBook = this.getOneBookByTitle(title);
+  if (targetBook) {
     if(confirm("Are you sure you want to remove " + title + "?")){
-      this.removeBookbyTitle(title);
+      // this.removeBookbyTitle(title);
+      this.removeBookbyId(targetBook._id)
       console.log(title + " was removed.")
     }
   } else {
@@ -53,9 +55,16 @@ RemoveBooksUI.prototype._removeBooksByTitle = function (title) {
 
 RemoveBooksUI.prototype._removeBooksByAuthor = function (author) {
   //Remove book by Author
-  if (this.getBooksByAuthor(author).length) {
+  aAuthorBooks = this.getBooksByAuthor(author);
+  console.log(aAuthorBooks)
+
+  if (aAuthorBooks.length) {
     if(confirm("Are you sure you want to remove all books by " + author + "?")){
-      this.removeBookByAuthor(author);
+      // this.removeBookByAuthor(author);
+      for(i in aAuthorBooks){
+        console.log(aAuthorBooks[i]._id)
+        this.removeBookbyId(aAuthorBooks[i]._id);
+      }
       console.log("Books by " + author + " were removed.")
     }
   } else {
