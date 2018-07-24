@@ -81,6 +81,7 @@ DataTable.prototype._createRow = function (book) {
   $(tr).addClass('table-row');
   //add an attribute to tr with the title as the value so that we can target the title when deleting rows
   $(tr).attr('title', book.title);
+  $(tr).attr('id', book._id);
   // create table data variable for delete column
   var deleteTD = document.createElement('td');
   //create i element for delete column
