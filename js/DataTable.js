@@ -73,8 +73,8 @@ DataTable.prototype._createRow = function (book) {
   var tr = document.createElement('tr');
   $(tr).addClass('table-row');
   //add an attribute to tr with the title as the value so that we can target the title when deleting rows
-  $(tr).attr('title', book.title);
-  $(tr).attr('id', book._id);
+  $(tr).attr('data-title', book.title);
+  $(tr).attr('data-id', book._id);
   // create table data variable for delete column
   var deleteTD = document.createElement('td');
   //create i element for delete column
@@ -140,7 +140,7 @@ DataTable.prototype._createHeaderRow = function () {
 
 DataTable.prototype._deleteRow = function (e) {
   var $target = $(e.currentTarget).closest('tr');
-  var id = $target.attr('id');
+  var id = $target.attr('data-id');
   if(confirm("Are you sure you want to delete this book?")){
     this.removeBookbyId(id);
     //remove row from html (detach keeps a copy in memory: I'm not sure if I want this or not)
@@ -152,8 +152,8 @@ DataTable.prototype._deleteRow = function (e) {
 DataTable.prototype._resaveRow = function (e) {
   //grab row of the clicked button
   var $target = $(e.currentTarget).closest('tr');
-  var oldBookTitle = $target.attr('title');
-  var answer = confirm('Are you sure you want to edit this book "' + oldBookTitle + '"?');
+  var bookId = $target.attr('data-id');
+  var answer = confirm('Are you sure you want to edit this book "' + $target.attr('data-title') + '"?');
   if(answer){
     this.removeBookbyTitle(oldBookTitle);
     var newTarget = $target.children();
