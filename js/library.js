@@ -381,22 +381,26 @@ Library.prototype.storeToDatabase = function (oBook) {
     }
   })
 };
+
+//get data from database (Read(GET))
 Library.prototype.getDataFromDatabase = function () {
-  console.log("Database function was called");
+  var _self = this;
   $.ajax({
     url: window.libraryURL,
     dataType: 'json',
     method: 'GET',
     success: function (data) {
-      console.log("I got some data!");
-      console.log(data)
+      // console.log("I got some data!");
+      // console.log(data)
       if(data){
         for(item in data){
-          console.log(data[item].publishDate)
           window.bookShelf.push(new Book(data[item]));
+          _self._handleEventTrigger('tableUpdate');
         }
       }
-      console.log(window.bookShelf)
+    },
+    error: function (error) {
+      console.log(error);
     }
   })
 };
