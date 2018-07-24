@@ -21,6 +21,10 @@ DataTable.prototype.init = function () {
 };
 
 DataTable.prototype._bindEvents = function () {
+  console.log('Binding events')
+  // $('#allBooksBtn').on('click', $.proxy(this.getDataFromDatabase, this));
+
+
   //delete functionality
   this.$container.on('click', '.delete-book', $.proxy(this._deleteRow, this));
   //Edit functionality
