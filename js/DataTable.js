@@ -114,6 +114,9 @@ DataTable.prototype._createRow = function (book) {
       $(td).attr("data-target", "#bookModal");
       // console.log(td);
     };
+    if(key === '__v' || key === '_id'){
+      $(td).addClass('collapse')
+    }
     tr.append(td);
   };
   //append deleteTD here
@@ -130,7 +133,9 @@ DataTable.prototype._createHeaderRow = function () {
     var th = document.createElement('th')
     // console.log(key);
     $(th).text(makeTitle(key));
-
+    if(key === '__v' || key === '_id'){
+      $(th).addClass('collapse')
+    }
     tr.append(th);
   };
   // append deleteTD here
