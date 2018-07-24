@@ -405,6 +405,22 @@ Library.prototype.getDataFromDatabase = function () {
   })
 };
 
+//edit data in database (Update(PUT))
+Library.prototype.editDataFromDatabase = function (oBook) {
+  var _self = this;
+  $.ajax({
+    url: window.libraryURL + oBook._id,
+    dataType: 'json',
+    method: 'PUT',
+    data: oBook,
+    success: (data) => {
+      console.log(data);
+      _self._handleEventTrigger('tableUpdate');
+    },
+    error: (error) => console.log(error)
+  })
+};
+
 //delete data to database (Delete(DELETE))
 Library.prototype.deleteFromDatabase = function (id) {
   $.ajax({
