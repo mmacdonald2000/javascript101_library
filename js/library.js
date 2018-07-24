@@ -16,6 +16,7 @@ var Library;
     instance = this;
     window.bookShelf = [];
     this._libraryKey = 'goldenLibrary';
+    window.libraryURL = 'http://localhost:3002/Library';
   }
 })();
 
@@ -343,3 +344,24 @@ Library.prototype._handleEventTrigger = function (sEvent, oData) {
 //   }
 // });
 
+
+//get data from database
+Library.prototype.getDataFromDatabase = function () {
+  console.log("Database function was called");
+  $.ajax({
+    url: window.libraryURL,
+    dataType: 'json',
+    method: 'GET',
+    success: function (data) {
+      console.log("I got some data!");
+      console.log(data)
+      if(data){
+        for(item in data){
+          console.log(data[item].publishDate)
+          window.bookShelf.push(new Book(data[item]));
+        }
+      }
+      console.log(window.bookShelf)
+    }
+  })
+};
