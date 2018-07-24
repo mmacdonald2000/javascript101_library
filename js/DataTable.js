@@ -155,7 +155,7 @@ DataTable.prototype._resaveRow = function (e) {
   var bookId = $target.attr('data-id');
   var answer = confirm('Are you sure you want to edit this book "' + $target.attr('data-title') + '"?');
   if(answer){
-    this.removeBookbyTitle(oldBookTitle);
+    // this.removeBookbyTitle(oldBookTitle);
     var newTarget = $target.children();
     //use children of tr to get book info into object
     var oBook = {
@@ -164,12 +164,14 @@ DataTable.prototype._resaveRow = function (e) {
       author: newTarget[2].innerText,
       numberOfPages: newTarget[3].innerText,
       publishDate: newTarget[4].innerText,
-      rating: newTarget[5].innerText
+      rating: newTarget[5].innerText,
+      _id: bookId,
+      __v: parseInt(newTarget[6].innerText) + 1,
     }
     //make a new book with object
     var newBook = new Book(oBook);
-
-    this.addBook(newBook);
+    //edit book in database
+    this.editDataFromDatabase(newBook);
     //change icon back to edit icon
     $target.find('td i.save-book').addClass('fa-edit edit-book').removeClass('fa-save save-book');
   } else if (answer === false){
