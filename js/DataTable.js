@@ -11,20 +11,13 @@ DataTable.prototype = Object.create(Library.prototype);
 
 DataTable.prototype.init = function () {
   // this.recover();
-
+  //replace call to local storage with call to database
   this.getDataFromDatabase();
-
-
-  this._updateTable(window.bookShelf);
   this._bindEvents();
   this._bindCustomListeners();
 };
 
 DataTable.prototype._bindEvents = function () {
-  console.log('Binding events')
-  // $('#allBooksBtn').on('click', $.proxy(this.getDataFromDatabase, this));
-
-
   //delete functionality
   this.$container.on('click', '.delete-book', $.proxy(this._deleteRow, this));
   //Edit functionality
