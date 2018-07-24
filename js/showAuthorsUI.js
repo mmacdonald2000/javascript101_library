@@ -11,7 +11,7 @@ ShowAuthorsUI.prototype = Object.create(Library.prototype);
 ShowAuthorsUI.prototype.init = function () {
   //separate concerns - recover should be in the Library not here
   //use return to make sure the function finishes
-  this.recover();//this is my call to get stuff out of local storage
+  // this.recover();//this is my call to get stuff out of local storage
   this._bindEvents();
   return;
 };

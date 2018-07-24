@@ -36,7 +36,7 @@ Library.prototype.addBook = function (book) {
   if (this.checkForDuplicates(book)){
     window.bookShelf.push(book);
     //store change to localStorage
-    this.store();
+    // this.store();
     //trigger _updateTable
     this._handleEventTrigger('tableUpdate')
     return true;
@@ -90,7 +90,7 @@ Library.prototype.removeBookbyTitle = function (title) {
   if(removed > 0){
     this._handleEventTrigger('tableUpdate', {details: "removeBookbyTitle"})
     //store change to localStorage
-    this.store();
+    // this.store();
     return true;
   } else {
     return false;
@@ -118,7 +118,7 @@ Library.prototype.removeBookByAuthor = function (authorName) {
   }
   if(removed > 0){
     this._handleEventTrigger('tableUpdate', {details: "removeBookByAuthor"})
-    this.store();
+    // this.store();
     return true;
   } else {
     return false;
@@ -281,30 +281,31 @@ Library.prototype.search = function (input, input2) {
   return resultsFilter;
 };
 
-/*-----LOCAL STORAGE----------------------------------------------------------*/
+/*-----LOCAL STORAGE- don't use this now: use mongoDB
+----------------------------------------------------------*/
 /*Use localstorage and JSON.stringify to save the state of your library*/
-Library.prototype.recover = function (){
-  //a function to recover the Library stored in localStorage
-  var parsed = JSON.parse(localStorage.getItem(this._libraryKey));
-  if(parsed){
-    for(i=0; i<parsed.length; i++){
-      //change to take object instead of specific arguments
-      window.bookShelf[i] = new Book(parsed[i]);
-    }
-  }
-}
-
-Library.prototype.store = function () {
-  //a function to push the library to localStorage
-  var storeParsed = JSON.stringify(window.bookShelf);
-  localStorage.setItem(this._libraryKey, storeParsed);
-}
+// Library.prototype.recover = function (){
+//   //a function to recover the Library stored in localStorage
+//   var parsed = JSON.parse(localStorage.getItem(this._libraryKey));
+//   if(parsed){
+//     for(i=0; i<parsed.length; i++){
+//       //change to take object instead of specific arguments
+//       window.bookShelf[i] = new Book(parsed[i]);
+//     }
+//   }
+// }
+//
+// Library.prototype.store = function () {
+//   //a function to push the library to localStorage
+//   var storeParsed = JSON.stringify(window.bookShelf);
+//   localStorage.setItem(this._libraryKey, storeParsed);
+// }
 
 /*-----USEFUL FUNCTION--------------------------------------------------------*/
 Library.prototype.clearAll= function () {
   /*Purpose: Remove all books to reset testing environment*/
   window.bookShelf.splice(0, window.bookShelf.length);
-  this.store();
+  // this.store();
   return window.bookShelf
 };
 

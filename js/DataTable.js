@@ -10,7 +10,11 @@ var DataTable = function(container){
 DataTable.prototype = Object.create(Library.prototype);
 
 DataTable.prototype.init = function () {
-  this.recover();
+  // this.recover();
+
+  this.getDataFromDatabase();
+
+
   this._updateTable(window.bookShelf);
   this._bindEvents();
   this._bindCustomListeners();
