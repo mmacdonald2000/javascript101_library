@@ -363,6 +363,7 @@ Library.prototype.removeBookbyId = function (id) {
     return false;
   }
 };
+
 /* ------------------- CRUD routes ----------------- */
 
 //send data to database (Create(POST))
@@ -377,12 +378,12 @@ Library.prototype.storeToDatabase = function (oBook) {
       console.log("Sucessful upload to Database.")
     },
     error: (error) => {
-      console.log(error);
+      console.log("POST ERROR: " + error);
     }
   })
 };
 
-//get data from database (Read(GET))
+//get all books from database (Read(GET))
 Library.prototype.getDataFromDatabase = function () {
   var _self = this;
   $.ajax({
@@ -429,12 +430,13 @@ Library.prototype.editDataFromDatabase = function (oBook) {
       console.log(data);
       _self._handleEventTrigger('tableUpdate');
     },
-    error: (error) => console.log(error)
+    error: (error) => console.log("PUT ERROR: " + error)
   })
 };
 
 //delete data to database (Delete(DELETE))
 Library.prototype.deleteFromDatabase = function (id) {
+  var _self = this;
   $.ajax({
     url: window.libraryURL + id,
     dataType: 'text',
@@ -442,8 +444,9 @@ Library.prototype.deleteFromDatabase = function (id) {
     data: id,
     success: (data) => {
       // console.log(data);
-      console.log('Successful removal from Database.')
+      console.log('Successful DELETE')
+      _self._handleEventTrigger('tableUpdate');
     },
-    error: (error) => console.log(error)
+    error: (error) => console.log("DELETE ERROR: " + error)
   })
 };

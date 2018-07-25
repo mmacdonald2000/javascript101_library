@@ -153,7 +153,7 @@ DataTable.prototype._resaveRow = function (e) {
   //grab row of the clicked button
   var $target = $(e.currentTarget).closest('tr');
   var bookId = $target.attr('data-id');
-  var answer = confirm('Are you sure you want to edit this book "' + $target.attr('data-title') + '"?');
+  var answer = confirm('Are you sure you want to edit this book: "' + $target.attr('data-title') + '"?');
   if(answer){
     // this.removeBookbyTitle(oldBookTitle);
     var newTarget = $target.children();
