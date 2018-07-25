@@ -39,8 +39,7 @@ Library.prototype.addBook = function (book) {
     // store in local storage
     // this.store());
     this.storeToDatabase(book);
-    //trigger _updateTable
-    this._handleEventTrigger('tableUpdate')
+    this.getDataFromDatabase();
     return true;
   } else {
     console.log("Error: input must be in the Book object format")
