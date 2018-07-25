@@ -35,6 +35,7 @@ Library.prototype.addBook = function (book) {
 
   //error handling - check if input is already in bookShelf
   if (this.checkForDuplicates(book)){
+    console.log("adding to bookshelf");
     window.bookShelf.push(book);
     // store in local storage
     // this.store());
@@ -374,34 +375,35 @@ Library.prototype.storeToDatabase = function (oBook) {
     data: oBook,
     success: (data) => {
       // console.log(data);
-      console.log("Sucessful upload to Database.")
+      console.log("Sucessful POST.")
     },
     error: (error) => {
-      console.log("POST ERROR: " + error);
+      console.log("POST ERROR: ");
+      console.log(error);
     }
   })
 };
 
 //get all books from database (Read(GET))
 Library.prototype.getDataFromDatabase = function () {
-  window.bookShelf = [];
   var _self = this;
   $.ajax({
     url: window.libraryURL,
     dataType: 'json',
     method: 'GET',
      success: function (data) {
-      // console.log("I got some data!");
-      // console.log(data)
       if(data){
+        window.bookShelf = [];
         for(item in data){
           window.bookShelf.push(new Book(data[item]));
         }
         _self._handleEventTrigger('specialUpdate', window.bookShelf);
+        console.log('Successful GET');
       }
     },
     error: function (error) {
-      console.log("GET ERROR: " + error);
+      console.log("GET ERROR: ");
+      console.log(error);
     }
   })
 };
@@ -421,7 +423,8 @@ Library.prototype.getOneBookFromDatabase = function (id) {
       }
     },
     error: function (error) {
-      console.log("GET (one book) ERROR: " + error);
+      console.log("GET (one book) ERROR: ");
+      console.log(error);
     }
   })
 };
@@ -440,7 +443,10 @@ Library.prototype.editDataFromDatabase = function (oBook) {
       console.log("Sucessful PUT")
 
     },
-    error: (error) => console.log("PUT ERROR: " + error)
+    error: (error) => {
+      console.log("PUT ERROR: ");
+      console.log(error);
+    }
   })
 };
 
@@ -454,9 +460,12 @@ Library.prototype.deleteFromDatabase = function (id) {
     data: id,
     success: (data) => {
       // console.log(data);
-      console.log('Successful DELETE')
-      _self._handleEventTrigger('tableUpdate');
+      console.log('Successful DELETE');
+      _self.getDataFromDatabase();
     },
-    error: (error) => console.log("DELETE ERROR: " + error)
+    error: (error) => {
+      console.log("DELETE ERROR: ");
+      console.log(error);
+    }
   })
 };

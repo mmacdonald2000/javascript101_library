@@ -29,7 +29,7 @@ AddBooksUI.prototype._bindEvents = function () {
   this.$container.find('.clear-queue-btn').on('click', $.proxy(this._clearQueue, this));
   //bind event to add books to library
   this.$container.find('#formAddAllBooks').on('click', $.proxy(this._addBooksToLIb, this));
-
+  //bind event to upload images
   this.$container.on('change','#formAddBookCover', $.proxy(this._handleImageUpload, this))
   // return;
 };
@@ -115,6 +115,7 @@ AddBooksUI.prototype._addBooksToLIb = function (event) {
       this.addBook(inputBook);
       $('form').trigger('reset');
       $('#preview-image').removeClass("hide").addClass("show");
+      // TODO: change src of image back to default
       this.$container.modal('hide');
     } else {
       alert("This book is missing entry fields or is already on your bookshelf.");
