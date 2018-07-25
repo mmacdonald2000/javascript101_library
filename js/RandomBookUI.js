@@ -19,6 +19,8 @@ $('#data-table').on('click', '#coverArtBookModal', $.proxy(this._pushBookByTable
 
 $('.pick-book-btn').on('click', $.proxy(this._pushBookByRandom, this));
 
+$(document).on('randomBook', $.proxy(this._pushBookInfoWithDetail, this));
+
 };
 
 RandomBookUI.prototype._pushBookInfo = function (book) {
@@ -37,6 +39,10 @@ RandomBookUI.prototype._pushBookInfo = function (book) {
 
 };
 
+RandomBookUI.prototype._pushBookInfoWithDetail = function (e) {
+  this._pushBookInfo(e.detail);
+};
+
 RandomBookUI.prototype._pushBookByTable = function (e) {
   //get book title & getBookByTitle
   var title = $(e.currentTarget).closest('tr').attr('data-title');
@@ -45,8 +51,9 @@ RandomBookUI.prototype._pushBookByTable = function (e) {
 };
 
 RandomBookUI.prototype._pushBookByRandom = function () {
-  var randomBook = this.getRandomBook();
-  this._pushBookInfo(randomBook);
+  var randomBookId = this.getRandomBook()._id;
+  this.getOneBookFromDatabase(randomBookId);
+  // this._pushBookInfo(randomBook);
 };
 
 $(function(){

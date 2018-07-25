@@ -397,10 +397,22 @@ Library.prototype.getDataFromDatabase = function () {
           window.bookShelf.push(new Book(data[item]));
           _self._handleEventTrigger('tableUpdate');
         }
+//get 1 book from database (Read(GET))
+Library.prototype.getOneBookFromDatabase = function (id) {
+  var _self = this;
+  $.ajax({
+    url: window.libraryURL + id,
+    dataType: 'json',
+    method: 'GET',
+    success: function (data) {
+      if(data){
+        newBook = new Book(data);
+        console.log("I'm triggering the randombook");
+        _self._handleEventTrigger('randomBook', newBook);
       }
     },
     error: function (error) {
-      console.log(error);
+      console.log("GET (one book) ERROR: " + error);
     }
   })
 };
