@@ -385,19 +385,28 @@ Library.prototype.storeToDatabase = function (oBook) {
 
 //get all books from database (Read(GET))
 Library.prototype.getDataFromDatabase = function () {
+  window.bookShelf = [];
   var _self = this;
   $.ajax({
     url: window.libraryURL,
     dataType: 'json',
     method: 'GET',
-    success: function (data) {
+     success: function (data) {
       // console.log("I got some data!");
       // console.log(data)
       if(data){
         for(item in data){
           window.bookShelf.push(new Book(data[item]));
-          _self._handleEventTrigger('tableUpdate');
         }
+        _self._handleEventTrigger('specialUpdate', window.bookShelf);
+      }
+    },
+    error: function (error) {
+      console.log("GET ERROR: " + error);
+    }
+  })
+};
+
 //get 1 book from database (Read(GET))
 Library.prototype.getOneBookFromDatabase = function (id) {
   var _self = this;
