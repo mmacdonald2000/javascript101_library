@@ -432,12 +432,14 @@ Library.prototype.editDataFromDatabase = function (oBook) {
   var _self = this;
   $.ajax({
     url: window.libraryURL + oBook._id,
-    dataType: 'json',
+    dataType: 'text',
     method: 'PUT',
     data: oBook,
     success: (data) => {
       console.log(data);
-      _self._handleEventTrigger('tableUpdate');
+      _self.getDataFromDatabase();
+      console.log("Sucessful PUT")
+
     },
     error: (error) => console.log("PUT ERROR: " + error)
   })
