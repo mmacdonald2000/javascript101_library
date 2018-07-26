@@ -4,6 +4,7 @@ var DataTable = function(container){
   this.$container = container;
   //// IDEA: use to store deleted books for a while?
   this._trash = [];
+  this._$target;
 };
 
 //extending from Library
@@ -26,6 +27,8 @@ DataTable.prototype._bindEvents = function () {
   this.$container.on('click', '.save-book', $.proxy(this._resaveRow, this));
   //figure out how to make this only update on a click
   // this.$container.find("tr").on('blur', "td[contenteditable='true']", $.proxy(this._resaveRow, this));
+
+  this.$container.on('change', '#editCover', $.proxy(this._handleTableImageUpload, this));
 
   $('.search-form').on('submit', $.proxy(this._searchUI, this));
 
@@ -139,27 +142,27 @@ DataTable.prototype._createHeaderRow = function () {
 };
 
 DataTable.prototype._deleteRow = function (e) {
-  var $target = $(e.currentTarget).closest('tr');
-  var id = $target.attr('data-id');
+  this._$target = $(e.currentTarget).closest('tr');
+  var id = this._$target.attr('data-id');
   if(confirm("Are you sure you want to delete this book?")){
     this.removeBookbyId(id);
     //remove row from html (detach keeps a copy in memory: I'm not sure if I want this or not)
-    $target.detach();
+    this._$target.detach();
   }
   return false;
 };
 
 DataTable.prototype._resaveRow = function (e) {
   //grab row of the clicked button
-  var $target = $(e.currentTarget).closest('tr');
-  var bookId = $target.attr('data-id');
-  var answer = confirm('Are you sure you want to edit this book: "' + $target.attr('data-title') + '"?');
+  this._$target = $(e.currentTarget).closest('tr');
+  var bookId = this._$target.attr('data-id');
+  var answer = confirm('Are you sure you want to edit this book: "' + this._$target.attr('data-title') + '"?');
   if(answer){
     // this.removeBookbyTitle(oldBookTitle);
-    var newTarget = $target.children();
+    var newTarget = this._$target.children();
     //use children of tr to get book info into object
     var oBook = {
-      cover: $(newTarget[0]).find('img').attr('src'),
+      cover: $(newTarget[0]).find('img#coverArtBookModal').attr('src'),
       title: newTarget[1].innerText,
       author: newTarget[2].innerText,
       numberOfPages: newTarget[3].innerText,
@@ -173,27 +176,54 @@ DataTable.prototype._resaveRow = function (e) {
     //edit book in database
     this.editDataFromDatabase(newBook);
     //change icon back to edit icon
-    $target.find('td i.save-book').addClass('fa-edit edit-book').removeClass('fa-save save-book');
+    this._$target.find('td i.save-book').addClass('fa-edit edit-book').removeClass('fa-save save-book');
   } else if (answer === false){
-    $target.children('td#title').attr('contenteditable','false');
-    $target.children('td#author').attr('contenteditable','false');
-    $target.children('td#numberOfPages').attr('contenteditable','false');
-    $target.children('td#publishDate').attr('contenteditable','false');
-    $target.children('td#rating').attr('contenteditable','false');
-    $target.find('td i.save-book').addClass('fa-edit edit-book').removeClass('fa-save save-book');
+    this._unmakeEditable(e);
   }
 };
 
 DataTable.prototype._makeEditable = function (e) {
-  var $target = $(e.currentTarget).closest('tr')
+  this._$target = $(e.currentTarget).closest('tr')
   //make td's in target tr contenteditable
-  $target.children('td#title').attr('contenteditable','true');
-  $target.children('td#author').attr('contenteditable','true');
-  $target.children('td#numberOfPages').attr('contenteditable','true');
-  $target.children('td#publishDate').attr('contenteditable','true');
-  $target.children('td#rating').attr('contenteditable','true');
+  this._$target.children('td#title').attr('contenteditable','true');
+  this._$target.children('td#author').attr('contenteditable','true');
+  this._$target.children('td#numberOfPages').attr('contenteditable','true');
+  this._$target.children('td#publishDate').attr('contenteditable','true');
+  this._$target.children('td#rating').attr('contenteditable','true');
   //change icon to save icon
-  $target.find('td i.edit-book').addClass('fa-save save-book').removeClass('fa-edit edit-book');
+  this._$target.find('td i.edit-book').addClass('fa-save save-book').removeClass('fa-edit edit-book');
+  //add a input box to image td
+  this._$target.children('td#cover').removeAttr('data-toggle data-target');
+  this._$target.children('td#cover').append(
+    '<input type="file" class="form-control-file col pl-0" id="editCover" accept="image/*">'
+  );
+
+
+};
+DataTable.prototype._handleTableImageUpload = function () {
+  fileReader('#coverArtBookModal','input[type=file]', this._$target );
+};
+
+DataTable.prototype._unmakeEditable = function (e) {
+  this._$target = $(e.currentTarget).closest('tr');
+  //change contenteditable back to false
+  this._$target.children('td#title').attr('contenteditable','false');
+  this._$target.children('td#author').attr('contenteditable','false');
+  this._$target.children('td#numberOfPages').attr('contenteditable','false');
+  this._$target.children('td#publishDate').attr('contenteditable','false');
+  this._$target.children('td#rating').attr('contenteditable','false');
+  //change save icon back to edit icon
+  this._$target.find('td i.save-book').addClass('fa-edit edit-book').removeClass('fa-save save-book');
+  //remove file reader and add modal attachment
+  this._$target.children('td#cover').attr('data-toggle', 'modal');
+  this._$target.children('td#cover').attr('data-target', '#bookModal');
+  this._$target.children('td#cover').remove('input[type=file]#editCover');
+
+};
+
+//encode image up
+DataTable.prototype._handleEditImage = function () {
+
 };
 
 DataTable.prototype._searchUI = function (e) {
