@@ -2,7 +2,7 @@
 var DataTable = function(container){
   Library.call(this);
   this.$container = container;
-  //what do I want to do with this?
+  //// IDEA: use to store deleted books for a while?
   this._trash = [];
 };
 
@@ -29,7 +29,7 @@ DataTable.prototype._bindEvents = function () {
 
   $('.search-form').on('submit', $.proxy(this._searchUI, this));
 
-  $('#allBooksBtn').on('click', $.proxy(this._updateTable, this, window.bookShelf));
+  $('#allBooksBtn').on('click', $.proxy(this.getDataFromDatabase, this));
 };
 
 DataTable.prototype._bindCustomListeners = function () {
