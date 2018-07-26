@@ -1,5 +1,6 @@
 //a UI to handle adding books from a modal
 //contructor - container is a placeholder for the selector of the modal
+// IDEA: give user feedback about proper date input (maybe use validation package?)
 var AddBooksUI = function(container){
   //reassign 'this' to the instance of Library -- native javaScript version of proxy
   Library.call(this);
@@ -137,21 +138,7 @@ AddBooksUI.prototype._addBooksToLIb = function (event) {
 //encode image up
 AddBooksUI.prototype._handleImageUpload = function () {
   $('#preview-image').removeClass("hide").addClass("show");
-
-  var preview = document.querySelector('#preview-image');
-  var file    = document.querySelector('input[type=file]').files[0];
-  var reader  = new FileReader();
-
-  reader.addEventListener("load", function () {
-    preview.src = reader.result;
-  }, false);
-
-  if (file) {
-    var cover = reader.readAsDataURL(file);
-
-  }
-  return cover;
-
+  fileReader('#preview-image','input[type=file]');
 };
 
 // AddBooksUI.prototype.validator = function (input) {

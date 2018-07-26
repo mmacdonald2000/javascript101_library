@@ -28,3 +28,21 @@ var makeTitle = function(str){
 
   return rejoined;
 }
+
+//encode image up
+var fileReader = function (imageSelector, inputSelector, $target) {
+  $target = $target || document;
+
+  var preview = $target.find(imageSelector);
+  var file    = document.querySelector(inputSelector).files[0];
+  var reader  = new FileReader();
+
+  reader.addEventListener("load", function () {
+    preview.attr('src', reader.result);
+  }, false);
+
+  if (file) {
+    var cover = reader.readAsDataURL(file);
+  }
+  return cover;
+};
