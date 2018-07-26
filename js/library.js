@@ -40,7 +40,7 @@ Library.prototype.addBook = function (book) {
     // store in local storage
     // this.store());
     this.storeToDatabase(book);
-    this.getDataFromDatabase();
+    // this.getDataFromDatabase();
     return true;
   } else {
     console.log("Error: input must be in the Book object format")
@@ -375,7 +375,8 @@ Library.prototype.storeToDatabase = function (oBook) {
     data: oBook,
     success: (data) => {
       // console.log(data);
-      console.log("Sucessful POST.")
+      console.log("Sucessful POST.");
+      this.getDataFromDatabase();
     },
     error: (error) => {
       console.log("POST ERROR: ");
