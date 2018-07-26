@@ -86,6 +86,7 @@ AddBooksUI.prototype._queueBooks = function (event) {
       $('.queueNumber').text(this._queueCounter);
       $('form').trigger('reset');
       $('#preview-image').removeClass("show").addClass("hide");
+      $('#preview-image').removeAttr('src').attr('src', './assets/cover_images/book_cover_b&w.jpg');
     } else {
       alert("This book is already on your Bookshelf!")
     }
@@ -102,6 +103,7 @@ AddBooksUI.prototype._clearQueue = function (event) {
   $('.queueNumber').text(this._queueCounter);
   $('form').trigger('reset');
   $('#preview-image').removeClass("show").addClass("hide");
+  $('#preview-image').removeAttr('src').attr('src', './assets/cover_images/book_cover_b&w.jpg')
 };
 
 //add Queued books to bookshelf
@@ -113,9 +115,7 @@ AddBooksUI.prototype._addBooksToLIb = function (event) {
     inputBook = this.makeBook();
     if(this.checkForDuplicates(inputBook)){
       this.addBook(inputBook);
-      $('form').trigger('reset');
-      $('#preview-image').removeClass("hide").addClass("show");
-      // TODO: change src of image back to default
+      this._clearQueue();
       this.$container.modal('hide');
     } else {
       alert("This book is missing entry fields or is already on your bookshelf.");
@@ -125,8 +125,6 @@ AddBooksUI.prototype._addBooksToLIb = function (event) {
       inputBook = this.makeBook();
       if(this.checkForDuplicates(inputBook)){
         this.addBook(inputBook);
-        $('form').trigger('reset');
-        $('#preview-image').removeClass("hide").addClass("show");
       }
     }
     this.addBooks(this._tempBookShelf);
