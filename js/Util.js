@@ -31,7 +31,7 @@ var makeTitle = function(str){
 
 //encode image up
 var fileReader = function (imageSelector, inputSelector, $target) {
-  $target = $target || document;
+  $target = $target || $(document);
 
   var preview = $target.find(imageSelector);
   var file    = document.querySelector(inputSelector).files[0];

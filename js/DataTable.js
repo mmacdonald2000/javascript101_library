@@ -221,11 +221,6 @@ DataTable.prototype._unmakeEditable = function (e) {
 
 };
 
-//encode image up
-DataTable.prototype._handleEditImage = function () {
-
-};
-
 DataTable.prototype._searchUI = function (e) {
   e.preventDefault();
   searchInput = $('#search-input').val();
