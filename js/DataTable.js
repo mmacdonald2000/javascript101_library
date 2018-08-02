@@ -61,40 +61,40 @@ DataTable.prototype._updateTable = function (bookshelf) {
   });
 };
 
+DataTable.prototype._createHeaderRow = function () {
+  var book = new Book({});
+  var tr = document.createElement('tr');
+  for (var key in book) {
+    var th = document.createElement('th')
+    $(th).text(makeTitle(key));
+    if(key === '__v' || key === '_id'){
+      $(th).addClass('collapse')
+    }
+    tr.append(th);
+  };
+  var deleteTH = document.createElement('th');
+  $(deleteTH).text("Delete?");
+  tr.append(deleteTH);
+  return tr;
+};
+
 DataTable.prototype._createRow = function (book) {
   //create table row variable
   var tr = document.createElement('tr');
-  $(tr).addClass('table-row');
-  //add an attribute to tr with the title as the value so that we can target the title when deleting rows
-  $(tr).attr('data-title', book.title);
-  $(tr).attr('data-id', book._id);
-  // create table data variable for delete column
-  var deleteTD = document.createElement('td');
-  //create i element for delete column
-  var deleteI = document.createElement('i');
-  //give it applicable class names
-  $(deleteI).addClass('far fa-times-circle btn delete-book')
-  //add input to table data
-  deleteTD.append(deleteI);
-  var editI = document.createElement('i');
-  $(editI).addClass('far fa-edit btn edit-book');
-  deleteTD.append(editI);
+  $(tr).addClass('table-row').attr('data-title', book.title).attr('data-id', book._id);
 
   //for each key in {Book} make a table data and add text to it
   for (var key in book) {
     var td = document.createElement('td')
     var $td = $(td).addClass('editable');
     if (key != 'cover') {
-      $td.attr('contenteditable', 'false');
-      $td.attr('data-name', key);
-      $td.text(book[key]);
+      $td.attr('contenteditable', 'false').attr('data-name', key).text(book[key]);
     }
     if (key == 'cover') {
-      $td.append(this._createImg(book[key]));
-      $td.attr("data-toggle", "modal");
-      $td.attr('data-name', 'cover')
-      $td.attr("data-target", "#bookModal");
-      // console.log(td);
+      $td.append(this._createImg(book[key]))
+        .attr('data-name', 'cover')
+        .attr("data-toggle", "modal")
+        .attr("data-target", "#bookModal");
     };
     if(key === '__v' || key === '_id'){
       $td.addClass('collapse')
@@ -102,9 +102,10 @@ DataTable.prototype._createRow = function (book) {
     tr.append(td);
   };
   //append deleteTD here
-  tr.append(deleteTD);
+  tr.append(this._createDelete());
   return tr;
 };
+
 
 DataTable.prototype._createImg = function (bookCover) {
   return $('<img>', {
@@ -115,26 +116,21 @@ DataTable.prototype._createImg = function (bookCover) {
   });
 };
 
-DataTable.prototype._createHeaderRow = function () {
-  var book = new Book({});
-  var tr = document.createElement('tr');
-
-  //dynamically make the header
-  for (var key in book) {
-    var th = document.createElement('th')
-    // console.log(key);
-    $(th).text(makeTitle(key));
-    if(key === '__v' || key === '_id'){
-      $(th).addClass('collapse')
-    }
-    tr.append(th);
-  };
-  // append deleteTD here
-  var deleteTH = document.createElement('th');
-  $(deleteTH).text("Delete?");
-  tr.append(deleteTH);
-  return tr;
+DataTable.prototype._createDelete = function () {
+  var deleteTD = document.createElement('td');
+  //create i element for delete button
+  var deleteI = document.createElement('i');
+  //give it applicable class names
+  $(deleteI).addClass('far fa-times-circle btn delete-book')
+  //add input to table data
+  deleteTD.append(deleteI);
+  var editI = document.createElement('i');
+  $(editI).addClass('far fa-edit btn edit-book');
+  deleteTD.append(editI);
+  return deleteTD;
 };
+
+
 
 DataTable.prototype._deleteRow = function (e) {
   this._$target = $(e.currentTarget).closest('tr');
@@ -161,7 +157,6 @@ DataTable.prototype._resaveRow = function (e) {
       var key = $(this).attr('data-name');
       oBook[key] = key == 'cover' ? $(this).find('img').attr('src') : $(this).text();
     });
-    console.log(oBook);
 
     var newBook = new Book(oBook);
     //edit book in database
@@ -185,9 +180,9 @@ DataTable.prototype._makeEditable = function (e) {
   this._$target.children('td[data-name="cover"]')
     .removeAttr('data-toggle data-target')
     .append('<input type="file" class="form-control-file col pl-0" id="editCover" accept="image/*">');
-
-
 };
+
+
 DataTable.prototype._handleTableImageUpload = function () {
   console.log('test upload');
   return fileReader('#coverArtBookModal','input[type=file]', this._$target );
@@ -204,7 +199,6 @@ DataTable.prototype._unmakeEditable = function (e) {
     .remove('input[type=file]#editCover')
     .attr('data-toggle', 'modal')
     .attr('data-target', '#bookModal');
-
 };
 
 DataTable.prototype._searchUI = function (e) {
