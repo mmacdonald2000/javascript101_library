@@ -59,16 +59,6 @@ DataTable.prototype._updateTable = function (bookshelf) {
   $.each(bookshelf, function(index, book){
     $tbody.append(_self._createRow(book));
   });
-  //fix mobile-first design - doesn't work 7/18/18
-  $('td:nth-child(4),th:nth-child(4)').hide();
-  $('td:nth-child(5),th:nth-child(5)').hide();
-  $('td:nth-child(6),th:nth-child(6)').hide();
-
-  if($(window).width() >= 600){
-    $('td:nth-child(4),th:nth-child(4)').show();
-    $('td:nth-child(5),th:nth-child(5)').show();
-    $('td:nth-child(6),th:nth-child(6)').show();
-  }
 };
 
 DataTable.prototype._createRow = function (book) {
@@ -90,34 +80,39 @@ DataTable.prototype._createRow = function (book) {
   $(editI).addClass('far fa-edit btn edit-book');
   deleteTD.append(editI);
 
-
   //for each key in {Book} make a table data and add text to it
   for (var key in book) {
     var td = document.createElement('td')
-    $(td).text(book[key]);
-    $(td).attr('id', key);
+    var $td = $(td).addClass('editable');
     if (key != 'cover') {
-      $(td).attr('contenteditable', 'false');
-    };
+      $td.attr('contenteditable', 'false');
+      $td.attr('data-name', key);
+      $td.text(book[key]);
+    }
     if (key == 'cover') {
-      var img = document.createElement('img');
-      $(img).attr('src', book[key]);
-      $(img).attr('alt', 'Cover Art');
-      $(img).attr('id', 'coverArtBookModal');
-      $(img).addClass('btn');
-      $(td).html(img);
-      $(td).attr("data-toggle", "modal");
-      $(td).attr("data-target", "#bookModal");
+      $td.append(this._createImg(book[key]));
+      $td.attr("data-toggle", "modal");
+      $td.attr('data-name', 'cover')
+      $td.attr("data-target", "#bookModal");
       // console.log(td);
     };
     if(key === '__v' || key === '_id'){
-      $(td).addClass('collapse')
+      $td.addClass('collapse')
     }
     tr.append(td);
   };
   //append deleteTD here
   tr.append(deleteTD);
   return tr;
+};
+
+DataTable.prototype._createImg = function (bookCover) {
+  return $('<img>', {
+    src: bookCover,
+    'class': 'btn',
+    'id': 'coverArtBookModal',
+    'alt': 'Cover Art'
+  });
 };
 
 DataTable.prototype._createHeaderRow = function () {
@@ -159,19 +154,15 @@ DataTable.prototype._resaveRow = function (e) {
   var answer = confirm('Are you sure you want to edit this book: "' + this._$target.attr('data-title') + '"?');
   if(answer){
     // this.removeBookbyTitle(oldBookTitle);
-    var newTarget = this._$target.children();
+    var newTarget = this._$target.find('.editable');
     //use children of tr to get book info into object
-    var oBook = {
-      cover: $(newTarget[0]).find('img#coverArtBookModal').attr('src'),
-      title: newTarget[1].innerText,
-      author: newTarget[2].innerText,
-      numberOfPages: newTarget[3].innerText,
-      publishDate: newTarget[4].innerText,
-      rating: newTarget[5].innerText,
-      _id: bookId,
-      __v: parseInt(newTarget[6].innerText) + 1,
-    }
-    //make a new book with object
+    var oBook = {};
+    $(newTarget).each(function(i, v){
+      var key = $(this).attr('data-name');
+      oBook[key] = key == 'cover' ? $(this).find('img').attr('src') : $(this).text();
+    });
+    console.log(oBook);
+
     var newBook = new Book(oBook);
     //edit book in database
     this.editDataFromDatabase(newBook);
@@ -185,39 +176,34 @@ DataTable.prototype._resaveRow = function (e) {
 DataTable.prototype._makeEditable = function (e) {
   this._$target = $(e.currentTarget).closest('tr')
   //make td's in target tr contenteditable
-  this._$target.children('td#title').attr('contenteditable','true');
-  this._$target.children('td#author').attr('contenteditable','true');
-  this._$target.children('td#numberOfPages').attr('contenteditable','true');
-  this._$target.children('td#publishDate').attr('contenteditable','true');
-  this._$target.children('td#rating').attr('contenteditable','true');
+  // console.log(this._$target.children('td[data-name]'));
+  this._$target.children('td.editable').attr('contenteditable','true');
+
   //change icon to save icon
   this._$target.find('td i.edit-book').addClass('fa-save save-book').removeClass('fa-edit edit-book');
   //add a input box to image td
-  this._$target.children('td#cover').removeAttr('data-toggle data-target');
-  this._$target.children('td#cover').append(
-    '<input type="file" class="form-control-file col pl-0" id="editCover" accept="image/*">'
-  );
+  this._$target.children('td[data-name="cover"]')
+    .removeAttr('data-toggle data-target')
+    .append('<input type="file" class="form-control-file col pl-0" id="editCover" accept="image/*">');
 
 
 };
 DataTable.prototype._handleTableImageUpload = function () {
-  fileReader('#coverArtBookModal','input[type=file]', this._$target );
+  console.log('test upload');
+  return fileReader('#coverArtBookModal','input[type=file]', this._$target );
 };
 
 DataTable.prototype._unmakeEditable = function (e) {
   this._$target = $(e.currentTarget).closest('tr');
   //change contenteditable back to false
-  this._$target.children('td#title').attr('contenteditable','false');
-  this._$target.children('td#author').attr('contenteditable','false');
-  this._$target.children('td#numberOfPages').attr('contenteditable','false');
-  this._$target.children('td#publishDate').attr('contenteditable','false');
-  this._$target.children('td#rating').attr('contenteditable','false');
+  this._$target.children('td.editable').attr('contenteditable','false');
   //change save icon back to edit icon
   this._$target.find('td i.save-book').addClass('fa-edit edit-book').removeClass('fa-save save-book');
   //remove file reader and add modal attachment
-  this._$target.children('td#cover').attr('data-toggle', 'modal');
-  this._$target.children('td#cover').attr('data-target', '#bookModal');
-  this._$target.children('td#cover').remove('input[type=file]#editCover');
+  this._$target.children('td[data-name="cover"]')
+    .remove('input[type=file]#editCover')
+    .attr('data-toggle', 'modal')
+    .attr('data-target', '#bookModal');
 
 };
 
