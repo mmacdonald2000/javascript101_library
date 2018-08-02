@@ -52,6 +52,11 @@ AddBooksUI.prototype.makeBook = function () {
     $.each(serializedInput, function(index, entry){
       if(entry.value !== ''){
         holdingObj[entry.name] = entry.value;
+        // if(value === 'date'){
+        //   if(!this._isValidDate(value)){
+        //     return false;
+        //   }
+        // }
       } else {
         validBook = false;
         // alert("Please enter a value for " + entry.name)
