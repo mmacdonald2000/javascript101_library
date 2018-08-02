@@ -15,6 +15,7 @@ var Library;
     //this will run the first time and only the first time
     instance = this;
     window.bookShelf = [];
+    window.searchResults = [];
     this._libraryKey = 'goldenLibrary';
     window.libraryURL = 'http://localhost:3002/Library/';
   }
@@ -419,7 +420,6 @@ Library.prototype.getOneBookFromDatabase = function (id) {
     success: function (data) {
       if(data){
         newBook = new Book(data);
-        console.log("I'm triggering the randombook");
         _self._handleEventTrigger('randomBook', newBook);
       }
     },
@@ -429,6 +429,30 @@ Library.prototype.getOneBookFromDatabase = function (id) {
     }
   })
 };
+
+//get search results from database (Read(GET))
+Library.prototype.getSearchResults = function (searchParam) {
+  var _self = this;
+  $.ajax({
+    url: window.libraryURL+'search/'+ searchParam,
+    dataType: 'json',
+    method: 'GET',
+     success: function (data) {
+      if(data){
+        window.searchResults = [];
+        for(item in data){
+          window.searchResults.push(new Book(data[item]));
+        }
+        _self._handleEventTrigger('specialUpdate', window.searchResults);
+        console.log('Successful GET');
+      }
+    },
+    error: function (error) {
+      console.log("GET ERROR: ");
+      console.log(error);
+    }
+  })
+}
 
 //edit data in database (Update(PUT))
 Library.prototype.editDataFromDatabase = function (oBook) {

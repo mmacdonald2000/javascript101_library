@@ -204,10 +204,16 @@ DataTable.prototype._unmakeEditable = function (e) {
 DataTable.prototype._searchUI = function (e) {
   e.preventDefault();
   searchInput = $('#search-input').val();
-  console.log(this.search(searchInput));
-  if(searchInput){
-    this._handleEventTrigger('specialUpdate', this.search(searchInput));
-  }
+  // if(!isNaN(parseInt(searchInput))){
+  //   searchInput = parseInt(searchInput);
+  // }
+  console.log(searchInput)
+  console.log(typeof searchInput)
+  // console.log(this.search(searchInput));
+  // if(searchInput){
+  //   this._handleEventTrigger('specialUpdate', this.search(searchInput));
+  // }
+  this.getSearchResults(searchInput);
 };
 
 
