@@ -32,6 +32,8 @@ DataTable.prototype._bindEvents = function () {
 
   $('.search-form').on('submit', $.proxy(this._searchUI, this));
 
+  $('.search-form').on('blur', $.proxy(this._handleClearSearch, this));
+
   $('#allBooksBtn').on('click', $.proxy(this.getDataFromDatabase, this));
 };
 
@@ -204,16 +206,15 @@ DataTable.prototype._unmakeEditable = function (e) {
 DataTable.prototype._searchUI = function (e) {
   e.preventDefault();
   searchInput = $('#search-input').val();
-  // if(!isNaN(parseInt(searchInput))){
-  //   searchInput = parseInt(searchInput);
-  // }
-  console.log(searchInput)
+  // console.log(searchInput)
   console.log(typeof searchInput)
-  // console.log(this.search(searchInput));
-  // if(searchInput){
-  //   this._handleEventTrigger('specialUpdate', this.search(searchInput));
-  // }
+  //get search results from database
   this.getSearchResults(searchInput);
+};
+
+DataTable.prototype._handleClearSearch = function () {
+  console.log("i'm clearing search!");
+  $('#search-input').val() = '';
 };
 
 
