@@ -289,8 +289,10 @@ Library.prototype.removeBookbyId = function (id) {
     };
   }
   if(removed > 0){
-    this._handleEventTrigger('tableUpdate', {details: "removeBookbyId"})
-    this.deleteFromDatabase(id);
+
+    this.deleteFromDatabase(id).then((res)=>{
+      this.getDataFromDatabase();
+    });
     return true;
   } else {
     return false;
@@ -301,20 +303,11 @@ Library.prototype.removeBookbyId = function (id) {
 
 //send data to database (Create(POST))
 Library.prototype.storeToDatabase = function (oBook) {
-  $.ajax({
+  return $.ajax({
     url: window.libraryURL,
     dataType: 'json',
     method: 'POST',
-    data: oBook,
-    success: (data) => {
-      // console.log(data);
-      console.log("Sucessful POST.");
-      this.getDataFromDatabase();
-    },
-    error: (error) => {
-      console.log("POST ERROR: ");
-      console.log(error);
-    }
+    data: oBook
   })
 };
 
@@ -344,85 +337,38 @@ Library.prototype.getDataFromDatabase = function () {
 
 //get 1 book from database (Read(GET))
 Library.prototype.getOneBookFromDatabase = function (id) {
-  var _self = this;
-  $.ajax({
+  return $.ajax({
     url: window.libraryURL + id,
     dataType: 'json',
-    method: 'GET',
-    success: function (data) {
-      if(data){
-        newBook = new Book(data);
-        _self._handleEventTrigger('randomBook', newBook);
-      }
-    },
-    error: function (error) {
-      console.log("GET (one book) ERROR: ");
-      console.log(error);
-    }
+    method: 'GET'
   })
 };
 
 //get search results from database (Read(GET))
 Library.prototype.getSearchResults = function (searchParam) {
-  var _self = this;
-  $.ajax({
+  return $.ajax({
     url: window.libraryURL+'search/'+ searchParam,
     dataType: 'json',
-    method: 'GET',
-     success: function (data) {
-      if(data){
-        window.searchResults = [];
-        for(item in data){
-          window.searchResults.push(new Book(data[item]));
-        }
-        _self._handleEventTrigger('specialUpdate', window.searchResults);
-        console.log('Successful GET');
-      }
-    },
-    error: function (error) {
-      console.log("GET ERROR: ");
-      console.log(error);
-    }
+    method: 'GET'
   })
 }
 
 //edit data in database (Update(PUT))
 Library.prototype.editDataFromDatabase = function (oBook) {
-  var _self = this;
-  $.ajax({
+  return $.ajax({
     url: window.libraryURL + oBook._id,
     dataType: 'text',
     method: 'PUT',
-    data: oBook,
-    success: (data) => {
-      console.log(data);
-      _self.getDataFromDatabase();
-      console.log("Sucessful PUT")
-
-    },
-    error: (error) => {
-      console.log("PUT ERROR: ");
-      console.log(error);
-    }
+    data: oBook
   })
 };
 
 //delete data to database (Delete(DELETE))
 Library.prototype.deleteFromDatabase = function (id) {
-  var _self = this;
-  $.ajax({
+  return $.ajax({
     url: window.libraryURL + id,
     dataType: 'text',
     method: 'DELETE',
-    data: id,
-    success: (data) => {
-      // console.log(data);
-      console.log('Successful DELETE');
-      _self.getDataFromDatabase();
-    },
-    error: (error) => {
-      console.log("DELETE ERROR: ");
-      console.log(error);
-    }
+    data: id
   })
 };

@@ -162,7 +162,9 @@ DataTable.prototype._resaveRow = function (e) {
 
     var newBook = new Book(oBook);
     //edit book in database
-    this.editDataFromDatabase(newBook);
+    this.editDataFromDatabase(newBook).then((res)=>{
+      this.getDataFromDatabase()
+    });
     //change icon back to edit icon
     this._$target.find('td i.save-book').addClass('fa-edit edit-book').removeClass('fa-save save-book');
   } else if (answer === false){
@@ -209,7 +211,15 @@ DataTable.prototype._searchUI = function (e) {
   // console.log(searchInput)
   console.log(typeof searchInput)
   //get search results from database
-  this.getSearchResults(searchInput);
+  this.getSearchResults(searchInput).then((res)=>{
+    if(res){
+      window.searchResults = [];
+      for(item in res){
+        window.searchResults.push(new Book(res[item]));
+      }
+      this._handleEventTrigger('specialUpdate', window.searchResults);
+    }
+  });
 };
 
 DataTable.prototype._handleClearSearch = function () {

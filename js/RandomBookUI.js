@@ -52,7 +52,12 @@ RandomBookUI.prototype._pushBookByTable = function (e) {
 
 RandomBookUI.prototype._pushBookByRandom = function () {
   var randomBookId = this.getRandomBook()._id;
-  this.getOneBookFromDatabase(randomBookId);
+  this.getOneBookFromDatabase(randomBookId).then((res)=>{
+      if(res){
+        newBook = new Book(res);
+        this._handleEventTrigger('randomBook', newBook);
+      }
+  });
   //use _pushBookInfoWithDetail to get book fields from database
   // this._pushBookInfo(randomBook);
 };
