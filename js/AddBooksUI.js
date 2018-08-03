@@ -102,8 +102,6 @@ AddBooksUI.prototype._queueBooks = function (event) {
 
 //function to clear the _tempBookShelf and reset the _queueCounter
 AddBooksUI.prototype._clearQueue = function (event) {
-  //stop default so modal doesn't immediately close
-  event.preventDefault();
   this._tempBookShelf = [];
   this._queueCounter = 0;
   $('.queueNumber').text(this._queueCounter);
