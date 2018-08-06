@@ -25,7 +25,7 @@ AddBooksUI.prototype._bindEvents = function () {
   $('#add-books-btn').on('click', $.proxy(this._handleModalOpen, this));
 
   //bind event to add book to queue
-  this.$container.find('.queue-btn').on('click', $.proxy(this._queueBooks, this));
+  this.$container.find('.queue-btn').on('click', $.proxy(this._checkValidity, this));
   //bind event to clear queue
   this.$container.find('.clear-queue-btn').on('click', $.proxy(this._clearQueue, this));
   //bind event to add books to library
@@ -68,7 +68,7 @@ AddBooksUI.prototype.makeBook = function () {
       //put the holdingObj into a Book object
       var inputBook = new Book(holdingObj)
     } else {
-      alert("This book does not have all required fields.")
+      // alert("This book does not have all required fields.")
     }
 
     //return book
@@ -86,11 +86,12 @@ AddBooksUI.prototype._queueBooks = function (event) {
     //make a book from input data
     inputBook = this.makeBook();
     //check if already on bookShelf, if not push to temp and increase queue counter
-    if(this.checkForDuplicates(inputBook)){
+    if(this.checkForNoDuplicates(inputBook)){
       this._tempBookShelf.push(inputBook);
       this._queueCounter++;
       $('.queueNumber').text(this._queueCounter);
       $('form').trigger('reset');
+      $('form').removeClass('was-validated');
       $('#preview-image').removeClass("show").addClass("hide");
       $('#preview-image').removeAttr('src').attr('src', './assets/cover_images/book_cover_b&w.jpg');
     } else {
@@ -102,6 +103,7 @@ AddBooksUI.prototype._queueBooks = function (event) {
 
 //function to clear the _tempBookShelf and reset the _queueCounter
 AddBooksUI.prototype._clearQueue = function (event) {
+  event.preventDefault();
   this._tempBookShelf = [];
   this._queueCounter = 0;
   $('.queueNumber').text(this._queueCounter);
@@ -114,27 +116,17 @@ AddBooksUI.prototype._clearQueue = function (event) {
 AddBooksUI.prototype._addBooksToLIb = function (event) {
   //stop default so modal doesn't immediately close
   event.preventDefault();
-  //if there are no books in queue push this book to bookShelf otherwise add queue to bookShelf
-  if(this._queueCounter===0 && $('form').val()===''){
-    inputBook = this.makeBook();
-    if(this.checkForDuplicates(inputBook)){
-      this.addBook(inputBook);
-      this._clearQueue();
-      this.$container.modal('hide');
-    } else {
-      alert("This book is missing entry fields or is already on your bookshelf.");
-    }
-  } else {
-    if($('form').val()!==''){
-      inputBook = this.makeBook();
-      if(this.checkForDuplicates(inputBook)){
-        this.addBook(inputBook);
-      }
-    }
+  if (this._queueCounter > 0){
+    this.addBooks(this._tempBookShelf);
+    this._clearQueue(event);
+    this.$container.modal('hide');
+
+  } else if(this._checkValidity()){
     this.addBooks(this._tempBookShelf);
     this._clearQueue(event);
     this.$container.modal('hide');
   }
+
   return;
 };
 
@@ -142,6 +134,23 @@ AddBooksUI.prototype._addBooksToLIb = function (event) {
 AddBooksUI.prototype._handleImageUpload = function () {
   $('#preview-image').removeClass("hide").addClass("show");
   fileReader('#preview-image','input[type=file]');
+};
+
+AddBooksUI.prototype._checkValidity = function (event) {
+  event.preventDefault();
+  var form = document.getElementsByClassName('needs-validation')[0];
+  form.classList.add('was-validated');
+  if(form.checkValidity() === false) {
+    console.log('Invalid form!')
+    console.log(form.checkValidity());
+    event.stopPropagation();
+    // return false;
+  } else {
+    this._queueBooks(event);
+    form.classList.remove('was-validated');
+  }
+
+
 };
 
 // AddBooksUI.prototype.validator = function (input) {

@@ -110,17 +110,23 @@
             </button>
           </div>
           <div class="modal-body container">
-            <form id="formAddBook">
+            <form id="formAddBook" class="needs-validation" novalidate>
               <!--Title-->
               <div class="form-group row">
-                <label for="formAddBookTitle">Title</label>
+                <label for="formAddBookTitle">Title*</label>
                 <input type="text" id="formAddBookTitle" class="form-control col-md-12 col-sm-12 pr-2" name="title" required>
+                <div class="invalid-feedback">
+                  Please provide a title.
+                </div>
               </div>
               <div class="row">
                 <!--Author-->
                 <div class="form-group">
-                  <label for="formAddBookAuthor">Author</label>
+                  <label for="formAddBookAuthor">Author*</label>
                   <input type="text" id="formAddBookAuthor" class="form-control col" name="author" required>
+                  <div class="invalid-feedback">
+                    Please provide an author.
+                  </div>
                 </div>
                 <!--Rating-->
                 <div class="form-group">
@@ -187,13 +193,19 @@
               <div class="row">
                 <!--Pages-->
                 <div class="form-group">
-                  <label for="formAddBookPages">Number of Pages</label>
-                  <input type="number" id="formAddBookPages" class="form-control col" name="numberOfPages" required>
+                  <label for="formAddBookPages">Number of Pages*</label>
+                  <input type="number" id="formAddBookPages" class="form-control col" name="numberOfPages" min="1" required>
+                  <div class="invalid-feedback">
+                    Please provide a number of pages (numeric characters only).
+                  </div>
                 </div>
                 <!--PubDate-->
                 <div class="form-group">
-                  <label for="formAddBookPubDate">Publication Date</label>
+                  <label for="formAddBookPubDate">Publication Date*</label>
                   <input type="date" id="formAddBookPubDate" class="form-control col" name="publishDate" required>
+                  <div class="invalid-feedback">
+                    Please provide a date of publication (MM/DD/YYYY).
+                  </div>
                 </div>
               </div>
 

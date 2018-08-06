@@ -24,7 +24,7 @@ Library.prototype.addBook = function (book) {
   /*Purpose: Add a book object to your books array.
   Return: boolean true if it is not already added, false if it is already added.*/
 
-  if (this.checkForDuplicates(book)){
+  if (this.checkForNoDuplicates(book)){
     console.log("adding to bookshelf");
     window.bookShelf.push(book);
 
@@ -257,7 +257,8 @@ Library.prototype.clearAll= function () {
   return window.bookShelf
 };
 
-Library.prototype.checkForDuplicates = function (book) {
+Library.prototype.checkForNoDuplicates = function (book) {
+  // TODO: make regex to remove white space
   if (book){
     for(i=0; i<window.bookShelf.length; i++){
 
