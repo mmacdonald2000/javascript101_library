@@ -69,22 +69,6 @@ td img {
   max-height: 100px;
 }
 
-/* trying to style mobile first... not working 7/18/18*/
-
-/* .collapse-columns {
-  visibility: collapse;
-} */
-
-/* }
-.numberOfPages{
-  display: none;
-}
-
-.rating{
-  display: none;
-} */
-
-
 /* Modal styling ------------------------------------------ */
 form {
   width: 100%;
@@ -120,24 +104,9 @@ form {
   margin:auto;
 }
 
-
-
-/* looks cool but I don't think it will be functional */
-/* .modal {
-  background-image: url(../assets/trinity_library3.jpg);
-  background-size: cover;
-  background-repeat: no-repeat;
-} */
-
-
 .modal-content {
   background-color: rgba(224,224,224,1);
 }
-
-/* .modal-header {
-  background-color: rgb(41,44,52);
-  color: rgb(224,224,224)
-} */
 
 .modal-header button {
   color: rgb(224,224,224);
@@ -152,13 +121,3 @@ form {
   color: rgb(224,224,224);
   border: 1px solid rgb(224,224,224);
 }
-
-/* trying to style mobile first - not working
- @media only screen and (max-width: 600px) {
-  .numberOfPages{
-    display: block;
-  }
-
-  .rating {
-    display: block;
-  } */
