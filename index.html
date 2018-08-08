@@ -1,4 +1,4 @@
-<!-- TODO:figure out how to make the words not overflow  --> 
+<!-- TODO:figure out how to make the words not overflow  -->
 
 <!DOCTYPE html>
 <html lang="en" dir="ltr">
@@ -196,15 +196,15 @@
                   <label for="formAddBookPages">Number of Pages*</label>
                   <input type="number" id="formAddBookPages" class="form-control col" name="numberOfPages" min="1" required>
                   <div class="invalid-feedback">
-                    Please provide a number of pages (numeric characters only).
+                    Please provide a number.
                   </div>
                 </div>
                 <!--PubDate-->
                 <div class="form-group">
                   <label for="formAddBookPubDate">Publication Date*</label>
                   <input type="date" id="formAddBookPubDate" class="form-control col" name="publishDate" required>
-                  <div class="invalid-feedback">
-                    Please provide a date of publication (MM/DD/YYYY).
+                  <div class="invalid-feedback" id="pubdate-invalid">
+                    Incorrect Date
                   </div>
                 </div>
               </div>

@@ -142,6 +142,13 @@ AddBooksUI.prototype._checkValidity = function (event) {
   form.classList.add('was-validated');
   if(form.checkValidity() === false) {
     console.log('Invalid form!')
+    //date validation
+    var checkDate = document.getElementById('formAddBookPubDate').validity.badInput;
+    if(checkDate){
+      $('#pubdate-invalid').empty().text('Date must be in mm-dd-yyyy format.')
+    } else {
+      $('#pubdate-invalid').empty().text('Please enter a date.')
+    }
     console.log(form.checkValidity());
     event.stopPropagation();
     // return false;
