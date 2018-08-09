@@ -28,10 +28,10 @@ Library.prototype.addBook = function (book) {
     console.log("adding to bookshelf");
     window.bookShelf.push(book);
 
-    this.storeToDatabase(book).then((res)=>{
-      console.log(res);
-      this.getDataFromDatabase();
-    })
+    // this.storeToDatabase(book).then((res)=>{
+    //   console.log(res);
+    //   this.getDataFromDatabase();
+    // })
     return true;
   } else {
     console.log("Error: input must be in the Book object format")
@@ -43,18 +43,33 @@ Library.prototype.addBooks = function (books) {
   Return: number number of books successfully added, 0 if no books were added*/
 
   if (Array.isArray(books)){
-    var count = 0;
-    for(j=0; j<books.length; j++){
-      if(this.addBook(books[j])) {
-        count++;
+    var _self = this;
+    // var count = 0;
+    // for(j=0; j<books.length; j++){
+    //   if(this.addBook(books[j])) {
+    //     count++;
+    //   }
+    // }
+     this.storeToDatabase(books).then((res)=>{
+      console.log(res);
+      if(res.insertedCount){
+        for (var i = 0; i < res.ops.length; i++) {
+          window.bookShelf.push(new Book(res.ops[i]))
+        }
+        _self._handleEventTrigger('specialUpdate', window.bookShelf);
+
+
       }
-    }
-    this._handleEventTrigger('tableUpdate', {details: "added Books: "+ count})
-    return count;
+      // this.getDataFromDatabase();
+      return res.insertedCount;
+    })
+
 
   } else {
     console.log("Error: input must be in array format")
+
   }
+  return 0;
 };
 
 Library.prototype.removeBookbyTitle = function (title) {
@@ -303,12 +318,12 @@ Library.prototype.removeBookbyId = function (id) {
 /* ------------------- CRUD routes ----------------- */
 
 //send data to database (Create(POST))
-Library.prototype.storeToDatabase = function (oBook) {
+Library.prototype.storeToDatabase = function (aBooks) {
   return $.ajax({
     url: window.libraryURL,
     dataType: 'json',
     method: 'POST',
-    data: oBook
+    data: {books: JSON.stringify(aBooks)}
   })
 };
 
@@ -373,3 +388,23 @@ Library.prototype.deleteFromDatabase = function (id) {
     data: id
   })
 };
+
+
+function rearrange (callback, array) {
+  // console.log(arguments);
+  return function() {
+    var aResults = []
+
+    for(i=0; i<array.length; i++) {
+    aResults[i] = arguments[array[i]]
+    }
+    // console.log(this);
+    return aResults;
+  }
+};
+
+
+var test = rearrange( function(a,b,c) {
+  // console.log(this)
+  return[a,b,c];
+}, [2,0,1]);
