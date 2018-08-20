@@ -272,6 +272,12 @@ Library.prototype.clearAll= function () {
   return window.bookShelf
 };
 
+/**
+ * [description]
+ * @param  {[Book} book [a book to check against the bookShelf]
+ * @return {[bool]}      [true for no duplicates]
+ */
+
 Library.prototype.checkForNoDuplicates = function (book) {
   // TODO: make regex to remove white space
   if (book){
@@ -284,6 +290,13 @@ Library.prototype.checkForNoDuplicates = function (book) {
     return true;
   }
 };
+
+/**
+ * [description]
+ * @param  {[string]} sEvent [an event name in string format]
+ * @param  {[type]} oData  [object data to pass]
+ * @return {[type]}        [description]
+ */
 
 Library.prototype._handleEventTrigger = function (sEvent, oData) {
   var oData = oData || {};
